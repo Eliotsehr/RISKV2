@@ -2,6 +2,8 @@
 
 public class Main {
 	
+	//Wesh le sang
+	
 	static Interface interf;
 	
 	static Jeu risk;
