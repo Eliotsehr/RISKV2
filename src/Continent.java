@@ -4,24 +4,24 @@ public class Continent {
 
 	private int continent;
 	private ArrayList<Territoire> territoiresDuContinent;
-	
+
 /**
- * 	
- * @param continent numéro permettant d'identifier (comme un nom mais plus simple)
+ *
+ * @param continent numero permettant d'identifier (comme un nom mais plus simple)
  * @param territoiresDuContinent liste des territoires sur le continent
  */
 	public Continent(int continent,ArrayList<Territoire> territoiresDuContinent) {
 		this.continent = continent;
 		this.territoiresDuContinent = territoiresDuContinent;
 	}
-	
-	
+
+
 	//VERIFICATIONS
 	/**
 	 * Permet de savoir si un joueur controle un continent ou non
-	 * 
+	 *
 	 * @param joueur le joueur que l'on veut tester
-	 * @param rangTerritoire le rang de départ (toujours zero)
+	 * @param rangTerritoire le rang de dï¿½part (toujours zero)
 	 * @return true ou false selon si le joueur controle le continent ou non
 	 */
 	public boolean estControlePar(Joueur joueur, int rangTerritoire)
@@ -33,12 +33,12 @@ public class Continent {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 	//VERIFICATIONS
-	
-	
+
+
 	//Getters Setters
 	public ArrayList<Territoire> getTerritoiresDuContinent() {
 		return territoiresDuContinent;
