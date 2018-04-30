@@ -2,7 +2,7 @@ import edu.princeton.cs.introcs.StdDraw;
 
 public class Interface {
 
-	//Test
+	//Eliot tu pèse
 	
 	private int xMax;
 	private int yMax;

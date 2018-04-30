@@ -39,6 +39,7 @@ public class Continent {
 	//VERIFICATIONS
 	
 	
+	
 	//Getters Setters
 	public ArrayList<Territoire> getTerritoiresDuContinent() {
 		return territoiresDuContinent;
