@@ -4,8 +4,10 @@ public class Main {
 
 	static Interface interf;
 
+	
 	static Jeu risk;
 
+	
 	static boolean jeu = true;
 
 	public static void main(String[] args) {

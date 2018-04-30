@@ -322,6 +322,34 @@ public class Territoire {
 	//MODIFICATIONS
 	
 	
+	//IA
+	public boolean estEntoure()
+	{
+		for(int i = 0;i<this.territoiresAdjacents.length;i++)
+		{
+			if(retrouverAvecNom(this.territoiresAdjacents[i]).getProprietaire() != this.getProprietaire())
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	
+	public Territoire retrouverAvecNom(String nom)
+	{
+		for(int i = 0;i < risk.listeTerritoires.size();i++)
+		{
+			if(risk.listeTerritoires.get(i).getNom() == nom)
+			{
+				return risk.listeTerritoires.get(i);
+			}
+		}
+		
+		return null;
+	}
+	
 	//Getters Setters
 	public String getNom() {
 		return nom;
