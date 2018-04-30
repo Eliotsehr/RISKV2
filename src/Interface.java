@@ -2,6 +2,8 @@ import edu.princeton.cs.introcs.StdDraw;
 
 public class Interface {
 
+	//Test
+	
 	private int xMax;
 	private int yMax;
 	
