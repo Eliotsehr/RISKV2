@@ -8,7 +8,6 @@ public class Main {
  
 	static boolean jeu = true;
 	
-	
 	public static void main(String[] args) {	
 		risk = new Jeu();
 		
