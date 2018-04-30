@@ -21,7 +21,7 @@ public class Continent {
 	 * Permet de savoir si un joueur controle un continent ou non
 	 *
 	 * @param joueur le joueur que l'on veut tester
-	 * @param rangTerritoire le rang de d�part (toujours zero)
+	 * @param rangTerritoire le rang de depart (toujours zero)
 	 * @return true ou false selon si le joueur controle le continent ou non
 	 */
 	public boolean estControlePar(Joueur joueur, int rangTerritoire)
