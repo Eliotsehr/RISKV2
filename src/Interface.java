@@ -155,7 +155,7 @@ public class Interface {
 
 
 	/**
-	 *
+	 *	Pion normal ou GOT
 	 * @param posX position en x du centre
 	 * @param posY position en y du centre
 	 * @param couleur
