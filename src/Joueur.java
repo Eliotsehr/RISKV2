@@ -1,8 +1,5 @@
 
 public class Joueur {
-
-	
-	//Si t'es une petite patate comme moi
 	
 	private String nom = new String();
 	
