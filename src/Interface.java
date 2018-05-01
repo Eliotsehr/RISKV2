@@ -170,27 +170,71 @@ public class Interface {
 	{
 		if(couleur == 0)
 		{
-			StdDraw.picture(posX,posY,"img/rondbleu.png");
+			if(risk.map == 0)
+			{
+				StdDraw.picture(posX,posY,"img/rondbleu.png");
+			}
+			else
+			{
+				StdDraw.picture(posX,posY,"img/GOTbleu.png");
+			}
+			
 		}
 		else if(couleur == 1)
 		{
-			StdDraw.picture(posX,posY,"img/rondrouge.png");
+			if(risk.map == 0)
+			{
+				StdDraw.picture(posX,posY,"img/rondrouge.png");
+			}
+			else
+			{
+				StdDraw.picture(posX,posY,"img/GOTorange.png");
+			}
 		}
 		else if(couleur == 2)
 		{
-			StdDraw.picture(posX,posY,"img/rondjaune.png");
+			if(risk.map == 0)
+			{
+				StdDraw.picture(posX,posY,"img/rondjaune.png");
+			}
+			else
+			{
+				StdDraw.picture(posX,posY,"img/GOTjaune.png");
+			}
 		}
 		else if(couleur == 3)
 		{
-			StdDraw.picture(posX,posY,"img/rondrose.png");
+			if(risk.map == 0)
+			{
+				StdDraw.picture(posX,posY,"img/rondrose.png");
+			}
+			else
+			{
+				StdDraw.picture(posX,posY,"img/GOTblanc.png");
+			}
 		}
 		else if(couleur == 4)
 		{
-			StdDraw.picture(posX,posY,"img/rondvert.png");
+			if(risk.map == 0)
+			{
+				StdDraw.picture(posX,posY,"img/rondvert.png");
+			}
+			else
+			{
+				StdDraw.picture(posX,posY,"img/GOTvert.png");
+			}
+				
 		}
 		else if(couleur == 5)
 		{
-			StdDraw.picture(posX,posY,"img/rondgris.png");
+			if(risk.map == 0)
+			{
+				StdDraw.picture(posX,posY,"img/rondgris.png");
+			}
+			else
+			{
+				StdDraw.picture(posX,posY,"img/GOTposson.png");
+			}
 		}
 
 
