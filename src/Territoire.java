@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 
 public class Territoire {
+	
 
+	
 	private String nom = new String();
 	
 	private int nombreTroupesTotal;

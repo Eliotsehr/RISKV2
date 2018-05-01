@@ -1,10 +1,6 @@
 
 public class Unitee {
 	
-	
-	//Romain t'es un fdp
-	
-	
 	private int type;
 	private int pMin;
 	private int pMax;
