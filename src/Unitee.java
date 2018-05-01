@@ -1,10 +1,7 @@
 
 public class Unitee {
 	
-	
-	//Romain t'es un fdp
-	// nn c'est pas vrai lol
-	
+
 	private int type;
 	private int pMin;
 	private int pMax;
