@@ -195,7 +195,7 @@ public class Jeu {
 			String[] listeTFC = {"The Neck","The Vale","Jron Islands","Riverlands"};
 			String[] listeTV = {"The Flint Chiff","Riverlands","The Neck","Crownlands"};
 			String[] listeJI = {"The Flint Chiff","Riverlands"};
-			String[] listeRL = {"Jron Islands","The Flint Chiff","The Vale","Crownlands","Westerlands"};
+			String[] listeRL = {"Jron Islands","The Flint Chiff","The Vale","Crownlands","Westerlands","Realms Of Jhogrvin"};
 			String[] listeCL = {"The Vale","Riverlands","Westerlands","The Reach","Stormlands","Andalos"};
 			String[] listeWL = {"Riverlands","Crownlands","The Reach","Shield Lands"};
 			String[] listeSL = {"The Reach","Westerlands","Whispering Sound"};
@@ -282,7 +282,7 @@ public class Jeu {
 			listeTerritoires.add(new Territoire("Kingdom Of The Jfeqevron",null,1,listeKOTJ,1,0,0,null));
 			listeTerritoires.add(new Territoire("The Footprint",null,1,listeTF,1,0,0,null));
 			listeTerritoires.add(new Territoire("Jbben",null,1,listeJB,1,0,0,null));
-			listeTerritoires.add(new Territoire("Realms Of Jhogwin",null,1,listeROJ,1,0,0,null));
+			listeTerritoires.add(new Territoire("Realms Of Jhogrvin",null,1,listeROJ,1,0,0,null));
 			listeTerritoires.add(new Territoire("Vaes Dothrak",null,1,listeVD,1,0,0,null));
 			listeTerritoires.add(new Territoire("Parched Fields",null,1,listePF,1,0,0,null));
 			listeTerritoires.add(new Territoire("Western Grass Sea",null,1,listeWGS,1,0,0,null));
