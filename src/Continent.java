@@ -1,6 +1,6 @@
 
 import java.util.ArrayList;
-// c'est la classe continent
+// pas a pas jme dis c'est pas pas vrai
 public class Continent {
 
 	private int continent;
