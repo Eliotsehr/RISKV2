@@ -13,7 +13,7 @@ public class Jeu {
 	public ArrayList<Continent> listeContinents = new ArrayList<Continent>();
 	
 	public int tour = 0;
-	public int map = 1;
+	public int map = 0;
 	public int nombreJoueurs;
 	public int nombreTroupesDeploiement;
 	
@@ -185,7 +185,108 @@ public class Jeu {
 		{
 			//Territoires adjacents
 			
+			String[] listeTW = {"Skagos","The Grev Cliffs","Wolfswood"};
+			String[] listeSK = {"The Wall","The Grev Cliffs"};
+			String[] listeTGC = {"The Wall","Skagos","Wolfswood","Winterfell"};
+			String[] listeWO = {"The Wall","The Grev Cliffs","Winterfell","The Neck","The Rills"};
+			String[] listeWI = {"The Grev Cliffs","Wolfswoo","The Neck","The Flint Chiff"};
+			String[] listeTR = {"Wolfswood","The Neck"};
+			String[] listeTN = {"Wolfswood","The Rills","Winterfell","The Flint Chiff","The Vale"};
+			String[] listeTFC = {"The Neck","The Vale","Jron Islands","Riverlands"};
+			String[] listeTV = {"The Flint Chiff","Riverlands","The Neck","Crownlands"};
+			String[] listeJI = {"The Flint Chiff","Riverlands"};
+			String[] listeRL = {"Jron Islands","The Flint Chiff","The Vale","Crownlands","Westerlands"};
+			String[] listeCL = {"The Vale","Riverlands","Westerlands","The Reach","Stormlands","Andalos"};
+			String[] listeWL = {"Riverlands","Crownlands","The Reach","Shield Lands"};
+			String[] listeSL = {"The Reach","Westerlands","Whispering Sound"};
+			String[] listeTRE = {"Shield Lands","Westerlands","Crownlands","Stormlands","Red Mountains","Whispering Sound"};
+			String[] listeSTRM = {"Crownlands","The Reach","Red Mountains","Andalos"};
+			String[] listeWS = {"Shield Lands","The Reach","Red Mountains"};
+			String[] listeRM = {"Whispering Sound","The Reach","Dorne","Stormlands"};
+			String[] listeDR = {"Red Mountains","The Disputed Lands"};
+			String[] listeBC = {};
+			String[] listeAN = {};
+			String[] listeFON = {};
+			String[] listeCHL = {};
+			String[] listeFOD = {};
+			String[] listeTGF = {};
+			String[] listeTDL = {};
+			String[] listeRHL = {};
+			String[] listeSW = {};
+			String[] listeWW = {};
+			String[] listeSOS = {};
+			String[] listeEL = {};
+			String[] listeVA = {};
+			String[] listePM = {};
+			String[] listeSB = {};
+			String[] listeLH = {};
+			String[] listeSA = {};
+			String[] listeGL = {};
+			String[] listeRW = {};
+			String[] listeBA = {};
+			String[] listeDA = {};
+			String[] listeSAR = {};
+			String[] listeAL = {};
+			String[] listeKOTJ = {};
+			String[] listeTF = {};
+			String[] listeJB = {};
+			String[] listeROJ = {};
+			String[] listeVD = {};
+			String[] listePF = {};
+			String[] listeWGS = {};
+			String[] listeEGS = {};
 			
+			//Territoires
+			listeTerritoires.add(new Territoire("The Wall",null,1,listeTW,1,0,0,null));
+			listeTerritoires.add(new Territoire("Skagos",null,1,listeSK,1,0,0,null));
+			listeTerritoires.add(new Territoire("The Grev Cliffs",null,1,listeTGC,1,0,0,null));
+			listeTerritoires.add(new Territoire("Wolfswood",null,1,listeWO,1,0,0,null));
+			listeTerritoires.add(new Territoire("Winterfell",null,1,listeWI,1,0,0,null));
+			listeTerritoires.add(new Territoire("The Rills",null,1,listeTR,1,0,0,null));
+			listeTerritoires.add(new Territoire("The Neck",null,1,listeTN,1,0,0,null));
+			listeTerritoires.add(new Territoire("The Flint Cliff",null,1,listeTFC,1,0,0,null));
+			listeTerritoires.add(new Territoire("The Vale",null,1,listeTV,1,0,0,null));
+			listeTerritoires.add(new Territoire("Jron Islands",null,1,listeJI,1,0,0,null));
+			listeTerritoires.add(new Territoire("Riverlands",null,1,listeRL,1,0,0,null));
+			listeTerritoires.add(new Territoire("Crownlands",null,1,listeCL,1,0,0,null));
+			listeTerritoires.add(new Territoire("Westerlands",null,1,listeWL,1,0,0,null));
+			listeTerritoires.add(new Territoire("Shield Lands",null,1,listeSL,1,0,0,null));
+			listeTerritoires.add(new Territoire("The Reach",null,1,listeTRE,1,0,0,null));
+			listeTerritoires.add(new Territoire("Stromlands",null,1,listeSTRM,1,0,0,null));
+			listeTerritoires.add(new Territoire("Whispering Sounds",null,1,listeWS,1,0,0,null));
+			listeTerritoires.add(new Territoire("Red Mountains",null,1,listeRM,1,0,0,null));
+			listeTerritoires.add(new Territoire("Dorne",null,1,listeDR,1,0,0,null));
+			listeTerritoires.add(new Territoire("Braavosian Coastland",null,1,listeBC,1,0,0,null));
+			listeTerritoires.add(new Territoire("Andalos",null,1,listeAN,1,0,0,null));
+			listeTerritoires.add(new Territoire("Fills Of Norvos",null,1,listeFON,1,0,0,null));
+			listeTerritoires.add(new Territoire("Chovne Lands",null,1,listeCHL,1,0,0,null));
+			listeTerritoires.add(new Territoire("Forest Of Dohor",null,1,listeFOD,1,0,0,null));
+			listeTerritoires.add(new Territoire("The Golden Fields",null,1,listeTGF,1,0,0,null));
+			listeTerritoires.add(new Territoire("The Disputed Lands",null,1,listeTDL,1,0,0,null));
+			listeTerritoires.add(new Territoire("Rhovnian Lands",null,1,listeRHL,1,0,0,null));
+			listeTerritoires.add(new Territoire("Sar Well",null,1,listeSW,1,0,0,null));
+			listeTerritoires.add(new Territoire("Western Waste",null,1,listeWW,1,0,0,null));
+			listeTerritoires.add(new Territoire("Sea Of Sight",null,1,listeSOS,1,0,0,null));
+			listeTerritoires.add(new Territoire("Elvria",null,1,listeEL,1,0,0,null));
+			listeTerritoires.add(new Territoire("Valvria",null,1,listeVA,1,0,0,null));
+			listeTerritoires.add(new Territoire("Painted Mountains",null,1,listePM,1,0,0,null));
+			listeTerritoires.add(new Territoire("Slaver's Bay",null,1,listeSB,1,0,0,null));
+			listeTerritoires.add(new Territoire("Lhazar",null,1,listeLH,1,0,0,null));
+			listeTerritoires.add(new Territoire("Samvrian Fills",null,1,listeSA,1,0,0,null));
+			listeTerritoires.add(new Territoire("Glyiscar",null,1,listeGL,1,0,0,null));
+			listeTerritoires.add(new Territoire("Red Waste",null,1,listeRW,1,0,0,null));
+			listeTerritoires.add(new Territoire("Bavasabhad",null,1,listeBA,1,0,0,null));
+			listeTerritoires.add(new Territoire("Darth",null,1,listeDA,1,0,0,null));
+			listeTerritoires.add(new Territoire("Sarnor",null,1,listeSAR,1,0,0,null));
+			listeTerritoires.add(new Territoire("Abandoned Lands",null,1,listeAL,1,0,0,null));
+			listeTerritoires.add(new Territoire("Kingdom Of The Jfeqevron",null,1,listeKOTJ,1,0,0,null));
+			listeTerritoires.add(new Territoire("The Footprint",null,1,listeTF,1,0,0,null));
+			listeTerritoires.add(new Territoire("Jbben",null,1,listeJB,1,0,0,null));
+			listeTerritoires.add(new Territoire("Realms Of Jhogwin",null,1,listeROJ,1,0,0,null));
+			listeTerritoires.add(new Territoire("Vaes Dothrak",null,1,listeVD,1,0,0,null));
+			listeTerritoires.add(new Territoire("Parched Fields",null,1,listePF,1,0,0,null));
+			listeTerritoires.add(new Territoire("Western Grass Sea",null,1,listeWGS,1,0,0,null));
+			listeTerritoires.add(new Territoire("Easter Grass Sea",null,1,listeEGS,1,0,0,null));
 		}
 		
 	}
