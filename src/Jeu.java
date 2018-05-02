@@ -287,6 +287,59 @@ public class Jeu {
 			listeTerritoires.add(new Territoire("Parched Fields",null,1,listePF,1,0,0,null));
 			listeTerritoires.add(new Territoire("Western Grass Sea",null,1,listeWGS,1,0,0,null));
 			listeTerritoires.add(new Territoire("Easter Grass Sea",null,1,listeEGS,1,0,0,null));
+		
+		
+			//Continents
+			ArrayList<Territoire> c1 = new ArrayList<Territoire>();
+			for(int i = 0;i<8;i++)
+			{
+				c1.add(listeTerritoires.get(i));
+			}
+			
+			ArrayList<Territoire> c2 = new ArrayList<Territoire>();
+			for(int i = 8;i<13;i++)
+			{
+				c2.add(listeTerritoires.get(i));
+			}
+			
+			ArrayList<Territoire> c6 = new ArrayList<Territoire>();
+			for(int i = 13;i<19;i++)
+			{
+				c6.add(listeTerritoires.get(i));
+			}
+			
+			ArrayList<Territoire> c4 = new ArrayList<Territoire>();
+			for(int i = 19;i<26;i++)
+			{
+				c4.add(listeTerritoires.get(i));
+			}
+			
+			ArrayList<Territoire> c5 = new ArrayList<Territoire>();
+			for(int i = 26;i<32;i++)
+			{
+				c5.add(listeTerritoires.get(i));
+			}
+			
+			ArrayList<Territoire> c3 = new ArrayList<Territoire>();
+			for(int i = 32;i<42;i++)
+			{
+				c3.add(listeTerritoires.get(i));
+			}
+			
+			ArrayList<Territoire> c7 = new ArrayList<Territoire>();
+			for(int i = 42;i<49;i++)
+			{
+				c7.add(listeTerritoires.get(i));
+			}
+			
+
+			listeContinents.add(new Continent(0,c1));//Europe
+			listeContinents.add(new Continent(1,c2));//Afrique
+			listeContinents.add(new Continent(2,c3));//Asie
+			listeContinents.add(new Continent(3,c4));//Amerique du Nord
+			listeContinents.add(new Continent(4,c5));//Amerique du Sud
+			listeContinents.add(new Continent(5,c6));//Océanie
+			listeContinents.add(new Continent(6,c7));
 		}
 		
 	}
