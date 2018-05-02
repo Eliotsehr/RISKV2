@@ -230,7 +230,7 @@ public class Jeu {
 			String[] listeKOTJ = {"Abandoned Lands" ,"Western Grass Sea" ,"Eastern Grass Sea", "Vaes Dothrak" ,"The Footprint"};
 			String[] listeTF = {"Kingdoms of the Jfqevron", "Vaes Dothrak", "Realms of Jhogrvin", "Jbben"};
 			String[] listeJB = {"The Footprint"};
-			String[] listeROJ = {"Vaes Dothrak" ,"The Footprint"};
+			String[] listeROJ = {"Vaes Dothrak" ,"The Footprint","Riverlands"};
 			String[] listeVD = {"Realms of Jhogrvin", "The Footprint", "Kingdoms of the Jfqevron" ,"Eastern Grass Sea" , "Samyrian Fills"};
 			String[] listePF = {"Painted Mountains","Western Waste" ,"Rhoynian Veld" ,"Forrest of Dohor" ,"Sarnor" ,"Abandoned Lands" , "Western Grass Sea"};
 			String[] listeWGS = {"Painted Mountains" ,"Parched Fields","Abandoned Lands","Kingdoms of the Jfqevron","Eastern Grass Sea", "Lhazar"};
