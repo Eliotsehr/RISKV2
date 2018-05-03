@@ -559,6 +559,159 @@ public class Interface {
 			pion(0.83, 0.19, risk.listeTerritoires.get(41).getProprietaire().getNumeroDeJoueur());//Australie de l'Est
 			StdDraw.text(0.83,0.19, ""+risk.listeTerritoires.get(41).getNombreTroupesTotal());
 		}
+		else if(risk.map == 1)
+		{
+			pion(0.2, 0.84, risk.listeTerritoires.get(0).getProprietaire().getNumeroDeJoueur());//The Wall
+			StdDraw.text(0.2,0.84, ""+risk.listeTerritoires.get(0).getNombreTroupesTotal());
+
+			pion(0.26, 0.86, risk.listeTerritoires.get(1).getProprietaire().getNumeroDeJoueur());//Skagos
+			StdDraw.text(0.26,0.86, ""+risk.listeTerritoires.get(1).getNombreTroupesTotal());
+
+			pion(0.24, 0.79, risk.listeTerritoires.get(2).getProprietaire().getNumeroDeJoueur());//The Grev Cliffs
+			StdDraw.text(0.24,0.79, ""+risk.listeTerritoires.get(2).getNombreTroupesTotal());
+
+			pion(0.11, 0.77, risk.listeTerritoires.get(3).getProprietaire().getNumeroDeJoueur());//Wolfswood
+			StdDraw.text(0.11,0.77, ""+risk.listeTerritoires.get(3).getNombreTroupesTotal());
+
+			pion(0.22, 0.74, risk.listeTerritoires.get(4).getProprietaire().getNumeroDeJoueur());//Winterfell
+			StdDraw.text(0.22,0.74, ""+risk.listeTerritoires.get(4).getNombreTroupesTotal());
+
+			pion(0.1, 0.7, risk.listeTerritoires.get(5).getProprietaire().getNumeroDeJoueur());//The Rills
+			StdDraw.text(0.1,0.7, ""+risk.listeTerritoires.get(5).getNombreTroupesTotal());
+
+			pion(0.12, 0.64, risk.listeTerritoires.get(6).getProprietaire().getNumeroDeJoueur());//The Neck
+			StdDraw.text(0.12,0.64, ""+risk.listeTerritoires.get(6).getNombreTroupesTotal());
+
+			pion(0.16, 0.67, risk.listeTerritoires.get(7).getProprietaire().getNumeroDeJoueur());//The Flint Cliff
+			StdDraw.text(0.16,0.67, ""+risk.listeTerritoires.get(7).getNombreTroupesTotal());
+
+			pion(0.22, 0.56, risk.listeTerritoires.get(8).getProprietaire().getNumeroDeJoueur());//The Vale
+			StdDraw.text(0.22,0.56, ""+risk.listeTerritoires.get(8).getNombreTroupesTotal());
+
+			pion(0.08, 0.56, risk.listeTerritoires.get(9).getProprietaire().getNumeroDeJoueur());//Jron Islands
+			StdDraw.text(0.08,0.56, ""+risk.listeTerritoires.get(9).getNombreTroupesTotal());
+
+			pion(0.12, 0.53, risk.listeTerritoires.get(10).getProprietaire().getNumeroDeJoueur());//Riverlands
+			StdDraw.text(0.12,0.53, ""+risk.listeTerritoires.get(10).getNombreTroupesTotal());
+
+			pion(0.2, 0.47, risk.listeTerritoires.get(11).getProprietaire().getNumeroDeJoueur());//Crownlands
+			StdDraw.text(0.2,0.47, ""+risk.listeTerritoires.get(11).getNombreTroupesTotal());
+
+			pion(0.13, 0.47, risk.listeTerritoires.get(12).getProprietaire().getNumeroDeJoueur());//Westerlands
+			StdDraw.text(0.13,0.47, ""+risk.listeTerritoires.get(12).getNombreTroupesTotal());
+
+			pion(0.11, 0.39, risk.listeTerritoires.get(13).getProprietaire().getNumeroDeJoueur());//Shield Lands
+			StdDraw.text(0.11,0.39, ""+risk.listeTerritoires.get(13).getNombreTroupesTotal());
+
+			pion(0.17, 0.41, risk.listeTerritoires.get(14).getProprietaire().getNumeroDeJoueur());//The Reach
+			StdDraw.text(0.17,0.41, ""+risk.listeTerritoires.get(14).getNombreTroupesTotal());
+
+			pion(0.23, 0.38, risk.listeTerritoires.get(15).getProprietaire().getNumeroDeJoueur());//Stormlands
+			StdDraw.text(0.23,0.38, ""+risk.listeTerritoires.get(15).getNombreTroupesTotal());
+
+			pion(0.09, 0.32, risk.listeTerritoires.get(16).getProprietaire().getNumeroDeJoueur());//Whispering Sounds
+			StdDraw.text(0.09,0.32, ""+risk.listeTerritoires.get(16).getNombreTroupesTotal());
+
+			pion(0.16, 0.31, risk.listeTerritoires.get(17).getProprietaire().getNumeroDeJoueur());//Red Mountains
+			StdDraw.text(0.16,0.31, ""+risk.listeTerritoires.get(17).getNombreTroupesTotal());
+
+			pion(0.23, 0.27, risk.listeTerritoires.get(18).getProprietaire().getNumeroDeJoueur());//Dorne
+			StdDraw.text(0.23,0.27, ""+risk.listeTerritoires.get(18).getNombreTroupesTotal());
+
+			pion(0.36, 0.57, risk.listeTerritoires.get(19).getProprietaire().getNumeroDeJoueur());//Braavosian Costland
+			StdDraw.text(0.36,0.57, ""+risk.listeTerritoires.get(19).getNombreTroupesTotal());
+
+			pion(0.36, 0.47, risk.listeTerritoires.get(20).getProprietaire().getNumeroDeJoueur());//Andalos
+			StdDraw.text(0.36,0.47, ""+risk.listeTerritoires.get(20).getNombreTroupesTotal());
+
+			pion(0.4, 0.51, risk.listeTerritoires.get(21).getProprietaire().getNumeroDeJoueur());//Fills Of Norvos
+			StdDraw.text(0.4,0.51, ""+risk.listeTerritoires.get(21).getNombreTroupesTotal());
+
+			pion(0.45, 0.48, risk.listeTerritoires.get(22).getProprietaire().getNumeroDeJoueur());//Qhoyne Lands
+			StdDraw.text(0.45,0.48, ""+risk.listeTerritoires.get(22).getNombreTroupesTotal());
+
+			pion(0.51, 0.48, risk.listeTerritoires.get(23).getProprietaire().getNumeroDeJoueur());//Forrest Of Dohor
+			StdDraw.text(0.51,0.48, ""+risk.listeTerritoires.get(23).getNombreTroupesTotal());
+
+			pion(0.41, 0.38, risk.listeTerritoires.get(24).getProprietaire().getNumeroDeJoueur());//The Golden Fields
+			StdDraw.text(0.41, 0.38, ""+risk.listeTerritoires.get(24).getNombreTroupesTotal());
+
+			pion(0.39, 0.29, risk.listeTerritoires.get(25).getProprietaire().getNumeroDeJoueur());//The Disputed Lands
+			StdDraw.text(0.39,0.29, ""+risk.listeTerritoires.get(25).getNombreTroupesTotal());
+
+			pion(0.49, 0.41, risk.listeTerritoires.get(26).getProprietaire().getNumeroDeJoueur());//Rhoynian Veld
+			StdDraw.text(0.49,0.41, ""+risk.listeTerritoires.get(26).getNombreTroupesTotal());
+
+			pion(0.47, 0.31, risk.listeTerritoires.get(27).getProprietaire().getNumeroDeJoueur());//Sar Mell
+			StdDraw.text(0.47, 0.31, ""+risk.listeTerritoires.get(27).getNombreTroupesTotal());
+
+			pion(0.54, 0.35, risk.listeTerritoires.get(28).getProprietaire().getNumeroDeJoueur());//Western Waste
+			StdDraw.text(0.54,0.35, ""+risk.listeTerritoires.get(28).getNombreTroupesTotal());
+
+			pion(0.54, 0.26, risk.listeTerritoires.get(29).getProprietaire().getNumeroDeJoueur());//Sea Of Sight
+			StdDraw.text(0.54,0.26, ""+risk.listeTerritoires.get(29).getNombreTroupesTotal());
+
+			pion(0.57, 0.22, risk.listeTerritoires.get(30).getProprietaire().getNumeroDeJoueur());//Elyria
+			StdDraw.text(0.57,0.22, ""+risk.listeTerritoires.get(30).getNombreTroupesTotal());
+
+			pion(0.55, 0.13, risk.listeTerritoires.get(31).getProprietaire().getNumeroDeJoueur());//Valyria
+			StdDraw.text(0.55,0.13, ""+risk.listeTerritoires.get(31).getNombreTroupesTotal());
+
+			pion(0.64, 0.33, risk.listeTerritoires.get(32).getProprietaire().getNumeroDeJoueur());//Painted Mountains
+			StdDraw.text(0.64, 0.33, ""+risk.listeTerritoires.get(32).getNombreTroupesTotal());
+
+			pion(0.71, 0.28, risk.listeTerritoires.get(33).getProprietaire().getNumeroDeJoueur());//Slaver's Bay
+			StdDraw.text(0.71,0.28, ""+risk.listeTerritoires.get(33).getNombreTroupesTotal());
+
+			pion(0.78, 0.32, risk.listeTerritoires.get(34).getProprietaire().getNumeroDeJoueur());//Lhazar
+			StdDraw.text(0.78,0.32, ""+risk.listeTerritoires.get(34).getNombreTroupesTotal());
+
+			pion(0.87, 0.38, risk.listeTerritoires.get(35).getProprietaire().getNumeroDeJoueur());//Samyrian Fills
+			StdDraw.text(0.87,0.38, ""+risk.listeTerritoires.get(35).getNombreTroupesTotal());
+
+			pion(0.71, 0.18, risk.listeTerritoires.get(36).getProprietaire().getNumeroDeJoueur());//Ghiscar
+			StdDraw.text(0.71,0.18, ""+risk.listeTerritoires.get(36).getNombreTroupesTotal());
+
+			pion(0.79, 0.24, risk.listeTerritoires.get(37).getProprietaire().getNumeroDeJoueur());//Red Waste
+			StdDraw.text(0.79, 0.24, ""+risk.listeTerritoires.get(37).getNombreTroupesTotal());
+
+			pion(0.87, 0.29, risk.listeTerritoires.get(38).getProprietaire().getNumeroDeJoueur());//Bayasabhad
+			StdDraw.text(0.87,0.29, ""+risk.listeTerritoires.get(38).getNombreTroupesTotal());
+
+			pion(0.88, 0.22, risk.listeTerritoires.get(39).getProprietaire().getNumeroDeJoueur());//Quarth
+			StdDraw.text(0.88,0.22, ""+risk.listeTerritoires.get(39).getNombreTroupesTotal());
+
+			pion(0.57, 0.54, risk.listeTerritoires.get(40).getProprietaire().getNumeroDeJoueur());//Sarnor
+			StdDraw.text(0.57,0.54, ""+risk.listeTerritoires.get(40).getNombreTroupesTotal());
+
+			pion(0.65, 0.49, risk.listeTerritoires.get(41).getProprietaire().getNumeroDeJoueur());//Abandoned Lands
+			StdDraw.text(0.65,0.49, ""+risk.listeTerritoires.get(41).getNombreTroupesTotal());
+			
+			pion(0.74, 0.49, risk.listeTerritoires.get(42).getProprietaire().getNumeroDeJoueur());//Kingdoms Of The Jfeqevron
+			StdDraw.text(0.74,0.49, ""+risk.listeTerritoires.get(42).getNombreTroupesTotal());
+
+			pion(0.81, 0.58, risk.listeTerritoires.get(43).getProprietaire().getNumeroDeJoueur());//The Footprint
+			StdDraw.text(0.81,0.58, ""+risk.listeTerritoires.get(43).getNombreTroupesTotal());
+			
+			pion(0.84, 0.75, risk.listeTerritoires.get(44).getProprietaire().getNumeroDeJoueur());//Jbben
+			StdDraw.text(0.84,0.75, ""+risk.listeTerritoires.get(44).getNombreTroupesTotal());
+			
+			pion(0.94, 0.57, risk.listeTerritoires.get(45).getProprietaire().getNumeroDeJoueur());//Realms Of Jhogrvin
+			StdDraw.text(0.94,0.57, ""+risk.listeTerritoires.get(45).getNombreTroupesTotal());
+			
+			pion(0.84, 0.5, risk.listeTerritoires.get(46).getProprietaire().getNumeroDeJoueur());//Vaes Dothrak
+			StdDraw.text(0.84,0.5, ""+risk.listeTerritoires.get(46).getNombreTroupesTotal());
+			
+			pion(0.6, 0.4, risk.listeTerritoires.get(47).getProprietaire().getNumeroDeJoueur());//Parched Fields
+			StdDraw.text(0.6,0.4, ""+risk.listeTerritoires.get(47).getNombreTroupesTotal());
+			
+			pion(0.7, 0.4, risk.listeTerritoires.get(48).getProprietaire().getNumeroDeJoueur());//Western Grass Sea
+			StdDraw.text(0.7,0.4, ""+risk.listeTerritoires.get(48).getNombreTroupesTotal());
+			
+			pion(0.8, 0.42, risk.listeTerritoires.get(49).getProprietaire().getNumeroDeJoueur());//Easter Grass Sea
+			StdDraw.text(0.8,0.42, ""+risk.listeTerritoires.get(49).getNombreTroupesTotal());
+			
+			}
 
 	}
 
@@ -848,7 +1001,7 @@ public class Interface {
 
 					attendre();
 				}
-				//System.out.println("x: "+sourisX()+" y: "+sourisY());
+				System.out.println("x: "+sourisX()+" y: "+sourisY());
 			}
 
 
@@ -1435,11 +1588,11 @@ public class Interface {
 			{
 				return verifications(joueur,risk.listeTerritoires.get(24),mode);
 			}
-			else if((sourisX > 0.46 && sourisX < 0.52) && (sourisY > 0.38 && sourisY < 0.43))//The Disputed Lands
+			else if((sourisX > 0.34 && sourisX < 0.43) && (sourisY > 0.28 && sourisY < 0.32))//The Disputed Lands
 			{
 				return verifications(joueur,risk.listeTerritoires.get(25),mode);
 			}
-			else if((sourisX > 0.07 && sourisX < 0.2) && (sourisY > 0.8 && sourisY < 0.83))//Rhoynian Veld
+			else if((sourisX > 0.46 && sourisX < 0.52) && (sourisY > 0.38 && sourisY < 0.44))//Rhoynian Veld
 			{
 				return verifications(joueur,risk.listeTerritoires.get(26),mode);
 			}
@@ -1534,6 +1687,14 @@ public class Interface {
 			else if((sourisX > 0.76 && sourisX < 0.84) && (sourisY > 0.40 && sourisY < 0.44))//Easter Grass Sea
 			{
 				return verifications(joueur,risk.listeTerritoires.get(49),mode);
+			}
+			else if((sourisX > 0.89 && sourisX < 0.94) && (sourisY > 0.03 && sourisY < 0.15))//Annuler
+			{
+				reset(1);//Choix
+
+				couche = 4;//Choix
+
+				return false;
 			}
 			else
 			{
