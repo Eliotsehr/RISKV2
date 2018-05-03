@@ -1411,27 +1411,27 @@ public class Interface {
 			{
 				return verifications(joueur,risk.listeTerritoires.get(18),mode);
 			}
-			else if((sourisX > 0.67 && sourisX < 0.72) && (sourisY > 0.54 && sourisY < 0.56))//Chine
+			else if((sourisX > 0.34 && sourisX < 0.38) && (sourisY > 0.54 && sourisY < 0.6))//Braavosian Coastland
 			{
 				return verifications(joueur,risk.listeTerritoires.get(19),mode);
 			}
-			else if((sourisX > 0.70 && sourisX < 0.75) && (sourisY > 0.836 && sourisY < 0.859))//Yakouti
+			else if((sourisX > 0.33 && sourisX < 0.38) && (sourisY > 0.45 && sourisY < 0.49))//Andalos
 			{
 				return verifications(joueur,risk.listeTerritoires.get(20),mode);
 			}
-			else if((sourisX > 0.69 && sourisX < 0.75) && (sourisY > 0.63 && sourisY < 0.65))//Mongolie
+			else if((sourisX > 0.38 && sourisX < 0.42) && (sourisY > 0.48 && sourisY < 0.54))//Fills Of Norvos
 			{
 				return verifications(joueur,risk.listeTerritoires.get(21),mode);
 			}
-			else if((sourisX > 0.8 && sourisX < 0.84) && (sourisY > 0.61 && sourisY < 0.64))//Japon
+			else if((sourisX > 0.43 && sourisX < 0.46) && (sourisY > 0.43 && sourisY < 0.52))//Qhoyne Lands
 			{
 				return verifications(joueur,risk.listeTerritoires.get(22),mode);
 			}
-			else if((sourisX > 0.77 && sourisX < 0.83) && (sourisY > 0.83 && sourisY < 0.86))//Kamachatka
+			else if((sourisX > 0.48 && sourisX < 0.54) && (sourisY > 0.46 && sourisY < 0.50))//Forrest Of Dohor
 			{
 				return verifications(joueur,risk.listeTerritoires.get(23),mode);
 			}
-			else if((sourisX > 0.69 && sourisX < 0.74) && (sourisY > 0.72 && sourisY < 0.74))//Irkutsk
+			else if((sourisX > 0.38 && sourisX < 0.44) && (sourisY > 0.36 && sourisY < 0.41))//The Golden Fields
 			{
 				return verifications(joueur,risk.listeTerritoires.get(24),mode);
 			}
