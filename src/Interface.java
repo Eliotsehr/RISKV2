@@ -707,7 +707,7 @@ public class Interface {
 			break;
 
 		case 1:
-
+			
 			continuer = true;
 
 			String nombreJoueur = new String();
@@ -792,7 +792,7 @@ public class Interface {
 
 			this.couche= 9;//Mission
 
-
+			risk.creerTerritoires();
 			risk.attributionTerritoire();
 			risk.attributionMission();
 			risk.nombreTroupesDeploiement = risk.combienTroupe(risk.listeJoueurs.get(risk.tour),debut);
@@ -848,7 +848,7 @@ public class Interface {
 
 					attendre();
 				}
-				System.out.println("x: "+sourisX()+" y: "+sourisY());
+				//System.out.println("x: "+sourisX()+" y: "+sourisY());
 			}
 
 

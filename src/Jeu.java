@@ -36,6 +36,12 @@ public class Jeu {
 	 * Constructeur du jeu, initialise les territoires, continent et unités
 	 */
 	public Jeu() {
+		
+		
+	}
+	
+	public void creerTerritoires()
+	{
 		if(map == 0)
 		{
 			//Territoires adjacents
@@ -289,6 +295,14 @@ public class Jeu {
 			listeTerritoires.add(new Territoire("Easter Grass Sea",null,1,listeEGS,1,0,0,null));
 		
 		
+			for(int i = 0; i < listeTerritoires.size();i++)
+			{
+				ArrayList<Unitee> liste = new ArrayList<Unitee>();
+						
+				listeTerritoires.get(i).setListeUnitees(liste);
+				listeTerritoires.get(i).ajouterUnite(new Unitee(0,1,6,2,1,2,0,0));
+			}
+			
 			//Continents
 			ArrayList<Territoire> c1 = new ArrayList<Territoire>();
 			for(int i = 0;i<8;i++)
@@ -327,7 +341,7 @@ public class Jeu {
 			}
 			
 			ArrayList<Territoire> c7 = new ArrayList<Territoire>();
-			for(int i = 42;i<51;i++)
+			for(int i = 42;i<50;i++)
 			{
 				c7.add(listeTerritoires.get(i));
 			}
@@ -341,9 +355,8 @@ public class Jeu {
 			listeContinents.add(new Continent(5,c6));//Océanie
 			listeContinents.add(new Continent(6,c7));
 		}
-		
 	}
-
+	
 	
 	//TROUPES
 	/**

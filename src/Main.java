@@ -12,10 +12,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		risk = new Jeu();
-
-		interf = new Interface(1080,720,0);
 		
+		interf = new Interface(1080,720,0);
 		interf.ecranMenu();
+		
+
 
 		while(jeu)
 		{
