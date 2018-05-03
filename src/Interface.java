@@ -1512,11 +1512,11 @@ public class Interface {
 			{
 				return verifications(joueur,risk.listeTerritoires.get(5),mode);
 			}
-			else if((sourisX > 0.15 && sourisX < 0.18) && (sourisY > 0.66 && sourisY < 0.69))//The Neck
+			else if((sourisX > 0.09 && sourisX < 0.15) && (sourisY > 0.61 && sourisY < 0.65))//The Flint Cliff
 			{
 				return verifications(joueur,risk.listeTerritoires.get(6),mode);
 			}
-			else if((sourisX > 0.09 && sourisX < 0.15) && (sourisY > 0.61 && sourisY < 0.65))//The Flint Cliff
+			else if((sourisX > 0.15 && sourisX < 0.18) && (sourisY > 0.66 && sourisY < 0.69))//The Neck
 			{
 				return verifications(joueur,risk.listeTerritoires.get(7),mode);
 			}

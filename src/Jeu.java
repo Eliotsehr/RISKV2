@@ -249,8 +249,8 @@ public class Jeu {
 			listeTerritoires.add(new Territoire("Wolfswood",null,1,listeWO,1,0,0,null));
 			listeTerritoires.add(new Territoire("Winterfell",null,1,listeWI,1,0,0,null));
 			listeTerritoires.add(new Territoire("The Rills",null,1,listeTR,1,0,0,null));
-			listeTerritoires.add(new Territoire("The Neck",null,1,listeTN,1,0,0,null));
 			listeTerritoires.add(new Territoire("The Flint Cliff",null,1,listeTFC,1,0,0,null));
+			listeTerritoires.add(new Territoire("The Neck",null,1,listeTN,1,0,0,null));
 			listeTerritoires.add(new Territoire("The Vale",null,1,listeTV,1,0,0,null));
 			listeTerritoires.add(new Territoire("Jron Islands",null,1,listeJI,1,0,0,null));
 			listeTerritoires.add(new Territoire("Riverlands",null,1,listeRL,1,0,0,null));
