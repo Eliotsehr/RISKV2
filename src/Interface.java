@@ -1001,7 +1001,7 @@ public class Interface {
 
 					attendre();
 				}
-				System.out.println("x: "+sourisX()+" y: "+sourisY());
+				//System.out.println("x: "+sourisX()+" y: "+sourisY());
 			}
 
 

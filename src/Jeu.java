@@ -814,7 +814,7 @@ public class Jeu {
 	{
 		//Cette partie permet de créer une liste mélangée des territoires
 		ArrayList<Integer> listeRandomMissions = new ArrayList<Integer>();
-		for (int i=0; i<listeJoueurs.size(); i++)
+		for (int i=0; i<listeJoueurs.size()+2 && i<7; i++)
 		{
 			listeRandomMissions.add(new Integer(i));
 		}
@@ -824,6 +824,7 @@ public class Jeu {
 		
 		for(int i = 0;i<listeJoueurs.size();i++)
 		{
+			
 			listeJoueurs.get(i).definirMission(mission(listeRandomMissions.get(i)));
 		}
 	}
