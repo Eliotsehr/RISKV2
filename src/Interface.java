@@ -1435,73 +1435,105 @@ public class Interface {
 			{
 				return verifications(joueur,risk.listeTerritoires.get(24),mode);
 			}
-			else if((sourisX > 0.025 && sourisX < 0.07) && (sourisY > 0.8 && sourisY < 0.82))//Alaska
+			else if((sourisX > 0.46 && sourisX < 0.52) && (sourisY > 0.38 && sourisY < 0.43))//The Disputed Lands
 			{
 				return verifications(joueur,risk.listeTerritoires.get(25),mode);
 			}
-			else if((sourisX > 0.07 && sourisX < 0.2) && (sourisY > 0.8 && sourisY < 0.83))//Territoires du Nord
+			else if((sourisX > 0.07 && sourisX < 0.2) && (sourisY > 0.8 && sourisY < 0.83))//Rhoynian Veld
 			{
 				return verifications(joueur,risk.listeTerritoires.get(26),mode);
 			}
-			else if((sourisX > 0.1 && sourisX < 0.15) && (sourisY > 0.73 && sourisY < 0.75))//Alberta
+			else if((sourisX > 0.45 && sourisX < 0.50) && (sourisY > 0.29 && sourisY < 0.33))//Sar Mell
 			{
 				return verifications(joueur,risk.listeTerritoires.get(27),mode);
 			}
-			else if((sourisX > 0.15 && sourisX < 0.20) && (sourisY > 0.71 && sourisY < 0.73))//Ontario
+			else if((sourisX > 0.51 && sourisX < 0.57) && (sourisY > 0.33 && sourisY < 0.37))//Western Waste
 			{
 				return verifications(joueur,risk.listeTerritoires.get(28),mode);
 			}
-			else if((sourisX > 0.26 && sourisX < 0.33) && (sourisY > 0.85 && sourisY < 0.88))//Groenland
+			else if((sourisX > 0.53 && sourisX < 0.56) && (sourisY > 0.21 && sourisY < 0.31))//Sea Of Sight
 			{
 				return verifications(joueur,risk.listeTerritoires.get(29),mode);
 			}
-			else if((sourisX > 0.22 && sourisX < 0.26) && (sourisY > 0.71 && sourisY < 0.73))//Quebec
+			else if((sourisX > 0.56 && sourisX < 0.59) && (sourisY > 0.19 && sourisY < 0.25))//Elyria
 			{
 				return verifications(joueur,risk.listeTerritoires.get(30),mode);
 			}
-			else if((sourisX > 0.09 && sourisX < 0.16) && (sourisY > 0.63 && sourisY < 0.67))//Etats de l'Ouest
+			else if((sourisX > 0.53 && sourisX < 0.57) && (sourisY > 0.1 && sourisY < 0.17))//Valyria
 			{
 				return verifications(joueur,risk.listeTerritoires.get(31),mode);
 			}
-			else if((sourisX > 0.15 && sourisX < 0.22) && (sourisY > 0.58 && sourisY < 0.62))//Etats de l'Est
+			else if((sourisX > 0.61 && sourisX < 0.69) && (sourisY > 0.32 && sourisY < 0.35))//Painted Mountains
 			{
 				return verifications(joueur,risk.listeTerritoires.get(32),mode);
 			}
-			else if((sourisX > 0.11 && sourisX < 0.17) && (sourisY > 0.45 && sourisY < 0.57))//Amerique Centrale
+			else if((sourisX > 0.69 && sourisX < 0.73) && (sourisY > 0.26 && sourisY < 0.30))//Slaver's Bay
 			{
 				return verifications(joueur,risk.listeTerritoires.get(33),mode);
 			}
-			else if((sourisX > 0.16 && sourisX < 0.23) && (sourisY > 0.42 && sourisY < 0.45))//Venezuela
+			else if((sourisX > 0.74 && sourisX < 0.81) && (sourisY > 0.30 && sourisY < 0.34))//Lhazar
 			{
 				return verifications(joueur,risk.listeTerritoires.get(34),mode);
 			}
-			else if((sourisX > 0.23 && sourisX < 0.29) && (sourisY > 0.34 && sourisY < 0.37))//Bresil
+			else if((sourisX > 0.83 && sourisX < 0.90) && (sourisY > 0.36 && sourisY < 0.4))//Samyrian Fills
 			{
 				return verifications(joueur,risk.listeTerritoires.get(35),mode);
 			}
-			else if((sourisX > 0.2 && sourisX < 0.23) && (sourisY > 0.30 && sourisY < 0.32))//Perou
+			else if((sourisX > 0.68 && sourisX < 0.75) && (sourisY > 0.16 && sourisY < 0.21))//Ghiscar
 			{
 				return verifications(joueur,risk.listeTerritoires.get(36),mode);
 			}
-			else if((sourisX > 0.19 && sourisX < 0.25) && (sourisY > 0.21 && sourisY < 0.23))//Argentine
+			else if((sourisX > 0.75 && sourisX < 0.83) && (sourisY > 0.21 && sourisY < 0.27))//Red Waste
 			{
 				return verifications(joueur,risk.listeTerritoires.get(37),mode);
 			}
-			else if((sourisX > 0.68 && sourisX < 0.77) && (sourisY > 0.26 && sourisY < 0.32))//Indonesie
+			else if((sourisX > 0.84 && sourisX < 0.9) && (sourisY > 0.27 && sourisY < 0.32))//Bayasabhad
 			{
 				return verifications(joueur,risk.listeTerritoires.get(38),mode);
 			}
-			else if((sourisX > 0.78 && sourisX < 0.83) && (sourisY > 0.30 && sourisY < 0.35))//Nouvelle Guinnee
+			else if((sourisX > 0.84 && sourisX < 0.91) && (sourisY > 0.19 && sourisY < 0.25))//Qarth
 			{
 				return verifications(joueur,risk.listeTerritoires.get(39),mode);
 			}
-			else if((sourisX > 0.73 && sourisX < 0.81) && (sourisY > 0.13 && sourisY < 0.18))//Australie de l'Ouest
+			else if((sourisX > 0.55 && sourisX < 0.61) && (sourisY > 0.5 && sourisY < 0.59))//Sarnor
 			{
 				return verifications(joueur,risk.listeTerritoires.get(40),mode);
 			}
-			else if((sourisX > 0.79 && sourisX < 0.86) && (sourisY > 0.17 && sourisY < 0.21))//Australie de l'Est
+			else if((sourisX > 0.62 && sourisX < 0.69) && (sourisY > 0.46 && sourisY < 0.55))//Abandoned Lands
 			{
 				return verifications(joueur,risk.listeTerritoires.get(41),mode);
+			}
+			else if((sourisX > 0.70 && sourisX < 0.78) && (sourisY > 0.45 && sourisY < 0.53))//Kingdoms Of The Jfeqevron
+			{
+				return verifications(joueur,risk.listeTerritoires.get(42),mode);
+			}
+			else if((sourisX > 0.75 && sourisX < 0.87) && (sourisY > 0.54 && sourisY < 0.61))//The Footprint
+			{
+				return verifications(joueur,risk.listeTerritoires.get(43),mode);
+			}
+			else if((sourisX > 0.79 && sourisX < 0.87) && (sourisY > 0.70 && sourisY < 0.80))//Jbben
+			{
+				return verifications(joueur,risk.listeTerritoires.get(44),mode);
+			}
+			else if((sourisX > 0.89 && sourisX < 0.96) && (sourisY > 0.49 && sourisY < 0.61))//Realms Of Jhogrvin
+			{
+				return verifications(joueur,risk.listeTerritoires.get(45),mode);
+			}
+			else if((sourisX > 0.8 && sourisX < 0.87) && (sourisY > 0.48 && sourisY < 0.52))//Vaes Dothrak
+			{
+				return verifications(joueur,risk.listeTerritoires.get(46),mode);
+			}
+			else if((sourisX > 0.57 && sourisX < 0.64) && (sourisY > 0.37 && sourisY < 0.44))//Parched Fields
+			{
+				return verifications(joueur,risk.listeTerritoires.get(47),mode);
+			}
+			else if((sourisX > 0.66 && sourisX < 0.75) && (sourisY > 0.36 && sourisY < 0.41))//Western Grass Sea
+			{
+				return verifications(joueur,risk.listeTerritoires.get(48),mode);
+			}
+			else if((sourisX > 0.76 && sourisX < 0.84) && (sourisY > 0.40 && sourisY < 0.44))//Easter Grass Sea
+			{
+				return verifications(joueur,risk.listeTerritoires.get(49),mode);
 			}
 			else
 			{

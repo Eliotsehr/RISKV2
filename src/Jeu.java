@@ -327,7 +327,7 @@ public class Jeu {
 			}
 			
 			ArrayList<Territoire> c7 = new ArrayList<Territoire>();
-			for(int i = 42;i<49;i++)
+			for(int i = 42;i<51;i++)
 			{
 				c7.add(listeTerritoires.get(i));
 			}
