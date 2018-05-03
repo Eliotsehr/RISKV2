@@ -817,6 +817,7 @@ public class Interface {
 
 					attendre();
 				}
+				
 			}
 
 			break;
@@ -847,6 +848,7 @@ public class Interface {
 
 					attendre();
 				}
+				System.out.println("x: "+sourisX()+" y: "+sourisY());
 			}
 
 
@@ -1326,6 +1328,181 @@ public class Interface {
 				couche = 4;//Choix
 
 				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		else if(risk.map == 1)
+		{
+			if((sourisX > 0.18 && sourisX < 0.21) && (sourisY > 0.83 && sourisY < 0.85))//The Wall
+			{
+				return verifications(joueur,risk.listeTerritoires.get(0),mode);
+			}
+			else if((sourisX > 0.25 && sourisX < 0.28) && (sourisY > 0.83 && sourisY < 0.88))//Skagos
+			{
+				return verifications(joueur,risk.listeTerritoires.get(1),mode);
+			}
+			else if((sourisX > 0.2 && sourisX < 0.28) && (sourisY > 0.77 && sourisY < 0.81))//The Grev Cliffs
+			{
+				return verifications(joueur,risk.listeTerritoires.get(2),mode);
+			}
+			else if((sourisX > 0.08 && sourisX < 0.15) && (sourisY > 0.74 && sourisY < 0.79))//Wolfswood
+			{
+				return verifications(joueur,risk.listeTerritoires.get(3),mode);
+			}
+			else if((sourisX > 0.17 && sourisX < 0.23) && (sourisY > 0.71 && sourisY < 0.76))//Winterfell
+			{
+				return verifications(joueur,risk.listeTerritoires.get(4),mode);
+			}
+			else if((sourisX > 0.06 && sourisX < 0.13) && (sourisY > 0.67 && sourisY < 0.73))//The Rills
+			{
+				return verifications(joueur,risk.listeTerritoires.get(5),mode);
+			}
+			else if((sourisX > 0.15 && sourisX < 0.18) && (sourisY > 0.66 && sourisY < 0.69))//The Neck
+			{
+				return verifications(joueur,risk.listeTerritoires.get(6),mode);
+			}
+			else if((sourisX > 0.09 && sourisX < 0.15) && (sourisY > 0.61 && sourisY < 0.65))//The Flint Cliff
+			{
+				return verifications(joueur,risk.listeTerritoires.get(7),mode);
+			}
+			else if((sourisX > 0.19 && sourisX < 0.25) && (sourisY > 0.51 && sourisY < 0.60))//The Vale
+			{
+				return verifications(joueur,risk.listeTerritoires.get(8),mode);
+			}
+			else if((sourisX > 0.06 && sourisX < 0.1) && (sourisY > 0.54 && sourisY < 0.58))//Jron Islands
+			{
+				return verifications(joueur,risk.listeTerritoires.get(9),mode);
+			}
+			else if((sourisX > 0.1 && sourisX < 0.15) && (sourisY > 0.52 && sourisY < 0.55))//Riverlands
+			{
+				return verifications(joueur,risk.listeTerritoires.get(10),mode);
+			}
+			else if((sourisX > 0.17 && sourisX < 0.24) && (sourisY > 0.45 && sourisY < 0.50))//Crownlands
+			{
+				return verifications(joueur,risk.listeTerritoires.get(11),mode);
+			}
+			else if((sourisX > 0.08 && sourisX < 0.16) && (sourisY > 0.44 && sourisY < 0.5))//Westerlands
+			{
+				return verifications(joueur,risk.listeTerritoires.get(12),mode);
+			}
+			else if((sourisX > 0.08 && sourisX < 0.14) && (sourisY > 0.38 && sourisY < 0.41))//Shield Lands
+			{
+				return verifications(joueur,risk.listeTerritoires.get(13),mode);
+			}
+			else if((sourisX > 0.15 && sourisX < 0.2) && (sourisY > 0.39 && sourisY < 0.44))//The Reach
+			{
+				return verifications(joueur,risk.listeTerritoires.get(14),mode);
+			}
+			else if((sourisX > 0.2 && sourisX < 0.25) && (sourisY > 0.36 && sourisY < 0.41))//Stromlands
+			{
+				return verifications(joueur,risk.listeTerritoires.get(15),mode);
+			}
+			else if((sourisX > 0.06 && sourisX < 0.12) && (sourisY > 0.29 && sourisY < 0.35))//Whispering Sounds
+			{
+				return verifications(joueur,risk.listeTerritoires.get(16),mode);
+			}
+			else if((sourisX > 0.14 && sourisX < 0.18) && (sourisY > 0.3 && sourisY < 0.33))//Red Mountains
+			{
+				return verifications(joueur,risk.listeTerritoires.get(17),mode);
+			}
+			else if((sourisX > 0.18 && sourisX < 0.28) && (sourisY > 0.25 && sourisY < 0.29))//Dorne
+			{
+				return verifications(joueur,risk.listeTerritoires.get(18),mode);
+			}
+			else if((sourisX > 0.67 && sourisX < 0.72) && (sourisY > 0.54 && sourisY < 0.56))//Chine
+			{
+				return verifications(joueur,risk.listeTerritoires.get(19),mode);
+			}
+			else if((sourisX > 0.70 && sourisX < 0.75) && (sourisY > 0.836 && sourisY < 0.859))//Yakouti
+			{
+				return verifications(joueur,risk.listeTerritoires.get(20),mode);
+			}
+			else if((sourisX > 0.69 && sourisX < 0.75) && (sourisY > 0.63 && sourisY < 0.65))//Mongolie
+			{
+				return verifications(joueur,risk.listeTerritoires.get(21),mode);
+			}
+			else if((sourisX > 0.8 && sourisX < 0.84) && (sourisY > 0.61 && sourisY < 0.64))//Japon
+			{
+				return verifications(joueur,risk.listeTerritoires.get(22),mode);
+			}
+			else if((sourisX > 0.77 && sourisX < 0.83) && (sourisY > 0.83 && sourisY < 0.86))//Kamachatka
+			{
+				return verifications(joueur,risk.listeTerritoires.get(23),mode);
+			}
+			else if((sourisX > 0.69 && sourisX < 0.74) && (sourisY > 0.72 && sourisY < 0.74))//Irkutsk
+			{
+				return verifications(joueur,risk.listeTerritoires.get(24),mode);
+			}
+			else if((sourisX > 0.025 && sourisX < 0.07) && (sourisY > 0.8 && sourisY < 0.82))//Alaska
+			{
+				return verifications(joueur,risk.listeTerritoires.get(25),mode);
+			}
+			else if((sourisX > 0.07 && sourisX < 0.2) && (sourisY > 0.8 && sourisY < 0.83))//Territoires du Nord
+			{
+				return verifications(joueur,risk.listeTerritoires.get(26),mode);
+			}
+			else if((sourisX > 0.1 && sourisX < 0.15) && (sourisY > 0.73 && sourisY < 0.75))//Alberta
+			{
+				return verifications(joueur,risk.listeTerritoires.get(27),mode);
+			}
+			else if((sourisX > 0.15 && sourisX < 0.20) && (sourisY > 0.71 && sourisY < 0.73))//Ontario
+			{
+				return verifications(joueur,risk.listeTerritoires.get(28),mode);
+			}
+			else if((sourisX > 0.26 && sourisX < 0.33) && (sourisY > 0.85 && sourisY < 0.88))//Groenland
+			{
+				return verifications(joueur,risk.listeTerritoires.get(29),mode);
+			}
+			else if((sourisX > 0.22 && sourisX < 0.26) && (sourisY > 0.71 && sourisY < 0.73))//Quebec
+			{
+				return verifications(joueur,risk.listeTerritoires.get(30),mode);
+			}
+			else if((sourisX > 0.09 && sourisX < 0.16) && (sourisY > 0.63 && sourisY < 0.67))//Etats de l'Ouest
+			{
+				return verifications(joueur,risk.listeTerritoires.get(31),mode);
+			}
+			else if((sourisX > 0.15 && sourisX < 0.22) && (sourisY > 0.58 && sourisY < 0.62))//Etats de l'Est
+			{
+				return verifications(joueur,risk.listeTerritoires.get(32),mode);
+			}
+			else if((sourisX > 0.11 && sourisX < 0.17) && (sourisY > 0.45 && sourisY < 0.57))//Amerique Centrale
+			{
+				return verifications(joueur,risk.listeTerritoires.get(33),mode);
+			}
+			else if((sourisX > 0.16 && sourisX < 0.23) && (sourisY > 0.42 && sourisY < 0.45))//Venezuela
+			{
+				return verifications(joueur,risk.listeTerritoires.get(34),mode);
+			}
+			else if((sourisX > 0.23 && sourisX < 0.29) && (sourisY > 0.34 && sourisY < 0.37))//Bresil
+			{
+				return verifications(joueur,risk.listeTerritoires.get(35),mode);
+			}
+			else if((sourisX > 0.2 && sourisX < 0.23) && (sourisY > 0.30 && sourisY < 0.32))//Perou
+			{
+				return verifications(joueur,risk.listeTerritoires.get(36),mode);
+			}
+			else if((sourisX > 0.19 && sourisX < 0.25) && (sourisY > 0.21 && sourisY < 0.23))//Argentine
+			{
+				return verifications(joueur,risk.listeTerritoires.get(37),mode);
+			}
+			else if((sourisX > 0.68 && sourisX < 0.77) && (sourisY > 0.26 && sourisY < 0.32))//Indonesie
+			{
+				return verifications(joueur,risk.listeTerritoires.get(38),mode);
+			}
+			else if((sourisX > 0.78 && sourisX < 0.83) && (sourisY > 0.30 && sourisY < 0.35))//Nouvelle Guinnee
+			{
+				return verifications(joueur,risk.listeTerritoires.get(39),mode);
+			}
+			else if((sourisX > 0.73 && sourisX < 0.81) && (sourisY > 0.13 && sourisY < 0.18))//Australie de l'Ouest
+			{
+				return verifications(joueur,risk.listeTerritoires.get(40),mode);
+			}
+			else if((sourisX > 0.79 && sourisX < 0.86) && (sourisY > 0.17 && sourisY < 0.21))//Australie de l'Est
+			{
+				return verifications(joueur,risk.listeTerritoires.get(41),mode);
 			}
 			else
 			{
