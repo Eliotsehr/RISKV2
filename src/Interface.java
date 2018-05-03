@@ -23,9 +23,9 @@ public class Interface {
 	/*Modes
 	 * 0 - Deploiement
 	 * 1 - Mode choix du territoire pour attaquer
-	 * 2 - Mode choix du territoire ï¿½ attaquer
-	 * 3 - Mode dï¿½placement choix du territoire de dï¿½part
-	 * 4 - Mode dï¿½placement choix du territoire d'arrivï¿½
+	 * 2 - Mode choix du territoire a attaquer
+	 * 3 - Mode deplacement choix du territoire de depart
+	 * 4 - Mode deplacement choix du territoire d'arrive
 	 */
 	private int mode = 0;
 
@@ -43,8 +43,8 @@ public class Interface {
 
 	/**
 	 *
-	 * @param xMax int largeur de la fenï¿½tre
-	 * @param yMax int hauteur de la fenï¿½tre
+	 * @param xMax int largeur de la fenetre
+	 * @param yMax int hauteur de la fenetre
 	 * @param couche int couche sur laquelle on travail
 	 */
 	public Interface(int xMax,int yMax, int couche) {
@@ -60,7 +60,7 @@ public class Interface {
 
 	//AFFICHAGE
 	/**
-	 * Affiche le menu de dï¿½marage
+	 * Affiche le menu de demarage
 	 */
 	public void ecranMenu()
 	{
@@ -69,6 +69,17 @@ public class Interface {
 		StdDraw.setCanvasSize(809, 801);
 
 		StdDraw.picture(0.5, 0.5, "img/menu.png");
+	}
+	
+	
+	/**
+	 * Affiche le menu de séléction des cartes
+	 */
+	public void ecranMap()
+	{
+		StdDraw.clear();
+		
+		StdDraw.picture(0.5, 0.5, "img/cartes.png");
 	}
 
 
@@ -130,13 +141,13 @@ public class Interface {
 		StdDraw.setPenColor(StdDraw.WHITE);
 		StdDraw.filledRectangle(0, 1, 0.1, 0.055);//Tour
 		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.text(0.06, 0.97, "img/TOUR:               "+risk.listeJoueurs.get(tour).getNom());
-		pion(0.073,0.975,tour);
+		StdDraw.text(0.06, 0.97, "TOUR:               "+risk.listeJoueurs.get(tour).getNom());
+		pion(0.075,0.975,tour);
 	}
 
 
 	/**
-	 * Interface qui permet de rï¿½cupï¿½rer les soldats, les cavaliers, les canons
+	 * Interface qui permet de recuperer les soldats, les cavaliers, les canons
 	 */
 	public void coucheDeploiement()
 	{
@@ -243,7 +254,7 @@ public class Interface {
 
 
 	/**
-	 * Affiche des informations en haut de l'ï¿½cran
+	 * Affiche des informations en haut de l'ecran
 	 * @param message int  Valeur pour savoir quel type de message afficher
 	 */
 	public void infosHaut(int message)
@@ -255,7 +266,7 @@ public class Interface {
 		switch(message)
 		{
 		case 0://Selection
-			StdDraw.text(0.5, 0.97, "Territoire sï¿½lï¿½ctionnï¿½: "+territoire1.getNom());
+			StdDraw.text(0.5, 0.97, "Territoire selectionne: "+territoire1.getNom());
 			break;
 		case 1://Attaque
 			StdDraw.text(0.5, 0.97, territoire1.getNom()+" attaque "+territoire2.getNom()+" !");
@@ -295,31 +306,31 @@ public class Interface {
 			}
 			break;
 		case 4:
-			StdDraw.text(0.5, 0.97, "Dï¿½placement depuis "+territoire1.getNom()+" vers "+territoire2.getNom());
+			StdDraw.text(0.5, 0.97, "Deplacement depuis "+territoire1.getNom()+" vers "+territoire2.getNom());
 			break;
 		case 5:
-			StdDraw.text(0.5, 0.97, "Il te reste "+risk.nombreTroupesDeploiement+" troupes ï¿½ placer !");
+			StdDraw.text(0.5, 0.97, "Il te reste "+risk.nombreTroupesDeploiement+" troupes a placer !");
 			break;
 		case 7:
-			StdDraw.text(0.5, 0.97, "Il te reste "+risk.nombreCanons+" canons ï¿½ placer !");
+			StdDraw.text(0.5, 0.97, "Il te reste "+risk.nombreCanons+" canons a placer !");
 			break;
 		case 8:
-			StdDraw.text(0.5, 0.97, "Il te reste "+risk.nombreCavaliers+" cavaliers ï¿½ placer !");
+			StdDraw.text(0.5, 0.97, "Il te reste "+risk.nombreCavaliers+" cavaliers a placer !");
 			break;
 		case 9:
-			StdDraw.text(0.5, 0.97, "Il te reste "+risk.nombreSoldats+" soldats ï¿½ placer !");
+			StdDraw.text(0.5, 0.97, "Il te reste "+risk.nombreSoldats+" soldats a placer !");
 			break;
 		case 10:
-			StdDraw.text(0.5, 0.97, "Territoire sï¿½lï¿½ctionnï¿½: "+territoire2.getNom());
+			StdDraw.text(0.5, 0.97, "Territoire selectionne: "+territoire2.getNom());
 			break;
 		case 11:
-			StdDraw.text(0.5, 0.97, "Tu as sï¿½lï¿½ctionï¿½ un soldat !");
+			StdDraw.text(0.5, 0.97, "Tu as selectione un soldat !");
 			break;
 		case 12:
-			StdDraw.text(0.5, 0.97, "Tu as sï¿½lï¿½ctionï¿½ un cavalier !");
+			StdDraw.text(0.5, 0.97, "Tu as selectione un cavalier !");
 			break;
 		case 13:
-			StdDraw.text(0.5, 0.97, "Tu as sï¿½lï¿½ctionï¿½ un canon !");
+			StdDraw.text(0.5, 0.97, "Tu as selectione un canon !");
 			break;
 
 		}
@@ -330,7 +341,7 @@ public class Interface {
 
 
 	/**
-	 * Affiche des informations en bas de l'ï¿½cran
+	 * Affiche des informations en bas de l'ecran
 	 * @param joueur Joueur  S'il y a besoin d'afficher des infos sur un joueur
 	 * @param territoire Territoire  S'il y a besoin d'afficher des infos sur un territoire
 	 * @param message int  Valeur pour savoir quel type de message afficher
@@ -340,14 +351,14 @@ public class Interface {
 		StdDraw.setPenColor(StdDraw.WHITE);
 		StdDraw.filledRectangle(0.5, 0, 0.5, 0.05);
 		StdDraw.setPenColor(StdDraw.BLACK);
-
+ 
 		switch(message)
 		{
 		case 0:
-			StdDraw.text(0.5, 0.03, "Sï¿½lï¿½ctione un de tes territoires");
+			StdDraw.text(0.5, 0.03, "Selectione un de tes territoires");
 			break;
 		case 1:
-			StdDraw.text(0.5, 0.03, "Sï¿½lï¿½ctione un territoire adverse");
+			StdDraw.text(0.5, 0.03, "Selectione un territoire adverse");
 			break;
 		case 2:
 			StdDraw.text(0.5, 0.03, "CE TERRITOIRE NE T'APPARTIENT PAS OU NE PEUT PAS ATTAQUER !");
@@ -368,13 +379,13 @@ public class Interface {
 			StdDraw.text(0.5, 0.03, "Place tes troupes !");
 			break;
 		case 8:
-			StdDraw.text(0.5, 0.03, "Tu n'as pas assez de troupes pour ï¿½a !");
+			StdDraw.text(0.5, 0.03, "Tu n'as pas assez de troupes pour ea !");
 			break;
 		case 9:
 			StdDraw.text(0.5, 0.03, "Selectionne tes troupes d'attaque d'abord !");
 			break;
 		case 10:
-			StdDraw.text(0.5, 0.03, "Cette troupe a dï¿½jï¿½ effectuï¿½ tout ses dï¿½placements !");
+			StdDraw.text(0.5, 0.03, "Cette troupe a deje effectue tout ses deplacements !");
 			break;
 		default:
 			break;
@@ -416,7 +427,7 @@ public class Interface {
 
 
 	/**
-	 * Affiche la couche des pions avec le nombre d'unitï¿½es correspondant ï¿½ chaque pion
+	 * Affiche la couche des pions avec le nombre d'unitees correspondant a chaque pion
 	 */
 	public void couchePions()
 	{
@@ -473,7 +484,7 @@ public class Interface {
 			pion(0.61, 0.73, risk.listeTerritoires.get(16).getProprietaire().getNumeroDeJoueur());//Oural
 			StdDraw.text(0.61,0.73, ""+risk.listeTerritoires.get(16).getNombreTroupesTotal());
 
-			pion(0.65, 0.81, risk.listeTerritoires.get(17).getProprietaire().getNumeroDeJoueur());//Sibï¿½rie
+			pion(0.65, 0.81, risk.listeTerritoires.get(17).getProprietaire().getNumeroDeJoueur());//Siberie
 			StdDraw.text(0.65,0.81, ""+risk.listeTerritoires.get(17).getNombreTroupesTotal());
 
 			pion(0.72, 0.44, risk.listeTerritoires.get(18).getProprietaire().getNumeroDeJoueur());//Siam
@@ -521,25 +532,25 @@ public class Interface {
 			pion(0.19, 0.60, risk.listeTerritoires.get(32).getProprietaire().getNumeroDeJoueur());//Etats de l'Est
 			StdDraw.text(0.19,0.6, ""+risk.listeTerritoires.get(32).getNombreTroupesTotal());
 
-			pion(0.14, 0.51, risk.listeTerritoires.get(33).getProprietaire().getNumeroDeJoueur());//Amï¿½rique Centrale
+			pion(0.14, 0.51, risk.listeTerritoires.get(33).getProprietaire().getNumeroDeJoueur());//Amerique Centrale
 			StdDraw.text(0.14,0.51, ""+risk.listeTerritoires.get(33).getNombreTroupesTotal());
 
 			pion(0.2, 0.44, risk.listeTerritoires.get(34).getProprietaire().getNumeroDeJoueur());//Venezuela
 			StdDraw.text(0.2,0.44, ""+risk.listeTerritoires.get(34).getNombreTroupesTotal());
 
-			pion(0.26, 0.35, risk.listeTerritoires.get(35).getProprietaire().getNumeroDeJoueur());//Brï¿½sil
+			pion(0.26, 0.35, risk.listeTerritoires.get(35).getProprietaire().getNumeroDeJoueur());//Bresil
 			StdDraw.text(0.26,0.35, ""+risk.listeTerritoires.get(35).getNombreTroupesTotal());
 
-			pion(0.22, 0.31, risk.listeTerritoires.get(36).getProprietaire().getNumeroDeJoueur());//Pï¿½rou
+			pion(0.22, 0.31, risk.listeTerritoires.get(36).getProprietaire().getNumeroDeJoueur());//Perou
 			StdDraw.text(0.22,0.31, ""+risk.listeTerritoires.get(36).getNombreTroupesTotal());
 
 			pion(0.23, 0.22, risk.listeTerritoires.get(37).getProprietaire().getNumeroDeJoueur());//Argentine
 			StdDraw.text(0.23,0.22, ""+risk.listeTerritoires.get(37).getNombreTroupesTotal());
 
-			pion(0.73, 0.29, risk.listeTerritoires.get(38).getProprietaire().getNumeroDeJoueur());//Indonï¿½sie
+			pion(0.73, 0.29, risk.listeTerritoires.get(38).getProprietaire().getNumeroDeJoueur());//Indonesie
 			StdDraw.text(0.73,0.29, ""+risk.listeTerritoires.get(38).getNombreTroupesTotal());
 
-			pion(0.81, 0.32, risk.listeTerritoires.get(39).getProprietaire().getNumeroDeJoueur());//Nouvelle Guinï¿½e
+			pion(0.81, 0.32, risk.listeTerritoires.get(39).getProprietaire().getNumeroDeJoueur());//Nouvelle Guinee
 			StdDraw.text(0.81,0.32, ""+risk.listeTerritoires.get(39).getNombreTroupesTotal());
 
 			pion(0.78, 0.15, risk.listeTerritoires.get(40).getProprietaire().getNumeroDeJoueur());//Australie de l'Ouest
@@ -601,7 +612,7 @@ public class Interface {
 
 
 	/**
-	 * Affiche les fenï¿½tres de confirmation d'attaque
+	 * Affiche les fenetres de confirmation d'attaque
 	 */
 	public void confirmationAttaque()
 	{
@@ -620,7 +631,7 @@ public class Interface {
 
 
 	/**
-	 * Affiche la fenï¿½tre de depalcement
+	 * Affiche la fenetre de depalcement
 	 */
 	public void coucheDeplacement()
 	{
@@ -632,7 +643,7 @@ public class Interface {
 
 
 	/**
-	 * Affiche la fenï¿½tre de mission
+	 * Affiche la fenetre de mission
 	 * @param index index de la mission
 	 */
 	public void coucheMission(int index)
@@ -662,12 +673,13 @@ public class Interface {
 	 * 2: Noms des joueurs
 	 * 3: Deploiment
 	 * 4: Choix d'action
-	 * 5: Attaque/dï¿½placement
+	 * 5: Attaque/deplacement
 	 * 6: Choix troupes
 	 * 7: Confirmation attaque
 	 * 8: Deplacement
 	 * 9: Lettre de mission
 	 * 10: Mission
+	 * 11: Choix cartes
 	 */
 	public void cliqueCouche(int couche)
 	{
@@ -688,6 +700,8 @@ public class Interface {
 
 					attendre();
 				}
+				
+				//System.out.println("x: "+sourisX()+" y: "+sourisY());
 			}
 
 			break;
@@ -917,10 +931,25 @@ public class Interface {
 
 				//System.out.println("x: "+sourisX()+" y: "+sourisY());
 			}
-
-
-
+			
 			break;
+			
+		case 11:
+			
+			while(cliqueCarte(sourisX,sourisY))
+			{
+				if(clique())
+				{
+					sourisX = sourisX();
+					sourisY = sourisY();
+
+					attendre();
+				}
+				//System.out.println("x: "+sourisX()+" y: "+sourisY());
+			}
+			
+			break;
+			
 		}
 	}
 
@@ -931,7 +960,7 @@ public class Interface {
 	 * Hitbox du menu
 	 * @param sourisX valeur en x de la souris
 	 * @param sourisY valeur en y de la souris
-	 * @return false si on a cliquï¿½ sur un ï¿½lï¿½ment pertinent de la fenï¿½tre du menu true sinon
+	 * @return false si on a clique sur un element pertinent de la fenetre du menu true sinon
 	 */
 	public boolean cliqueMenu(double sourisX, double sourisY)
 	{
@@ -942,6 +971,13 @@ public class Interface {
 			ecranNombreJoueurs();
 			return false;
 		}
+		else if((sourisX > 0.18 && sourisX < 0.82) && (sourisY > 0.39 && sourisY < 0.46))
+		{
+			couche = 11;//Cartes
+			
+			ecranMap();
+			return false;
+		}
 		else
 		{
 			return true;
@@ -950,12 +986,38 @@ public class Interface {
 
 
 
+	public boolean cliqueCarte(double sourisX, double sourisY)
+	{
+		if((sourisX > 0.53 && sourisX < 0.79) && (sourisY > 0.48 && sourisY < 0.64))//Map classique
+		{
+			couche = 0;//Menu
+			
+			risk.map = 0;
+			
+			ecranMenu();
+			return false;
+		}
+		else if((sourisX > 0.53 && sourisX < 0.79) && (sourisY > 0.17 && sourisY < 0.33))//Map GOT
+		{
+			couche = 0;//Menu
+			
+			risk.map = 1;
+			
+			ecranMenu();
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
 
+	
 	/**
 	 * Hitbox du panneau de deploiement
 	 * @param sourisX valeur en x de la souris
 	 * @param sourisY valeur en y de la souris
-	 * @return false si on a cliquï¿½ sur un ï¿½lï¿½ment pertinent de la fenï¿½tre de l'interface true sinon
+	 * @return false si on a clique sur un element pertinent de la fenetre de l'interface true sinon
 	 */
 	public boolean cliqueDeploiement(double sourisX,double sourisY)
 	{
@@ -1028,7 +1090,7 @@ public class Interface {
 	 * Hitbox de l'interface de choix
 	 * @param sourisX valeur en x de la souris
 	 * @param sourisY valeur en y de la souris
-	 * @return false si on a cliquï¿½ sur un ï¿½lï¿½ment pertinent de la fenï¿½tre de l'interface true sinon
+	 * @return false si on a clique sur un element pertinent de la fenetre de l'interface true sinon
 	 */
 	public boolean cliqueChoix(double sourisX, double sourisY)
 	{
@@ -1042,7 +1104,7 @@ public class Interface {
 
 			return false;
 		}
-		else if((sourisX > 0.44 && sourisX < 0.57) && (sourisY > 0.06 && sourisY < 0.11))//Dï¿½placer
+		else if((sourisX > 0.44 && sourisX < 0.57) && (sourisY > 0.06 && sourisY < 0.11))//Deplacer
 		{
 			mode = 3;//Deplacement 1
 			couche = 5;//Modes
@@ -1082,8 +1144,8 @@ public class Interface {
 	 * Hitbox des territoires
 	 * @param sourisX valeur en x de la souris
 	 * @param sourisY valeur en y de la souris
-	 * @param mode Mode de verification pour savoir ce qu'il faut vï¿½rifier (ex: est-ce que le territoire appartient au joueur)
-	 * @return false si on a cliquï¿½ sur un ï¿½lï¿½ment pertinent de la fenï¿½tre de l'interface qui rempli les conditions du mode, true sinon
+	 * @param mode Mode de verification pour savoir ce qu'il faut verifier (ex: est-ce que le territoire appartient au joueur)
+	 * @return false si on a clique sur un element pertinent de la fenetre de l'interface qui rempli les conditions du mode, true sinon
 	 */
 	public boolean cliqueTerritoires(double sourisX, double sourisY, Joueur joueur, int mode)
 	{
@@ -1157,7 +1219,7 @@ public class Interface {
 			{
 				return verifications(joueur,risk.listeTerritoires.get(16),mode);
 			}
-			else if((sourisX > 0.63 && sourisX < 0.68) && (sourisY > 0.80 && sourisY < 0.82))//Sibï¿½rie
+			else if((sourisX > 0.63 && sourisX < 0.68) && (sourisY > 0.80 && sourisY < 0.82))//Siberie
 			{
 				return verifications(joueur,risk.listeTerritoires.get(17),mode);
 			}
@@ -1221,7 +1283,7 @@ public class Interface {
 			{
 				return verifications(joueur,risk.listeTerritoires.get(32),mode);
 			}
-			else if((sourisX > 0.11 && sourisX < 0.17) && (sourisY > 0.45 && sourisY < 0.57))//Amï¿½rique Centrale
+			else if((sourisX > 0.11 && sourisX < 0.17) && (sourisY > 0.45 && sourisY < 0.57))//Amerique Centrale
 			{
 				return verifications(joueur,risk.listeTerritoires.get(33),mode);
 			}
@@ -1229,11 +1291,11 @@ public class Interface {
 			{
 				return verifications(joueur,risk.listeTerritoires.get(34),mode);
 			}
-			else if((sourisX > 0.23 && sourisX < 0.29) && (sourisY > 0.34 && sourisY < 0.37))//Brï¿½sil
+			else if((sourisX > 0.23 && sourisX < 0.29) && (sourisY > 0.34 && sourisY < 0.37))//Bresil
 			{
 				return verifications(joueur,risk.listeTerritoires.get(35),mode);
 			}
-			else if((sourisX > 0.2 && sourisX < 0.23) && (sourisY > 0.30 && sourisY < 0.32))//Pï¿½rou
+			else if((sourisX > 0.2 && sourisX < 0.23) && (sourisY > 0.30 && sourisY < 0.32))//Perou
 			{
 				return verifications(joueur,risk.listeTerritoires.get(36),mode);
 			}
@@ -1241,11 +1303,11 @@ public class Interface {
 			{
 				return verifications(joueur,risk.listeTerritoires.get(37),mode);
 			}
-			else if((sourisX > 0.68 && sourisX < 0.77) && (sourisY > 0.26 && sourisY < 0.32))//Indonï¿½sie
+			else if((sourisX > 0.68 && sourisX < 0.77) && (sourisY > 0.26 && sourisY < 0.32))//Indonesie
 			{
 				return verifications(joueur,risk.listeTerritoires.get(38),mode);
 			}
-			else if((sourisX > 0.78 && sourisX < 0.83) && (sourisY > 0.30 && sourisY < 0.35))//Nouvelle Guinnï¿½e
+			else if((sourisX > 0.78 && sourisX < 0.83) && (sourisY > 0.30 && sourisY < 0.35))//Nouvelle Guinnee
 			{
 				return verifications(joueur,risk.listeTerritoires.get(39),mode);
 			}
@@ -1368,7 +1430,7 @@ public class Interface {
 	 * Hit box fenetres confirmation d'attaque
 	 * @param sourisX valeur en x de la souris
 	 * @param sourisY valeur en y de la souris
-	 * @return true si on a cliquï¿½ sur un des deux boutons false sinon
+	 * @return true si on a clique sur un des deux boutons false sinon
 	 */
 	public boolean cliqueConfirmationAttaque(double sourisX, double sourisY)
 	{
@@ -1393,7 +1455,7 @@ public class Interface {
 			infosHaut(1);
 			infosBas(5000);
 
-			StdDraw.pause(2000);//On attend un petit peu avant d'afficher le rï¿½sultat du combat
+			StdDraw.pause(2000);//On attend un petit peu avant d'afficher le resultat du combat
 
 			infosHaut(3);
 
@@ -1578,7 +1640,7 @@ public class Interface {
 		{
 			couche = 10;
 
-			reset(3);//Mission intitulï¿½
+			reset(3);//Mission intitule
 			return false;
 		}
 		else
@@ -1591,11 +1653,11 @@ public class Interface {
 
 	//DIVERS
 	/**
-	 * Mï¿½thodes regroupant tous les types de verifications nescessaires au bon fonctionnement du jeu
-	 * @param joueur Joueur le joueur sur lequel on fait la vï¿½rification
-	 * @param territoire Territoire le territoire sur lequel on fait la vï¿½rification
+	 * Methodes regroupant tous les types de verifications nescessaires au bon fonctionnement du jeu
+	 * @param joueur Joueur le joueur sur lequel on fait la verification
+	 * @param territoire Territoire le territoire sur lequel on fait la verification
 	 * @param mode indice de la verification qu'on veut faire
-	 * @return true ou false selon ce qu'on vï¿½rifie, il n'y a pas de sortie "type"
+	 * @return true ou false selon ce qu'on verifie, il n'y a pas de sortie "type"
 	 */
 	public boolean verifications(Joueur joueur, Territoire territoire, int mode)
 	{
@@ -1700,7 +1762,7 @@ public class Interface {
 				return true;
 			}
 
-		case 3://Selection du territoire duquel le joueur fait le dï¿½placement
+		case 3://Selection du territoire duquel le joueur fait le deplacement
 
 			if(territoire.appartientA(joueur) && territoire.peutAttaquer())
 			{
@@ -1717,7 +1779,7 @@ public class Interface {
 				return true;
 			}
 
-		case 4://Selection du territoire sur lequel on fait le dï¿½placement
+		case 4://Selection du territoire sur lequel on fait le deplacement
 
 			if(territoire.appartientA(joueur) && territoire.estAdjacentA(territoire1))
 			{
