@@ -1141,7 +1141,6 @@ public class Interface {
 
 
 
-
 	/**
 	 * Hitbox des territoires
 	 * @param sourisX valeur en x de la souris
