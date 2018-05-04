@@ -52,7 +52,7 @@ public class Territoire {
 	 */
 	public boolean peutAttaquer()
 	{
-		if(this.nombreSoldats + this.nombreCanons + this.nombreCavaliers < 2)
+		if((this.nombreSoldats + this.nombreCanons + this.nombreCavaliers < 2) && this.unitesPeuventAttaquer())
 		{
 			return false;
 		}
@@ -62,6 +62,25 @@ public class Territoire {
 		}		
 	}
 
+	
+	/**
+	 * Verifie si au moins une unité peut, en cas de victoire, se déplacer sur le territoire conqui avant de lancer l'attaque
+	 * @return true si elles peuvent, false sinon
+	 */
+	public boolean unitesPeuventAttaquer()
+	{
+		for(int i = 0;i < this.listeUnitees.size(); i++)
+		{
+			if(this.listeUnitees.get(i).peutDeplacer())
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	
 	
 	/**
 	 * Permet de savoir si un territoire est conquis à l'issue d'un combat
