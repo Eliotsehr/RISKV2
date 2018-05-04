@@ -1,8 +1,6 @@
-import java.util.ArrayList;
-
 public class IA extends Joueur{
 
-	
+	Jeu risk = Main.risk;
 	
 	public IA(String nom, int nombreDeTerritoires, int numeroDeJoueur, int nombreTerritoiresCaptures, Mission mission,int test) {
 		super(nom, nombreDeTerritoires, numeroDeJoueur, nombreTerritoiresCaptures, mission);
@@ -10,22 +8,26 @@ public class IA extends Joueur{
 		
 	}
 
-	public void deplaceUniteeBloquee(ArrayList<Territoire> listeTerritoires)
+	public void deplaceUniteeBloquee()
 	{
-		for(int i = 0; i < listeTerritoires.size(); i++)
+		for(int i = 0; i < risk.listeTerritoires.size(); i++)
 		{
-			if(listeTerritoires.get(i).getProprietaire().equals(this) && listeTerritoires.get(i).estEntoure())
+			Territoire territoire = risk.listeTerritoires.get(i);
+			
+			if(territoire.getProprietaire().equals(this) && territoire.estEntoure())
 			{
 				
 			}
 		}
 	}
 	
-	//Comparer unités
+	//Comparer unités 
 	
 	//Controler des regions
 	
-	//
+	//Choix troupes attaque
+	
+	//Choix placement
 	
 	
 

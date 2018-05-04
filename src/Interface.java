@@ -1873,93 +1873,20 @@ public class Interface {
 		this.sourisX = 0;
 		this.sourisY = 0;
 
-
+		Unitee deplacement;
+		
 		if((sourisX > 0.304 && sourisX < 0.425) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreSoldats() > 0 && territoire1.peutAttaquer())//Soldat
 		{
-			Unitee deplacement = territoire1.uniteDeplacement(0, 0);
-
-			if(deplacement == null)
-			{
-				infosBas(10);
-				return false;
-			}
-			else
-			{
-				territoire1.supprimerUnite(deplacement,0);
-				deplacement.setNombreDeplacement(deplacement.getNombreDeplacement() + 1);
-				territoire2.ajouterUniteTerritoire(deplacement);
-
-				territoire1.ajouterTroupe(-1);
-				territoire1.ajouterSoldats(-1);
-				territoire2.ajouterTroupe(1);
-				territoire2.ajouterSoldats(1);
-
-				reset(2);
-
-				couche = 5;
-				mode = 3;
-
-				return false;
-			}
+			deplacement = territoire1.uniteDeplacement(0, 0);
 
 		}
 		else if((sourisX > 0.445 && sourisX < 0.56) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreCavaliers() > 0 && territoire1.peutAttaquer())//Cavalier
 		{
-			Unitee deplacement = territoire1.uniteDeplacement(1, 0);
-
-			if(deplacement == null)
-			{
-				infosBas(10);
-				return false;
-			}
-			else
-			{
-				territoire1.supprimerUnite(deplacement, 0);
-				deplacement.setNombreDeplacement(deplacement.getNombreDeplacement() + 1);
-				territoire2.ajouterUniteTerritoire(deplacement);
-
-				territoire1.ajouterTroupe(-3);
-				territoire1.ajouterCavaliers(-1);
-				territoire2.ajouterTroupe(3);
-				territoire2.ajouterCavaliers(1);
-
-				reset(2);
-
-				couche = 5;
-				mode = 3;
-
-				return false;
-			}
-
+			deplacement = territoire1.uniteDeplacement(1, 0);
 		}
 		else if((sourisX > 0.58 && sourisX < 0.69) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreCanons() > 0 && territoire1.peutAttaquer())//Canon
 		{
-			Unitee deplacement = territoire1.uniteDeplacement(2, 0);
-
-			if(deplacement == null)
-			{
-				infosBas(10);
-				return false;
-			}
-			else
-			{
-				territoire1.supprimerUnite(deplacement,0);
-				deplacement.setNombreDeplacement(deplacement.getNombreDeplacement() + 1);
-				territoire2.ajouterUniteTerritoire(deplacement);
-
-				territoire1.ajouterTroupe(-7);
-				territoire1.ajouterCanons(-1);
-				territoire2.ajouterTroupe(7);
-				territoire2.ajouterCanons(1);
-
-				reset(2);
-
-				couche = 5;
-				mode = 3;
-
-				return false;
-			}
-
+			deplacement = territoire1.uniteDeplacement(2, 0);
 		}
 		else if((sourisX > 0.4 && sourisX < 0.59) && (sourisY > 0.16 && sourisY < 0.20))
 		{
@@ -1975,6 +1902,23 @@ public class Interface {
 		else
 		{
 			return true;
+		}
+		
+		
+		if(deplacement == null)
+		{
+			infosBas(10);
+			return false;
+		}
+		else
+		{
+			territoire1.deplacement(territoire2, deplacement);
+			reset(2);
+
+			couche = 5;
+			mode = 3;
+
+			return false;
 		}
 	}
 

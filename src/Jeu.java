@@ -13,6 +13,7 @@ public class Jeu {
 	
 	public int tour = 0;
 	public int map = 0;
+	public boolean ia = false;
 	public int nombreJoueurs;
 	
 	public int nombreTroupesATT;

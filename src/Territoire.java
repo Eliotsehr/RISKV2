@@ -641,6 +641,39 @@ public class Territoire {
 		this.proprietaire = territoireVainqueur.proprietaire;
 		
 	}
+	
+	public void deplacement(Territoire territoire2, Unitee deplacement)
+	{
+		
+		
+		
+		this.supprimerUnite(deplacement,0);
+		deplacement.setNombreDeplacement(deplacement.getNombreDeplacement() + 1);
+		territoire2.ajouterUniteTerritoire(deplacement);
+		
+		if(deplacement.getType() == 0)
+		{
+			this.ajouterTroupe(-1);
+			this.ajouterSoldats(-1);
+			territoire2.ajouterTroupe(1);
+			territoire2.ajouterSoldats(1);
+		}
+		else if(deplacement.getType()  == 1)
+		{
+			this.ajouterTroupe(-3);
+			this.ajouterCavaliers(-1);
+			territoire2.ajouterTroupe(3);
+			territoire2.ajouterCavaliers(1);
+		}
+		else
+		{
+			this.ajouterTroupe(-7);
+			this.ajouterCanons(-1);
+			territoire2.ajouterTroupe(7);
+			territoire2.ajouterCanons(1);
+		}
+		
+	}
 	//MODIFICATIONS
 	
 	
@@ -658,7 +691,6 @@ public class Territoire {
 		return true;
 	}
 	
-	
 	public Territoire retrouverAvecNom(String nom)
 	{
 		for(int i = 0;i < risk.listeTerritoires.size();i++)
@@ -671,6 +703,25 @@ public class Territoire {
 		
 		return null;
 	}
+	
+	public boolean appartientAuContinent(Continent continent)
+	{
+		for(int i = 0;i < continent.getTerritoiresDuContinent().size();i++)
+		{
+			if(this.equals(continent.getTerritoiresDuContinent().get(i)))
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	//IA
+
+	
+	
+	
 	
 	//Getters Setters
 	public String getNom() {
