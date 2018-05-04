@@ -4,7 +4,7 @@ public class IA extends Joueur{
 
 	
 	
-	public IA(String nom, int nombreDeTerritoires, int numeroDeJoueur, int nombreTerritoiresCaptures, Mission mission) {
+	public IA(String nom, int nombreDeTerritoires, int numeroDeJoueur, int nombreTerritoiresCaptures, Mission mission,int test) {
 		super(nom, nombreDeTerritoires, numeroDeJoueur, nombreTerritoiresCaptures, mission);
 		
 		
@@ -20,6 +20,12 @@ public class IA extends Joueur{
 			}
 		}
 	}
+	
+	//Comparer unités
+	
+	//Controler des regions
+	
+	//
 	
 	
 
