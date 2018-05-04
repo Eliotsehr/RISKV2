@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Unitee {
 	
@@ -61,6 +62,25 @@ public class Unitee {
 		this.nombreDeplacement = 0;
 	}
 	
+	
+	/**
+	 * Vérifie qu'une unité n'est pas déjà dans la liste des unités qui défendent ou attaque
+	 * @param Unitee unite
+	 * @param ArrayList<Unitee> liste
+	 * @return true ou false
+	 */
+	public boolean pasDansLaListe(ArrayList<Unitee> liste)
+	{
+		for(int i = 0; i < liste.size();i++)
+		{
+			if(liste.get(i) == this)
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
 	
 	//Getters Setters
 	public int getType() {

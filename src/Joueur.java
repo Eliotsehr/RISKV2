@@ -9,6 +9,14 @@ public class Joueur {
 	
 	private Mission mission;
 	
+	private Jeu risk = Main.risk;
+	
+	public int nombreTroupesDeploiement;
+	
+	public int nombreSoldatsDeploiement;
+	public int nombreCavaliersDeploiement;
+	public int nombreCanonsDeploiement;
+
 	
 
 	/**
@@ -19,7 +27,7 @@ public class Joueur {
 	 * @param int nombreTerritoiresCaptures Le nombre de territoires capturés par le joueur au tour précédent
 	 * @param Mission mission La mission à effectuer par le joueur
 	 */
-	public Joueur(String nom, int nombreDeTerritoires, int numeroDeJoueur, int nombreTerritoiresCaptures, Mission mission) {
+ 	public Joueur(String nom, int nombreDeTerritoires, int numeroDeJoueur, int nombreTerritoiresCaptures, Mission mission) {
 		this.nom = nom;
 		this.nombreDeTerritoires = nombreDeTerritoires;
 		this.numeroDeJoueur = numeroDeJoueur;
@@ -42,6 +50,19 @@ public class Joueur {
 		else
 		{
 			return false;
+		}
+	}
+	
+	
+	/**
+	 * Met fin à la partie si un joueur a terminé sa mission
+	 * @param Joueur joueur
+	 */
+	public void missionComplete()
+	{
+		if(this.mission.estComplete(this))
+		{
+			Main.jeu = false;
 		}
 	}
 	//VERIFICATIONS
@@ -86,6 +107,109 @@ public class Joueur {
 	}
 	//MODIFICATIONS
 
+	
+	//RENFORT
+	/**
+	 * Renvoit le nombre de troupes que le joueur doit recevoir
+	 * @param joueur joueur pour lequel on veut savoir le nombre de troupe qu'il obtient au début du tour
+	 * @param type type d'apport, 0 début de partie 1 jeu
+	 * @return nombre de troupes
+	 */
+	public void combienTroupe(boolean debut)
+	{
+		if(debut)//Debut de partie
+		{
+			if(risk.listeJoueurs.size() == 2)
+			{
+				this.nombreTroupesDeploiement = 19;
+			}
+			else if(risk.listeJoueurs.size() == 3)
+			{
+				this.nombreTroupesDeploiement = 21;
+			}
+			else if(risk.listeJoueurs.size() == 4)
+			{
+				this.nombreTroupesDeploiement = 20;
+			}
+			else if(risk.listeJoueurs.size() == 5)
+			{
+				this.nombreTroupesDeploiement = 17;
+			}
+			else
+			{
+				this.nombreTroupesDeploiement = 13;
+			}
+		}
+		else
+		{
+			this.nombreTroupesDeploiement = (int) (Math.floor(this.nombreDeTerritoires/3) + this.bonusContinent() + this.bonusCapture());
+		}
+	}
+	
+	
+	/**
+	 * Donne un bonus de troupe en cas de controle d'un continent
+	 * @param joueur le joueur auquel on donne le bonus
+	 * @return le bonus (int)
+	 */
+	public int bonusContinent()
+	{
+		int bonus = 0;
+		
+		for(int i = 0; i < risk.listeContinents.size();i++)
+		{
+			if(risk.listeContinents.get(i).estControlePar(this, 0))
+			{
+				if(i == 0)
+				{
+					bonus = bonus + 4;
+				}
+				else if(i == 1)
+				{
+					bonus = bonus + 3;
+				}
+				else if(i == 2)
+				{
+					bonus = bonus + 6;
+				}
+				else if(i == 3)
+				{
+					bonus = bonus + 5;
+				}
+				else if(i == 4)
+				{
+					bonus = bonus + 2;
+				}
+				else
+				{
+					bonus = bonus + 2;
+				}
+				
+			}
+		}
+		
+		return bonus;
+	}
+
+
+	/**
+	 * Bonus des territoires capturés au tour précédent
+	 * @param Joueur joueur
+	 * @return le bonus
+	 */
+	public int bonusCapture()
+	{
+		int bonus = 0;
+		
+		for(int i = 0;i<this.nombreTerritoiresCaptures;i++)
+		{
+			bonus = bonus + (int) (Math.random() * 2 - 0) + 0;
+		}
+		
+		return bonus;
+	}
+	//RENFORT
+	
 	
 	//Getters Setters
 	public String getNom() {

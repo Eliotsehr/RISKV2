@@ -6,29 +6,19 @@ import edu.princeton.cs.introcs.StdDraw;
 public class Jeu {
 	
 	public ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
-	
 	public ArrayList<Territoire> listeTerritoires = new ArrayList<Territoire>();
-	public ArrayList<Territoire> listeGagnants = new ArrayList<Territoire>();
+	
 	
 	public ArrayList<Continent> listeContinents = new ArrayList<Continent>();
 	
 	public int tour = 0;
 	public int map = 0;
 	public int nombreJoueurs;
-	public int nombreTroupesDeploiement;
-	
-	public int nombreSoldats;
-	public int nombreCavaliers;
-	public int nombreCanons;
 	
 	public int nombreTroupesATT;
 	
-	public ArrayList<Integer> desATT = new ArrayList<Integer>();
-	public ArrayList<Integer> desDEF = new ArrayList<Integer>();
 	
-	public ArrayList<Unitee> uniteeATT = new ArrayList<Unitee>();
-	public ArrayList<Unitee> uniteeDEF = new ArrayList<Unitee>();
-	
+	public ArrayList<Territoire> listeGagnants = new ArrayList<Territoire>();
 	public ArrayList<Joueur> listeElimines = new ArrayList<Joueur>();
 	
 	
@@ -36,8 +26,6 @@ public class Jeu {
 	 * Constructeur du jeu, initialise les territoires, continent et unités
 	 */
 	public Jeu() {
-		
-		
 	}
 	
 	public void creerTerritoires()
@@ -138,7 +126,7 @@ public class Jeu {
 				ArrayList<Unitee> liste = new ArrayList<Unitee>();
 						
 				listeTerritoires.get(i).setListeUnitees(liste);
-				listeTerritoires.get(i).ajouterUnite(new Unitee(0,1,6,2,1,2,0,0));
+				listeTerritoires.get(i).ajouterUniteTerritoire(new Unitee(0,1,6,2,1,2,0,0));
 			}
 			
 			
@@ -258,13 +246,13 @@ public class Jeu {
 			listeTerritoires.add(new Territoire("Westerlands",null,1,listeWL,1,0,0,null));
 			listeTerritoires.add(new Territoire("Shield Lands",null,1,listeSL,1,0,0,null));
 			listeTerritoires.add(new Territoire("The Reach",null,1,listeTRE,1,0,0,null));
-			listeTerritoires.add(new Territoire("Stromlands",null,1,listeSTRM,1,0,0,null));
+			listeTerritoires.add(new Territoire("Stormlands",null,1,listeSTRM,1,0,0,null));
 			listeTerritoires.add(new Territoire("Whispering Sounds",null,1,listeWS,1,0,0,null));
 			listeTerritoires.add(new Territoire("Red Mountains",null,1,listeRM,1,0,0,null));
 			listeTerritoires.add(new Territoire("Dorne",null,1,listeDR,1,0,0,null));
 			listeTerritoires.add(new Territoire("Braavosian Coastland",null,1,listeBC,1,0,0,null));
 			listeTerritoires.add(new Territoire("Andalos",null,1,listeAN,1,0,0,null));
-			listeTerritoires.add(new Territoire("Fills Of Norvos",null,1,listeFON,1,0,0,null));
+			listeTerritoires.add(new Territoire("Fills of Norvos",null,1,listeFON,1,0,0,null));
 			listeTerritoires.add(new Territoire("Qhoyne Lands",null,1,listeQHL,1,0,0,null));
 			listeTerritoires.add(new Territoire("Forrest Of Dohor",null,1,listeFOD,1,0,0,null));
 			listeTerritoires.add(new Territoire("The Golden Fields",null,1,listeTGF,1,0,0,null));
@@ -300,7 +288,7 @@ public class Jeu {
 				ArrayList<Unitee> liste = new ArrayList<Unitee>();
 						
 				listeTerritoires.get(i).setListeUnitees(liste);
-				listeTerritoires.get(i).ajouterUnite(new Unitee(0,1,6,2,1,2,0,0));
+				listeTerritoires.get(i).ajouterUniteTerritoire(new Unitee(0,1,6,2,1,2,0,0));
 			}
 			
 			//Continents
@@ -356,420 +344,7 @@ public class Jeu {
 			listeContinents.add(new Continent(6,c7));
 		}
 	}
-	
-	
-	//TROUPES
-	/**
-	 * Renvoit le nombre de troupes que le joueur doit recevoir
-	 * @param joueur joueur pour lequel on veut savoir le nombre de troupe qu'il obtient au début du tour
-	 * @param type type d'apport, 0 début de partie 1 jeu
-	 * @return nombre de troupes
-	 */
-	public int combienTroupe(Joueur joueur, boolean debut)
-	{
-		if(debut)//Debut de partie
-		{
-			if(listeJoueurs.size() == 2)
-			{
-				return 19;
-			}
-			else if(listeJoueurs.size() == 3)
-			{
-				return 21;
-			}
-			else if(listeJoueurs.size() == 4)
-			{
-				return 20;
-			}
-			else if(listeJoueurs.size() == 5)
-			{
-				return 17;
-			}
-			else
-			{
-				return 13;
-			}
-		}
-		else
-		{
-			return (int) Math.floor(joueur.getNombreDeTerritoires()/3) + bonusContinent(listeJoueurs.get(tour)) + bonusCapture(listeJoueurs.get(tour));
-		}
-	}
-	
-	
-	/**
-	 * Donne un bonus de troupe en cas de controle d'un continent
-	 * @param joueur le joueur auquel on donne le bonus
-	 * @return le bonus (int)
-	 */
-	public int bonusContinent(Joueur joueur)
-	{
-		int bonus = 0;
-		
-		for(int i = 0; i < listeContinents.size();i++)
-		{
-			if(listeContinents.get(i).estControlePar(joueur, 0))
-			{
-				if(i == 0)
-				{
-					bonus = bonus + 4;
-				}
-				else if(i == 1)
-				{
-					bonus = bonus + 3;
-				}
-				else if(i == 2)
-				{
-					bonus = bonus + 6;
-				}
-				else if(i == 3)
-				{
-					bonus = bonus + 5;
-				}
-				else if(i == 4)
-				{
-					bonus = bonus + 2;
-				}
-				else
-				{
-					bonus = bonus + 2;
-				}
-				
-			}
-		}
-		
-		return bonus;
-	}
 
-	
-	/**
-	 * Bonus des territoires capturés au tour précédent
-	 * @param Joueur joueur
-	 * @return le bonus
-	 */
-	public int bonusCapture(Joueur joueur)
-	{
-		int bonus = 0;
-		
-		for(int i = 0;i<joueur.getNombreTerritoiresCaptures();i++)
-		{
-			bonus = bonus + (int) (Math.random() * 2 - 0) + 0;
-		}
-		
-		return bonus;
-	}
-	//TROUPES
-	
-	
-	//ATTAQUE
-	/**
-	 * Lance une attaque d'un territoire sur un autre
-	 * @param territoireDEF le territoire qui se défend
-	 * @return une liste avec les territoires qui ont gagné pour chaque lancé
-	 */
-	public void attaque(Territoire territoireATT, Territoire territoireDEF)
-	{
-
-		int nombreDesDEF = territoireDEF.nombreDesDEF();
-		
-		uniteeATT = listeUniteeATT(uniteeATT);
-		uniteeDEF = listeUniteeDEF(territoireDEF, nombreDesDEF);
-		
-		
-		uniteeATT = triDes(lanceDes(uniteeATT));
-		uniteeDEF = triDes(lanceDes(uniteeDEF));
-		
-		prioriteATT(uniteeATT);
-		prioriteDEF(uniteeDEF);
-		
-		ArrayList<Territoire> listeGagnants = gagnant(uniteeATT,uniteeDEF,territoireATT,territoireDEF);
-		
-		
-		miseAJourProprietaire(territoireATT, territoireDEF);
-		
-		
-		this.listeGagnants = listeGagnants;
-	}
-
-	
-	/**
-	 * Définit la liste des unités qui vont défendre
-	 * @param territoireDEF Le territoire qui se défend
-	 * @param nombreDesDEF nombre de des en défense
-	 * @return la liste
-	 */
-	public ArrayList<Unitee> listeUniteeDEF(Territoire territoireDEF,int nombreDesDEF)
-	{
-		int soldats = territoireDEF.getNombreSoldats();
-		int canons = territoireDEF.getNombreCanons();
-		int cavaliers = territoireDEF.getNombreCavaliers();
-		
-		ArrayList<Unitee> listeUniteeDEF = new ArrayList<Unitee>();
-		
-		for(int i = 0;i<nombreDesDEF;i++)
-		{
-			if(soldats > 0)
-			{
-				listeUniteeDEF.add(ajouterUnite(0,0,listeUniteeDEF,territoireDEF));
-				soldats--;
-			}
-			else if(canons > 0)
-			{
-				listeUniteeDEF.add(ajouterUnite(2,0,listeUniteeDEF,territoireDEF));
-				canons--;
-			}
-			else if(cavaliers > 0)
-			{
-				listeUniteeDEF.add(ajouterUnite(1,0,listeUniteeDEF,territoireDEF));
-				cavaliers--;
-			}
-		}
-		
-		return listeUniteeDEF;
-	}
-
-	
-	/**
-	 * Liste des unitée qui attaque triée
-	 * @param listeUniteeATT
-	 * @return la liste
-	 */
-	public ArrayList<Unitee> listeUniteeATT(ArrayList<Unitee> listeUniteeATT)
-	{
-	
-		for(int i = 0;i<listeUniteeATT.size();i++)
-		{
-			for(int j = 0;j<listeUniteeATT.size();j++)
-			{
-				if(listeUniteeATT.get(i).getpATT() < listeUniteeATT.get(j).getpATT())
-				{
-					Unitee pivot = listeUniteeATT.get(i);
-					
-					listeUniteeATT.set(i, listeUniteeATT.get(j));
-					listeUniteeATT.set(j, pivot);
-				}
-			}
-		}
-		
-		return listeUniteeATT;
-	}
-	
-	
-	/**
-	 * Ajoute des unités dans la liste
-	 * @param int type le type d'unité
-	 * @param int rang 0 par défaut
-	 * @param ArrayList<Unitee> listeUniteeDEF
-	 * @param Territoire territoireDEF
-	 * @return l'unité à ajouter
-	 */
-	public Unitee ajouterUnite(int type,int rang, ArrayList<Unitee> listeUniteeDEF, Territoire territoireDEF)
-	{
-		if(listeUniteeDEF.size() == 0 && territoireDEF.getListeUnitees().get(rang).getType() == type)
-		{
-			return territoireDEF.getListeUnitees().get(rang);
-		}
-		else if(territoireDEF.getListeUnitees().get(rang).getType() == type && pasDansLaListe(territoireDEF.getListeUnitees().get(rang),listeUniteeDEF))
-		{
-			return territoireDEF.getListeUnitees().get(rang);
-		}
-		else
-		{
-			return ajouterUnite(type, rang+1 , listeUniteeDEF, territoireDEF);
-		}
-	}
-		
-	
-	/**
-	 * Vérifie qu'une unité n'est pas déjà dans la liste des unités qui défendent ou attaque
-	 * @param Unitee unite
-	 * @param ArrayList<Unitee> liste
-	 * @return true ou false
-	 */
-	public boolean pasDansLaListe(Unitee unite, ArrayList<Unitee> liste)
-	{
-		for(int i = 0; i < liste.size();i++)
-		{
-			if(liste.get(i) == unite)
-			{
-				return false;
-			}
-		}
-		
-		return true;
-	}
-	
-	
-	/**
-	 * Permet de réaliser n lancement de des
-	 * @param nombreDes int le nombre de des qu'on veut lancer
-	 * @return une liste avec les résultats
-	 */
-	public ArrayList<Unitee> lanceDes(ArrayList<Unitee> listeUnitees)
-	{
-		for(int i = 0;i<listeUnitees.size();i++)
-		{
-			int random = (int) (Math.random() * (listeUnitees.get(i).getpMax()-listeUnitees.get(i).getpMin())+1 - 0)+listeUnitees.get(i).getpMin();
-			listeUnitees.get(i).setScoreDES(random);
-		}
-		return listeUnitees;
-	}
-	
-	
-	/**
-	 * Tri une liste de dés dans l'ordre décroissant
-	 * @param listeDes ArrayList<Integer>  la liste à trier
-	 * @return la liste triée dans l'ordre croissant
-	 */
-	public ArrayList<Unitee> triDes(ArrayList<Unitee> listeUnitee)
-	{
-		for(int i = 0;i < listeUnitee.size();i++)
-		{
-			for(int j = 0;j < listeUnitee.size();j++)
-			{
-				if(listeUnitee.get(i).getScoreDES() > listeUnitee.get(j).getScoreDES())
-				{
-					Unitee pivot = listeUnitee.get(i);
-					
-					listeUnitee.set(i, listeUnitee.get(j));
-					listeUnitee.set(j, pivot);
-				}
-			}
-		}
-		
-		return listeUnitee;
-	}
-
-	
-	/**
-	 * Trie la liste des unités d'attaque en cas d'égalité en fonction des priorités
-	 * @param liste
-	 */
-	public void prioriteATT(ArrayList<Unitee> liste)
-	{
-		for(int i = 0; i < liste.size();i++)
-		{
-			for(int j = 0;j < liste.size();j++)
-			{
-				if(liste.get(i).getpATT() < liste.get(j).getpATT() && liste.get(i).getScoreDES() == liste.get(j).getScoreDES())
-				{
-					Unitee pivot = liste.get(i);
-					
-					liste.set(i, liste.get(j));
-					liste.set(j, pivot);
-				}
-			}
-		}
-	}
-	
-	
-	/**
-	 * Trie la liste des unités d'attaque en cas d'égalité en fonction des priorités
-	 * @param liste
-	 */
-	public void prioriteDEF(ArrayList<Unitee> liste)
-	{
-		for(int i = 0; i < liste.size();i++)
-		{
-			for(int j = 0;j < liste.size();j++)
-			{
-				if(liste.get(i).getpDEF() < liste.get(j).getpDEF() && liste.get(i).getScoreDES() == liste.get(j).getScoreDES())
-				{
-					Unitee pivot = liste.get(i);
-					
-					liste.set(i, liste.get(j));
-					liste.set(j, pivot);
-				}
-			}
-		}
-	}
-	
-	
-	/**
-	 * Effectue la comparaison des valeurs des dés
-	 * @param listeDesATT les valeurs des dés d'attaque
-	 * @param listeDesDEF les valeurs des dés de défense
-	 * @param territoireDEF le territoire qui se défend
-	 * @return la liste des territoires qui ont gagné
-	 */
-	public ArrayList<Territoire> gagnant(ArrayList<Unitee> uniteeATT, ArrayList<Unitee> uniteeDEF,Territoire territoireATT,Territoire territoireDEF)
-	{
-		ArrayList<Territoire> listeGagnants = new ArrayList<Territoire>();
-		
-		int compare;
-		
-		if(uniteeATT.size() > uniteeDEF.size())
-		{
-			compare = uniteeDEF.size();
-		}
-		else
-		{
-			compare = uniteeATT.size();
-		}
-		
-		for(int i = 0; i < compare;i++)
-		{
-			if(uniteeATT.get(i).getScoreDES() > uniteeDEF.get(i).getScoreDES())
-			{
-				listeGagnants.add(territoireATT);
-				miseAJourUnitee(uniteeDEF.get(i),territoireDEF);
-			}
-			else
-			{
-				listeGagnants.add(territoireDEF);
-				miseAJourUnitee(uniteeATT.get(i),territoireATT);
-			}
-		}
-		
-		return listeGagnants;
-	}
-	
-	
-	/**
-	 * Met à jour l'affichage et le nombre d'unités
-	 * @param Unitee unitee
-	 * @param Territoire territoire
-	 */
-	public void miseAJourUnitee(Unitee unitee, Territoire territoire)
-	{
-		if(unitee.getType() == 0)
-		{
-			territoire.supprimerUniteAleat(0, 0);
-			
-			territoire.ajouterSoldats(-1);
-			territoire.ajouterTroupe(-1);
-		}
-		else if(unitee.getType() == 1)
-		{
-			territoire.supprimerUniteAleat(1, 0);
-			
-			territoire.ajouterCavaliers(-1);
-			territoire.ajouterTroupe(-3);
-		}
-		else if(unitee.getType() == 2)
-		{
-			territoire.supprimerUniteAleat(2, 0);
-			
-			territoire.ajouterCanons(-1);
-			territoire.ajouterTroupe(-7);
-		}
-	}
-	
-	/**
-	 * Met à jour le proprietaire d'un territoire
-	 * @param territoireATT le territoire qui attaque
-	 * @param territoireDEF territoire qui était attaqué
-	 */
-	public void miseAJourProprietaire(Territoire territoireATT,Territoire territoireDEF)
-	{	
-		if(territoireDEF.estConquis())
-		{
-			territoireDEF.changeProprietaire(territoireATT);
-			
-		}
-	}
-	//ATTAQUE
-	
 	
 	//DIVERS
 	/**
@@ -865,17 +440,7 @@ public class Jeu {
 	}
 	
 	
-	/**
-	 * Met fin à la partie si un joueur a terminé sa mission
-	 * @param Joueur joueur
-	 */
-	public void missionComplete(Joueur joueur)
-	{
-		if(joueur.getMission().estComplete(joueur))
-		{
-			Main.jeu = false;
-		}
-	}
+
 	
 	
 	/**
@@ -929,36 +494,6 @@ public class Jeu {
 	}
 
 	
-	/**
-	 * Deploie des toupes sur le territoire séléctionné
-	 */
-	public void deploiement(Territoire territoire)
-	{
-		if(nombreCanons > 0)
-		{
-			territoire.ajouterUnite(new Unitee(2,4,9,3,2,1,0,0));//Canon
-			
-			territoire.ajouterTroupe(7);
-			territoire.ajouterCanons(1);
-			nombreCanons--;
-		}
-		else if(nombreCavaliers > 0)
-		{
-			territoire.ajouterUnite(new Unitee(1,2,7,1,3,3,0,0));//Cavalier
-			
-			territoire.ajouterTroupe(3);
-			territoire.ajouterCavaliers(1);
-			nombreCavaliers--;
-		}
-		else
-		{
-			territoire.ajouterUnite(new Unitee(0,1,6,2,1,2,0,0));//Soldat
-			
-			territoire.ajouterTroupe(1);
-			territoire.ajouterSoldats(1);
-			nombreSoldats--;
-		}
-	}
 	
 	
 	/**

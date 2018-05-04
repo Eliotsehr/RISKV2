@@ -7,6 +7,7 @@ public class Territoire {
 	private String nom = new String();
 	
 	private int nombreTroupesTotal;
+	
 	private int nombreSoldats;
 	private int nombreCavaliers;
 	private int nombreCanons;
@@ -16,6 +17,8 @@ public class Territoire {
 	private String[] territoiresAdjacents;
 	
 	private ArrayList<Unitee> listeUnitees;
+	
+	ArrayList<Unitee> uniteCombat = new ArrayList<Unitee>();
 	
 	Jeu risk = Main.risk;
 	
@@ -133,6 +136,8 @@ public class Territoire {
 		}
 		return false;
 	}
+	//VERIFICATIONS
+	
 	
 	/**
 	 * Remet les troupes sur le territoire après un combat
@@ -159,15 +164,9 @@ public class Territoire {
 			}
 		}
 	}
-	//VERIFICATIONS
 	
-	public void afficheUnitee()
-	{
-		for(int i = 0; i < this.listeUnitees.size();i++)
-		{
-			System.out.println(this.listeUnitees.get(i));
-		}
-	}
+	
+
 	
 	//ATTAQUE
 	/**
@@ -206,10 +205,280 @@ public class Territoire {
 			return 2;
 		}
 	}
+	
+	
+	
+	/**
+	 * Lance une attaque
+	 * @param territoireDEF
+	 */
+	public void attaque(Territoire territoireDEF)
+	{
+		//On determine le nombre de troupes qui vont défendre
+		int nombreDesDEF = territoireDEF.nombreDesDEF();
+	
+		//On determine quelles troupes en fonction de leur priorité
+		territoireDEF.listeUniteeDEF(nombreDesDEF);
+		
+		//On lance les dés
+		this.lanceDes();
+		territoireDEF.lanceDes();
+		
+		//On tri le lancer par ordre décroissant
+		this.triDes();
+		territoireDEF.lanceDes();
+		
+		//On check si on doit gérer les priorités
+		this.prioriteATT();
+		territoireDEF.prioriteDEF();
+		
+		//Resultat du combat
+		this.gagnant(territoireDEF);
+		
+		
+		//On met à jour les variables (unités et propriétaire)
+		this.miseAJourProprietaire(territoireDEF);
+	}
+	
+	
+	/**
+	 * Définit la liste des unités qui vont défendre
+	 * @param nombreDesDEF nombre de des en défense
+	 * @return la liste
+	 */
+	public void listeUniteeDEF(int nombreDesDEF)
+	{
+		int soldats = this.nombreSoldats;
+		int canons = this.nombreCanons;
+		int cavaliers = this.nombreCavaliers;
+		
+		for(int i = 0;i<nombreDesDEF;i++)
+		{
+			if(soldats > 0)
+			{
+				this.ajouterUniteListe(0,0);
+				soldats--;
+			}
+			else if(canons > 0)
+			{
+				this.ajouterUniteListe(2,0);
+				canons--;
+			}
+			else if(cavaliers > 0)
+			{
+				this.ajouterUniteListe(1,0);
+				cavaliers--;
+			}
+		}
+
+	}
+
+	
+	/**
+	 * Permet de réaliser n lancement de des
+	 * @param nombreDes int le nombre de des qu'on veut lancer
+	 * @return une liste avec les résultats
+	 */
+	public void lanceDes()
+	{
+		for(int i = 0;i<this.uniteCombat.size();i++)
+		{
+			Des de = new Des(this.uniteCombat.get(i).getpMin(),this.uniteCombat.get(i).getpMax());	
+			int random = de.lanceDes();
+			this.uniteCombat.get(i).setScoreDES(random);
+		}
+	}
+	
+	
+	/**
+	 * Tri une liste de dés dans l'ordre décroissant
+	 * @param listeDes ArrayList<Integer>  la liste à trier
+	 * @return la liste triée dans l'ordre croissant
+	 */
+	public void triDes()
+	{
+		for(int i = 0;i < this.uniteCombat.size();i++)
+		{
+			for(int j = 0;j < this.uniteCombat.size();j++)
+			{
+				if(this.uniteCombat.get(i).getScoreDES() > this.uniteCombat.get(j).getScoreDES())
+				{
+					Unitee pivot = this.uniteCombat.get(i);
+					
+					this.uniteCombat.set(i, this.uniteCombat.get(j));
+					this.uniteCombat.set(j, pivot);
+				}
+			}
+		}
+	}
+
+	
+	/**
+	 * Trie la liste des unités d'attaque en cas d'égalité en fonction des priorités
+	 * @param liste
+	 */
+	public void prioriteATT()
+	{
+		for(int i = 0; i < this.uniteCombat.size();i++)
+		{
+			for(int j = 0;j < this.uniteCombat.size();j++)
+			{
+				if(this.uniteCombat.get(i).getpATT() < this.uniteCombat.get(j).getpATT() && this.uniteCombat.get(i).getScoreDES() == this.uniteCombat.get(j).getScoreDES())
+				{
+					Unitee pivot = this.uniteCombat.get(i);
+					
+					this.uniteCombat.set(i, this.uniteCombat.get(j));
+					this.uniteCombat.set(j, pivot);
+				}
+			}
+		}
+	}
+	
+	
+	/**
+	 * Trie la liste des unités d'attaque en cas d'égalité en fonction des priorités
+	 * @param liste
+	 */
+	public void prioriteDEF()
+	{
+		for(int i = 0; i < this.uniteCombat.size();i++)
+		{
+			for(int j = 0;j < this.uniteCombat.size();j++)
+			{
+				if(this.uniteCombat.get(i).getpDEF() < this.uniteCombat.get(j).getpDEF() && this.uniteCombat.get(i).getScoreDES() == this.uniteCombat.get(j).getScoreDES())
+				{
+					Unitee pivot = this.uniteCombat.get(i);
+					
+					this.uniteCombat.set(i, this.uniteCombat.get(j));
+					this.uniteCombat.set(j, pivot);
+				}
+			}
+		}
+	}
+	
+	
+	/**
+	 * Effectue la comparaison des valeurs des dés
+	 * @param listeDesATT les valeurs des dés d'attaque
+	 * @param listeDesDEF les valeurs des dés de défense
+	 * @param territoireDEF le territoire qui se défend
+	 * @return la liste des territoires qui ont gagné
+	 */
+	public void gagnant(Territoire territoireDEF)
+	{
+		ArrayList<Territoire> listeGagnants = new ArrayList<Territoire>();
+		
+		int compare;
+		
+		if(this.uniteCombat.size() > territoireDEF.uniteCombat.size())
+		{
+			compare = territoireDEF.uniteCombat.size();
+		}
+		else
+		{
+			compare = this.uniteCombat.size();
+		}
+		
+		for(int i = 0; i < compare;i++)
+		{
+			if(this.uniteCombat.get(i).getScoreDES() > territoireDEF.uniteCombat.get(i).getScoreDES())
+			{
+				listeGagnants.add(this);
+				territoireDEF.miseAJourUnitee(territoireDEF.uniteCombat.get(i));
+			}
+			else
+			{
+				listeGagnants.add(territoireDEF);
+				this.miseAJourUnitee(this.uniteCombat.get(i));
+			}
+		}
+		
+		risk.listeGagnants = listeGagnants;
+	}
+	
+	
+	
+	/**
+	 * Met à jour l'affichage et le nombre d'unités
+	 * @param Unitee unitee
+	 * @param Territoire territoire
+	 */
+	public void miseAJourUnitee(Unitee unitee)
+	{
+		if(unitee.getType() == 0)
+		{
+			this.supprimerUniteAleat(0, 0);
+			
+			this.ajouterSoldats(-1);
+			this.ajouterTroupe(-1);
+		}
+		else if(unitee.getType() == 1)
+		{
+			this.supprimerUniteAleat(1, 0);
+			
+			this.ajouterCavaliers(-1);
+			this.ajouterTroupe(-3);
+		}
+		else if(unitee.getType() == 2)
+		{
+			this.supprimerUniteAleat(2, 0);
+			
+			this.ajouterCanons(-1);
+			this.ajouterTroupe(-7);
+		}
+	}
+	
+	
+	/**
+	 * Met à jour le proprietaire d'un territoire
+	 * @param territoireATT le territoire qui attaque
+	 * @param territoireDEF territoire qui était attaqué
+	 */
+	public void miseAJourProprietaire(Territoire territoireDEF)
+	{	
+		if(territoireDEF.estConquis())
+		{
+			territoireDEF.changeProprietaire(this);
+			
+		}
+	}
 	//ATTAQUE
 
 	
 	//MODIFICATIONS
+	/**
+	 * Deploie des toupes sur le territoire séléctionné
+	 */
+	public void deploiement(Joueur joueur)
+	{
+		if(joueur.nombreCanonsDeploiement > 0)
+		{
+			this.ajouterUniteTerritoire(new Unitee(2,4,9,3,2,1,0,0));//Canon
+			
+			this.ajouterTroupe(7);
+			this.ajouterCanons(1);
+			
+			joueur.nombreCanonsDeploiement--;
+		}
+		else if(joueur.nombreCavaliersDeploiement > 0)
+		{
+			this.ajouterUniteTerritoire(new Unitee(1,2,7,1,3,3,0,0));//Cavalier
+			
+			this.ajouterTroupe(3);
+			this.ajouterCavaliers(1);
+			joueur.nombreCavaliersDeploiement--;
+		}
+		else
+		{
+			this.ajouterUniteTerritoire(new Unitee(0,1,6,2,1,2,0,0));//Soldat
+			
+			this.ajouterTroupe(1);
+			this.ajouterSoldats(1);
+			joueur.nombreSoldatsDeploiement--;
+		}
+	}
+	
+	
 	/**
 	 * Permet d'ajouter des troupes sur un territoire
 	 * @param nombreTroupes le nombre de troupes qu'on veut ajouter
@@ -219,6 +488,7 @@ public class Territoire {
 		this.nombreTroupesTotal = this.nombreTroupesTotal + nombreTroupes;
 	}
 
+	
 	/**
 	 * Permet d'ajouter des soldats sur un territoire
 	 * @param nombreSoldats
@@ -249,14 +519,45 @@ public class Territoire {
 	}
 	
 	
+	
+	
 	/**
 	 * Ajoute une unite sur un territoire
 	 * @param unite
 	 */
-	public void ajouterUnite(Unitee unite)
+	public void ajouterUniteTerritoire(Unitee unite)
 	{
 		this.listeUnitees.add(unite);
 	}
+	
+	
+	/**
+	 * Ajoute des unités dans la liste
+	 * @param int type le type d'unité
+	 * @param int rang 0 par défaut
+	 * @param ArrayList<Unitee> listeUniteeDEF
+	 * @param Territoire territoireDEF
+	 * @return l'unité à ajouter
+	 */
+	public void ajouterUniteListe(int type,int rang)
+	{
+		if(this.uniteCombat.size() == 0 && this.listeUnitees.get(rang).getType() == type)
+		{
+			this.uniteCombat.add(this.listeUnitees.get(rang));
+		}
+		else if(this.listeUnitees.get(rang).getType() == type && this.listeUnitees.get(rang).pasDansLaListe(this.uniteCombat))
+		{
+			this.uniteCombat.add(this.listeUnitees.get(rang));
+		}
+		else
+		{
+			ajouterUniteListe(type, rang+1);
+		}
+	}
+		
+
+	
+	
 	
 	/**
 	 * Supprime aléatoirement une unité sur le territoire

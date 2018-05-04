@@ -7,7 +7,7 @@ public class Mission {
 	
 	private Jeu risk = Main.risk;
 	
-	private Joueur joueurAEliminer;
+	public Joueur joueurAEliminer;
 	
 	
 	/**
