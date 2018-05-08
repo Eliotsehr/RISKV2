@@ -717,6 +717,27 @@ public class Territoire {
 		return false;
 	}
 
+	
+	public int rapportUnités(Territoire territoireDEF)
+	{
+		int force = 0;
+		
+		if(this.nombreCanons > territoireDEF.nombreCanons)
+		{
+			force++;
+		}
+		if(this.nombreCavaliers > territoireDEF.nombreCavaliers)
+		{
+			force++;
+		}
+		if(this.nombreSoldats > territoireDEF.nombreSoldats)
+		{
+			force++;
+		}
+	
+		return force;
+	}
+	
 	//IA
 
 	

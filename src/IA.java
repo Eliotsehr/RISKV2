@@ -8,6 +8,37 @@ public class IA extends Joueur{
 		
 	}
 
+	
+	
+	
+	//Comparer unités 
+	/**
+	 * Attaque les territoires plus fabile que lui
+	 */
+	public void attaqueBasique()
+	{
+		for(int i = 0; i < risk.listeTerritoires.size(); i++)
+		{
+			if(risk.listeTerritoires.get(i).getProprietaire().equals(this) && risk.listeTerritoires.get(i).peutAttaquer())
+			{
+				for(int j = 0; j < risk.listeTerritoires.get(i).getTerritoiresAdjacents().length;j++)
+				{
+					Territoire territoireDEF = null;
+					
+					territoireDEF = territoireDEF.retrouverAvecNom(risk.listeTerritoires.get(i).getTerritoiresAdjacents()[j]);
+					
+					if(risk.listeTerritoires.get(i).rapportUnités(territoireDEF) >= 2 && territoireDEF.getProprietaire() != this)
+					{
+						risk.listeTerritoires.get(i).attaque(territoireDEF);
+					}
+				}
+			}
+		}
+	}
+	
+	
+	
+	//Deplacement
 	public void deplaceUniteeBloquee()
 	{
 		for(int i = 0; i < risk.listeTerritoires.size(); i++)
@@ -21,14 +52,24 @@ public class IA extends Joueur{
 		}
 	}
 	
-	//Comparer unités 
 	
 	//Controler des regions
 	
 	//Choix troupes attaque
 	
 	//Choix placement
-	
+	public void placement()
+	{
+		for(int i = 0; i < risk.listeTerritoires.size();i++)
+		{
+			if(risk.listeTerritoires.get(i).appartientA(this) && risk.listeTerritoires.get(i).estEntoure() == false)
+			{
+				
+				
+				
+			}
+		}
+	}
 	
 
 }
