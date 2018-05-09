@@ -895,8 +895,13 @@ public class Interface {
 					}
 				}
 			}
-
+			
 			risk.nombreJoueurs = Integer.parseInt(nombreJoueur);
+			
+			if(risk.nombreJoueurs > 6 || risk.nombreJoueurs < 2)
+			{
+				risk.nombreJoueurs = 2;
+			}
 			this.couche = 2;//Nom joueurs
 			ecranNomJoueurs();
 
