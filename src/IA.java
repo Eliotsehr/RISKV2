@@ -1,11 +1,15 @@
+import java.util.ArrayList;
+
 public class IA extends Joueur{
 
 	Jeu risk = Main.risk;
 	
-	public IA(String nom, int nombreDeTerritoires, int numeroDeJoueur, int nombreTerritoiresCaptures, Mission mission,int test) {
+	private ArrayList<Territoire> listeTerritoiresControles;
+	
+	public IA(String nom, int nombreDeTerritoires, int numeroDeJoueur, int nombreTerritoiresCaptures, Mission mission,ArrayList<Territoire> listeTerritoiresControles) {
 		super(nom, nombreDeTerritoires, numeroDeJoueur, nombreTerritoiresCaptures, mission);
 		
-		
+		this.listeTerritoiresControles = listeTerritoiresControles;
 	}
 
 	
@@ -15,27 +19,39 @@ public class IA extends Joueur{
 	/**
 	 * Attaque les territoires plus fabile que lui
 	 */
-	public void attaqueBasique()
+	public Territoire attaqueBasique()
 	{
-		for(int i = 0; i < risk.listeTerritoires.size(); i++)
+		for(int i = 0; i < this.listeTerritoiresControles.size();i++)
 		{
-			if(risk.listeTerritoires.get(i).getProprietaire().equals(this) && risk.listeTerritoires.get(i).peutAttaquer())
+			if(this.listeTerritoiresControles.get(i).peutAttaquer())
 			{
-				for(int j = 0; j < risk.listeTerritoires.get(i).getTerritoiresAdjacents().length;j++)
+				for(int j = 0;j < this.listeTerritoiresControles.get(i).getTerritoiresAdjacents().length;j++)
 				{
-					Territoire territoireDEF = null;
-					
-					territoireDEF = territoireDEF.retrouverAvecNom(risk.listeTerritoires.get(i).getTerritoiresAdjacents()[j]);
-					
-					if(risk.listeTerritoires.get(i).rapportUnités(territoireDEF) >= 2 && territoireDEF.getProprietaire() != this)
+					if(listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]).appartientA(this) == false)
 					{
-						risk.listeTerritoires.get(i).attaque(territoireDEF);
+						return listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]);
 					}
 				}
 			}
 		}
+		
+		return null;
 	}
 	
+	
+	//Divers
+	public boolean peutAttaquer()
+	{
+		for(int i = 0; i < this.listeTerritoiresControles.size();i++)
+		{
+			if(this.listeTerritoiresControles.get(i).peutAttaquer())
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	
 	
 	//Deplacement
@@ -69,6 +85,20 @@ public class IA extends Joueur{
 				
 			}
 		}
+	}
+
+
+
+
+	public ArrayList<Territoire> getListeTerritoiresControles() {
+		return listeTerritoiresControles;
+	}
+
+
+
+
+	public void setListeTerritoiresControles(ArrayList<Territoire> listeTerritoiresControles) {
+		this.listeTerritoiresControles = listeTerritoiresControles;
 	}
 	
 

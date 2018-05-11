@@ -77,7 +77,9 @@ public class Jeu {
 			String[] listeADO = {"Australie de l'Est","Nouvelle Guinée","Indonésie"};
 			String[] listeADE = {"Australie de l'Ouest","Nouvelle Guinnée"};
 			
-			//Territoires			
+			//Territoires	
+			
+			
 			listeTerritoires.add(new Territoire("Island",null,1,listeIS,1,0,0,null));
 			listeTerritoires.add(new Territoire("Scandinavie",null,1,listeSC,1,0,0,null));
 			listeTerritoires.add(new Territoire("Grande-Bretagne",null,1,listeGB,1,0,0,null));
