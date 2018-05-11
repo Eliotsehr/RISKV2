@@ -43,7 +43,24 @@ public class IA extends Joueur{
 		}
 	}
 	
-	
+	public void choixUnitesAttaque(Territoire territoire)
+	{
+		Unitee uniteATT = new Unitee(0,0,0,0,0,0,0,0);
+		int type = 0;
+		for(int i = 0;i < territoire.getListeUnitees().size() || i < 3;i++)
+		{
+			for(int j = 0;j < territoire.getListeUnitees().size();j++)
+			{
+				if(territoire.getListeUnitees().get(j).getpMax() > uniteATT.getpMax())
+				{
+					uniteATT = territoire.getListeUnitees().get(j);
+					type = uniteATT.getType();
+				}
+			}
+			
+			territoire.ajouterUniteListe(type, 0);
+		}
+	}
 	//Divers
 	/**
 	 * Check si l'IA peut encore attaquer
