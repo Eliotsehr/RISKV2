@@ -15,36 +15,45 @@ public class IA extends Joueur{
 	
 	
 	
-	//Comparer unités 
-	/**
-	 * Attaque les territoires plus fabile que lui
-	 */
-	public Territoire attaqueBasique()
+	//Attaque
+	
+	public Territoire territoireQuiAttaque(int rang)
 	{
-		for(int i = 0; i < this.listeTerritoiresControles.size();i++)
+		if(this.listeTerritoiresControles.get(rang).peutAttaquer() && this.listeTerritoiresControles.get(rang).estEntoure() == false)
 		{
-			if(this.listeTerritoiresControles.get(i).peutAttaquer())
-			{
-				for(int j = 0;j < this.listeTerritoiresControles.get(i).getTerritoiresAdjacents().length;j++)
-				{
-					if(listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]).appartientA(this) == false)
-					{
-						return listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]);
-					}
-				}
-			}
+			return this.listeTerritoiresControles.get(rang);
 		}
-		
-		return null;
+		else
+		{
+			rang++;
+			return territoireQuiAttaque(rang);
+		}
+	}
+	
+	public Territoire territoireQuiDefend(Territoire territoire,int rang)
+	{
+		if(territoire.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).appartientA(this) == false)
+		{
+			return territoire.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]);
+		}
+		else
+		{
+			rang++;
+			return territoireQuiDefend(territoire,rang);
+		}
 	}
 	
 	
 	//Divers
+	/**
+	 * Check si l'IA peut encore attaquer
+	 * @return true si elle peut, false sinon
+	 */
 	public boolean peutAttaquer()
 	{
 		for(int i = 0; i < this.listeTerritoiresControles.size();i++)
 		{
-			if(this.listeTerritoiresControles.get(i).peutAttaquer())
+			if(this.listeTerritoiresControles.get(i).peutAttaquer() && this.listeTerritoiresControles.get(i).estEntoure() == false)
 			{
 				return true;
 			}
