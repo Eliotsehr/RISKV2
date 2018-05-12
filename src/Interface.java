@@ -154,7 +154,7 @@ public class Interface {
 	public void coucheDeploiement()
 	{
 		StdDraw.picture(0.5, 0.5, "img/cadreChoixTroupes.png");
-		StdDraw.text(0.487, 0.729, ""+joueurEnCours.nombreTroupesDeploiement);
+		StdDraw.text(0.487, 0.729, ""+joueurEnCours.getNombreTroupesDeploiement());
 	}
 
 
@@ -311,16 +311,16 @@ public class Interface {
 			StdDraw.text(0.5, 0.97, "Deplacement depuis "+territoire1.getNom()+" vers "+territoire2.getNom());
 			break;
 		case 5:
-			StdDraw.text(0.5, 0.97, "Il te reste "+joueurEnCours.nombreTroupesDeploiement+" troupes a placer !");
+			StdDraw.text(0.5, 0.97, "Il te reste "+joueurEnCours.getNombreTroupesDeploiement()+" troupes a placer !");
 			break;
 		case 7:
-			StdDraw.text(0.5, 0.97, "Il te reste "+joueurEnCours.nombreCanonsDeploiement+" canons a placer !");
+			StdDraw.text(0.5, 0.97, "Il te reste "+joueurEnCours.getNombreCanonsDeploiement()+" canons a placer !");
 			break;
 		case 8:
-			StdDraw.text(0.5, 0.97, "Il te reste "+joueurEnCours.nombreCavaliersDeploiement+" cavaliers a placer !");
+			StdDraw.text(0.5, 0.97, "Il te reste "+joueurEnCours.getNombreCavaliersDeploiement()+" cavaliers a placer !");
 			break;
 		case 9:
-			StdDraw.text(0.5, 0.97, "Il te reste "+joueurEnCours.nombreSoldatsDeploiement+" soldats a placer !");
+			StdDraw.text(0.5, 0.97, "Il te reste "+joueurEnCours.getNombreSoldatsDeploiement()+" soldats a placer !");
 			break;
 		case 10:
 			StdDraw.text(0.5, 0.97, "Territoire selectionne: "+territoire2.getNom());
@@ -749,15 +749,15 @@ public class Interface {
 	 */
 	public void infosDeploiement()
 	{
-		if(joueurEnCours.nombreCanonsDeploiement > 0)
+		if(joueurEnCours.getNombreCanonsDeploiement() > 0)
 		{
 			infosHaut(7);
 		}
-		else if(joueurEnCours.nombreCavaliersDeploiement > 0)
+		else if(joueurEnCours.getNombreCavaliersDeploiement() > 0)
 		{
 			infosHaut(8);
 		}
-		else if(joueurEnCours.nombreSoldatsDeploiement > 0)
+		else if(joueurEnCours.getNombreSoldatsDeploiement() > 0)
 		{
 			infosHaut(9);
 		}
@@ -945,7 +945,7 @@ public class Interface {
 					}
 				}
 
-				risk.listeJoueurs.add(new Joueur(nomJoueur,0,i-1,0,null));
+				risk.listeJoueurs.add(new Joueur(nomJoueur,i-1));
 
 				ecranNomJoueurs();
 			}
@@ -1189,7 +1189,7 @@ public class Interface {
 		
 		//System.out.println(joueurEnCours.nombreTroupesDeploiement);
 
-		if(joueurEnCours.nombreTroupesDeploiement == 0)
+		if(joueurEnCours.getNombreTroupesDeploiement() == 0)
 		{
 			mode = 0;//Deploiement
 			couche = 5;//Modes
@@ -1202,8 +1202,8 @@ public class Interface {
 		}
 		if((sourisX > 0.304 && sourisX < 0.425) && (sourisY > 0.227 && sourisY < 0.523))//Soldat
 		{
-			joueurEnCours.nombreTroupesDeploiement--;
-			joueurEnCours.nombreSoldatsDeploiement++;
+			joueurEnCours.setNombreTroupesDeploiement(joueurEnCours.getNombreTroupesDeploiement() - 1);
+			joueurEnCours.setNombreSoldatsDeploiement(joueurEnCours.getNombreSoldatsDeploiement() + 1);
 
 			coucheDeploiement();
 
@@ -1211,10 +1211,10 @@ public class Interface {
 		}
 		else if((sourisX > 0.445 && sourisX < 0.56) && (sourisY > 0.227 && sourisY < 0.523))//Cavalier
 		{
-			if(joueurEnCours.nombreTroupesDeploiement > 2)
+			if(joueurEnCours.getNombreTroupesDeploiement() > 2)
 			{
-				joueurEnCours.nombreTroupesDeploiement = joueurEnCours.nombreTroupesDeploiement - 3;
-				joueurEnCours.nombreCavaliersDeploiement++;
+				joueurEnCours.setNombreTroupesDeploiement(joueurEnCours.getNombreTroupesDeploiement() - 3);
+				joueurEnCours.setNombreCavaliersDeploiement(joueurEnCours.getNombreCavaliersDeploiement() + 1);
 
 				coucheDeploiement();
 
@@ -1229,10 +1229,10 @@ public class Interface {
 		else if((sourisX > 0.58 && sourisX < 0.69) && (sourisY > 0.227 && sourisY < 0.523))//Canon
 		{
 
-			if(joueurEnCours.nombreTroupesDeploiement > 6)
+			if(joueurEnCours.getNombreTroupesDeploiement() > 6)
 			{
-				joueurEnCours.nombreTroupesDeploiement = joueurEnCours.nombreTroupesDeploiement - 7;
-				joueurEnCours.nombreCanonsDeploiement++;
+				joueurEnCours.setNombreTroupesDeploiement(joueurEnCours.getNombreTroupesDeploiement() - 7);
+				joueurEnCours.setNombreCanonsDeploiement(joueurEnCours.getNombreCanonsDeploiement() + 1);
 
 				coucheDeploiement();
 
@@ -1994,11 +1994,11 @@ public class Interface {
 		{
 		case 0:	//Deploiment
 
-			if(territoire.appartientA(joueurEnCours) && ( joueurEnCours.nombreSoldatsDeploiement > 0 || joueurEnCours.nombreCavaliersDeploiement > 0 || joueurEnCours.nombreCanonsDeploiement > 0 ))
+			if(territoire.appartientA(joueurEnCours) && ( joueurEnCours.getNombreSoldatsDeploiement() > 0 || joueurEnCours.getNombreCavaliersDeploiement() > 0 || joueurEnCours.getNombreCanonsDeploiement() > 0 ))
 			{
 				territoire.deploiement(joueurEnCours);
 
-				if(joueurEnCours.nombreSoldatsDeploiement == 0 && joueurEnCours.nombreCavaliersDeploiement == 0 && joueurEnCours.nombreCanonsDeploiement == 0  && debut)
+				if(joueurEnCours.getNombreSoldatsDeploiement() == 0 && joueurEnCours.getNombreCavaliersDeploiement() == 0 && joueurEnCours.getNombreCanonsDeploiement() == 0  && debut)
 				{
 					risk.tour(risk.tour);
 					joueurEnCours = risk.listeJoueurs.get(risk.tour);
@@ -2021,7 +2021,7 @@ public class Interface {
 
 					return false;
 				}
-				else if( joueurEnCours.nombreSoldatsDeploiement == 0 && joueurEnCours.nombreCavaliersDeploiement == 0 && joueurEnCours.nombreCanonsDeploiement == 0 )
+				else if( joueurEnCours.getNombreSoldatsDeploiement() == 0 && joueurEnCours.getNombreCavaliersDeploiement() == 0 && joueurEnCours.getNombreCanonsDeploiement() == 0 )
 				{
 					couche = 4;//Choix
 

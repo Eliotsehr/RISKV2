@@ -80,56 +80,53 @@ public class Jeu {
 			//Territoires	
 			
 			
-			listeTerritoires.add(new Territoire("Island",null,1,listeIS,1,0,0,null));
-			listeTerritoires.add(new Territoire("Scandinavie",null,1,listeSC,1,0,0,null));
-			listeTerritoires.add(new Territoire("Grande-Bretagne",null,1,listeGB,1,0,0,null));
-			listeTerritoires.add(new Territoire("Europe de l'Ouest",null,1,listeEO,1,0,0,null));
-			listeTerritoires.add(new Territoire("Europe du Sud",null,1,listeES,1,0,0,null));
-			listeTerritoires.add(new Territoire("Europe du Nord",null,1,listeEN,1,0,0,null));
-			listeTerritoires.add(new Territoire("Ukraine",null,1,listeUK,1,0,0,null));
-			listeTerritoires.add(new Territoire("Egypte",null,1,listeEG,1,0,0,null));
-			listeTerritoires.add(new Territoire("Afrique du Nord",null,1,listeAN,1,0,0,null));
-			listeTerritoires.add(new Territoire("Afrique de l'Est",null,1,listeAE,1,0,0,null));
-			listeTerritoires.add(new Territoire("Congo",null,1,listeCO,1,0,0,null));
-			listeTerritoires.add(new Territoire("Afrique du Sud",null,1,listeAS,1,0,0,null));
-			listeTerritoires.add(new Territoire("Madagascar",null,1,listeMA,1,0,0,null));
-			listeTerritoires.add(new Territoire("Moyen-Orient",null,1,listeMO,1,0,0,null));
-			listeTerritoires.add(new Territoire("Inde",null,1,listeIN,1,0,0,null));
-			listeTerritoires.add(new Territoire("Afganistan",null,1,listeAF,1,0,0,null));
-			listeTerritoires.add(new Territoire("Oural",null,1,listeOU,1,0,0,null));
-			listeTerritoires.add(new Territoire("Sibérie",null,1,listeSIB,1,0,0,null));
-			listeTerritoires.add(new Territoire("Siam",null,1,listeSI,1,0,0,null));
-			listeTerritoires.add(new Territoire("Chine",null,1,listeCH,1,0,0,null));
-			listeTerritoires.add(new Territoire("Yakouti",null,1,listeYA,1,0,0,null));
-			listeTerritoires.add(new Territoire("Mongolie",null,1,listeMON,1,0,0,null));
-			listeTerritoires.add(new Territoire("Japon",null,1,listeJA,1,0,0,null));
-			listeTerritoires.add(new Territoire("Kamchatka",null,1,listeKA,1,0,0,null));
-			listeTerritoires.add(new Territoire("Irkutsk",null,1,listeIR,1,0,0,null));
-			listeTerritoires.add(new Territoire("Alaska",null,1,listeAL,1,0,0,null));
-			listeTerritoires.add(new Territoire("Territoires du Nord",null,1,listeTN,1,0,0,null));
-			listeTerritoires.add(new Territoire("Alberta",null,1,listeALB,1,0,0,null));
-			listeTerritoires.add(new Territoire("Ontario",null,1,listeON,1,0,0,null));
-			listeTerritoires.add(new Territoire("Groenland",null,1,listeGR,1,0,0,null));
-			listeTerritoires.add(new Territoire("Quebec",null,1,listeQU,1,0,0,null));
-			listeTerritoires.add(new Territoire("Etats de l'Ouest",null,1,listeEDO,1,0,0,null));
-			listeTerritoires.add(new Territoire("Etats de l'Est",null,1,listeEDE,1,0,0,null));
-			listeTerritoires.add(new Territoire("Amerique Centrale",null,1,listeAC,1,0,0,null));
-			listeTerritoires.add(new Territoire("Venezuela",null,1,listeVE,1,0,0,null));
-			listeTerritoires.add(new Territoire("Brésil",null,1,listeBR,1,0,0,null));
-			listeTerritoires.add(new Territoire("Pérou",null,1,listePE,1,0,0,null));
-			listeTerritoires.add(new Territoire("Argentine",null,1,listeAR,1,0,0,null));
-			listeTerritoires.add(new Territoire("Indonésie",null,1,listeIND,1,0,0,null));
-			listeTerritoires.add(new Territoire("Nouvelle Guinée",null,1,listeNG,1,0,0,null));
-			listeTerritoires.add(new Territoire("Australie de l'Ouest",null,1,listeADO,1,0,0,null));
-			listeTerritoires.add(new Territoire("Australie de l'Est",null,1,listeADE,1,0,0,null));
+			listeTerritoires.add(new Territoire("Island",listeIS));
+			listeTerritoires.add(new Territoire("Scandinavie",listeSC));
+			listeTerritoires.add(new Territoire("Grande-Bretagne",listeGB));
+			listeTerritoires.add(new Territoire("Europe de l'Ouest",listeEO));
+			listeTerritoires.add(new Territoire("Europe du Sud",listeES));
+			listeTerritoires.add(new Territoire("Europe du Nord",listeEN));
+			listeTerritoires.add(new Territoire("Ukraine",listeUK));
+			listeTerritoires.add(new Territoire("Egypte",listeEG));
+			listeTerritoires.add(new Territoire("Afrique du Nord",listeAN));
+			listeTerritoires.add(new Territoire("Afrique de l'Est",listeAE));
+			listeTerritoires.add(new Territoire("Congo",listeCO));
+			listeTerritoires.add(new Territoire("Afrique du Sud",listeAS));
+			listeTerritoires.add(new Territoire("Madagascar",listeMA));
+			listeTerritoires.add(new Territoire("Moyen-Orient",listeMO));
+			listeTerritoires.add(new Territoire("Inde",listeIN));
+			listeTerritoires.add(new Territoire("Afganistan",listeAF));
+			listeTerritoires.add(new Territoire("Oural",listeOU));
+			listeTerritoires.add(new Territoire("Sibérie",listeSIB));
+			listeTerritoires.add(new Territoire("Siam",listeSI));
+			listeTerritoires.add(new Territoire("Chine",listeCH));
+			listeTerritoires.add(new Territoire("Yakouti",listeYA));
+			listeTerritoires.add(new Territoire("Mongolie",listeMON));
+			listeTerritoires.add(new Territoire("Japon",listeJA));
+			listeTerritoires.add(new Territoire("Kamchatka",listeKA));
+			listeTerritoires.add(new Territoire("Irkutsk",listeIR));
+			listeTerritoires.add(new Territoire("Alaska",listeAL));
+			listeTerritoires.add(new Territoire("Territoires du Nord",listeTN));
+			listeTerritoires.add(new Territoire("Alberta",listeALB));
+			listeTerritoires.add(new Territoire("Ontario",listeON));
+			listeTerritoires.add(new Territoire("Groenland",listeGR));
+			listeTerritoires.add(new Territoire("Quebec",listeQU));
+			listeTerritoires.add(new Territoire("Etats de l'Ouest",listeEDO));
+			listeTerritoires.add(new Territoire("Etats de l'Est",listeEDE));
+			listeTerritoires.add(new Territoire("Amerique Centrale",listeAC));
+			listeTerritoires.add(new Territoire("Venezuela",listeVE));
+			listeTerritoires.add(new Territoire("Brésil",listeBR));
+			listeTerritoires.add(new Territoire("Pérou",listePE));
+			listeTerritoires.add(new Territoire("Argentine",listeAR));
+			listeTerritoires.add(new Territoire("Indonésie",listeIND));
+			listeTerritoires.add(new Territoire("Nouvelle Guinée",listeNG));
+			listeTerritoires.add(new Territoire("Australie de l'Ouest",listeADO));
+			listeTerritoires.add(new Territoire("Australie de l'Est",listeADE));
 
 			
 			for(int i = 0; i < listeTerritoires.size();i++)
 			{
-				ArrayList<Unitee> liste = new ArrayList<Unitee>();
-						
-				listeTerritoires.get(i).setListeUnitees(liste);
-				listeTerritoires.get(i).ajouterUniteTerritoire(new Unitee(0,1,6,2,1,2,0,0));
+				listeTerritoires.get(i).ajouterUniteTerritoire(new Unitee(0,1,6,2,1,2));
 			}
 			
 			
@@ -234,56 +231,56 @@ public class Jeu {
 			String[] listeEGS = {"Wester Grass Sea","Kingdoms of the Jfqevron", "Vaes Dothrak" ,"Samyrian Fills","Lhazar"};
 			
 			//Territoires
-			listeTerritoires.add(new Territoire("The Wall",null,1,listeTW,1,0,0,null));
-			listeTerritoires.add(new Territoire("Skagos",null,1,listeSK,1,0,0,null));
-			listeTerritoires.add(new Territoire("The Grev Cliffs",null,1,listeTGC,1,0,0,null));
-			listeTerritoires.add(new Territoire("Wolfswood",null,1,listeWO,1,0,0,null));
-			listeTerritoires.add(new Territoire("Winterfell",null,1,listeWI,1,0,0,null));
-			listeTerritoires.add(new Territoire("The Rills",null,1,listeTR,1,0,0,null));
-			listeTerritoires.add(new Territoire("The Flint Cliff",null,1,listeTFC,1,0,0,null));
-			listeTerritoires.add(new Territoire("The Neck",null,1,listeTN,1,0,0,null));
-			listeTerritoires.add(new Territoire("The Vale",null,1,listeTV,1,0,0,null));
-			listeTerritoires.add(new Territoire("Jron Islands",null,1,listeJI,1,0,0,null));
-			listeTerritoires.add(new Territoire("Riverlands",null,1,listeRL,1,0,0,null));
-			listeTerritoires.add(new Territoire("Crownlands",null,1,listeCL,1,0,0,null));
-			listeTerritoires.add(new Territoire("Westerlands",null,1,listeWL,1,0,0,null));
-			listeTerritoires.add(new Territoire("Shield Lands",null,1,listeSL,1,0,0,null));
-			listeTerritoires.add(new Territoire("The Reach",null,1,listeTRE,1,0,0,null));
-			listeTerritoires.add(new Territoire("Stormlands",null,1,listeSTRM,1,0,0,null));
-			listeTerritoires.add(new Territoire("Whispering Sounds",null,1,listeWS,1,0,0,null));
-			listeTerritoires.add(new Territoire("Red Mountains",null,1,listeRM,1,0,0,null));
-			listeTerritoires.add(new Territoire("Dorne",null,1,listeDR,1,0,0,null));
-			listeTerritoires.add(new Territoire("Braavosian Coastland",null,1,listeBC,1,0,0,null));
-			listeTerritoires.add(new Territoire("Andalos",null,1,listeAN,1,0,0,null));
-			listeTerritoires.add(new Territoire("Fills of Norvos",null,1,listeFON,1,0,0,null));
-			listeTerritoires.add(new Territoire("Qhoyne Lands",null,1,listeQHL,1,0,0,null));
-			listeTerritoires.add(new Territoire("Forrest Of Dohor",null,1,listeFOD,1,0,0,null));
-			listeTerritoires.add(new Territoire("The Golden Fields",null,1,listeTGF,1,0,0,null));
-			listeTerritoires.add(new Territoire("The Disputed Lands",null,1,listeTDL,1,0,0,null));
-			listeTerritoires.add(new Territoire("Rhoynian Veld",null,1,listeRHV,1,0,0,null));
-			listeTerritoires.add(new Territoire("Sar Mell",null,1,listeSM,1,0,0,null));
-			listeTerritoires.add(new Territoire("Western Waste",null,1,listeWW,1,0,0,null));
-			listeTerritoires.add(new Territoire("Sea Of Sight",null,1,listeSOS,1,0,0,null));
-			listeTerritoires.add(new Territoire("Elyria",null,1,listeEL,1,0,0,null));
-			listeTerritoires.add(new Territoire("Valyria",null,1,listeVA,1,0,0,null));
-			listeTerritoires.add(new Territoire("Painted Mountains",null,1,listePM,1,0,0,null));
-			listeTerritoires.add(new Territoire("Slaver's Bay",null,1,listeSB,1,0,0,null));
-			listeTerritoires.add(new Territoire("Lhazar",null,1,listeLH,1,0,0,null));
-			listeTerritoires.add(new Territoire("Samyrian Fills",null,1,listeSA,1,0,0,null));
-			listeTerritoires.add(new Territoire("Ghiscar",null,1,listeGH,1,0,0,null));
-			listeTerritoires.add(new Territoire("Red Waste",null,1,listeRW,1,0,0,null));
-			listeTerritoires.add(new Territoire("Bayasabhad",null,1,listeBA,1,0,0,null));
-			listeTerritoires.add(new Territoire("Qarth",null,1,listeQA,1,0,0,null));
-			listeTerritoires.add(new Territoire("Sarnor",null,1,listeSAR,1,0,0,null));
-			listeTerritoires.add(new Territoire("Abandoned Lands",null,1,listeAL,1,0,0,null));
-			listeTerritoires.add(new Territoire("Kingdoms Of The Jfeqevron",null,1,listeKOTJ,1,0,0,null));
-			listeTerritoires.add(new Territoire("The Footprint",null,1,listeTF,1,0,0,null));
-			listeTerritoires.add(new Territoire("Jbben",null,1,listeJB,1,0,0,null));
-			listeTerritoires.add(new Territoire("Realms Of Jhogrvin",null,1,listeROJ,1,0,0,null));
-			listeTerritoires.add(new Territoire("Vaes Dothrak",null,1,listeVD,1,0,0,null));
-			listeTerritoires.add(new Territoire("Parched Fields",null,1,listePF,1,0,0,null));
-			listeTerritoires.add(new Territoire("Western Grass Sea",null,1,listeWGS,1,0,0,null));
-			listeTerritoires.add(new Territoire("Easter Grass Sea",null,1,listeEGS,1,0,0,null));
+			listeTerritoires.add(new Territoire("The Wall",listeTW));
+			listeTerritoires.add(new Territoire("Skagos",listeSK));
+			listeTerritoires.add(new Territoire("The Grev Cliffs",listeTGC));
+			listeTerritoires.add(new Territoire("Wolfswood",listeWO));
+			listeTerritoires.add(new Territoire("Winterfell",listeWI));
+			listeTerritoires.add(new Territoire("The Rills",listeTR));
+			listeTerritoires.add(new Territoire("The Flint Cliff",listeTFC));
+			listeTerritoires.add(new Territoire("The Neck",listeTN));
+			listeTerritoires.add(new Territoire("The Vale",listeTV));
+			listeTerritoires.add(new Territoire("Jron Islands",listeJI));
+			listeTerritoires.add(new Territoire("Riverlands",listeRL));
+			listeTerritoires.add(new Territoire("Crownlands",listeCL));
+			listeTerritoires.add(new Territoire("Westerlands",listeWL));
+			listeTerritoires.add(new Territoire("Shield Lands",listeSL));
+			listeTerritoires.add(new Territoire("The Reach",listeTRE));
+			listeTerritoires.add(new Territoire("Stormlands",listeSTRM));
+			listeTerritoires.add(new Territoire("Whispering Sounds",listeWS));
+			listeTerritoires.add(new Territoire("Red Mountains",listeRM));
+			listeTerritoires.add(new Territoire("Dorne",listeDR));
+			listeTerritoires.add(new Territoire("Braavosian Coastland",listeBC));
+			listeTerritoires.add(new Territoire("Andalos",listeAN));
+			listeTerritoires.add(new Territoire("Fills of Norvos",listeFON));
+			listeTerritoires.add(new Territoire("Qhoyne Lands",listeQHL));
+			listeTerritoires.add(new Territoire("Forrest Of Dohor",listeFOD));
+			listeTerritoires.add(new Territoire("The Golden Fields",listeTGF));
+			listeTerritoires.add(new Territoire("The Disputed Lands",listeTDL));
+			listeTerritoires.add(new Territoire("Rhoynian Veld",listeRHV));
+			listeTerritoires.add(new Territoire("Sar Mell",listeSM));
+			listeTerritoires.add(new Territoire("Western Waste",listeWW));
+			listeTerritoires.add(new Territoire("Sea Of Sight",listeSOS));
+			listeTerritoires.add(new Territoire("Elyria",listeEL));
+			listeTerritoires.add(new Territoire("Valyria",listeVA));
+			listeTerritoires.add(new Territoire("Painted Mountains",listePM));
+			listeTerritoires.add(new Territoire("Slaver's Bay",listeSB));
+			listeTerritoires.add(new Territoire("Lhazar",listeLH));
+			listeTerritoires.add(new Territoire("Samyrian Fills",listeSA));
+			listeTerritoires.add(new Territoire("Ghiscar",listeGH));
+			listeTerritoires.add(new Territoire("Red Waste",listeRW));
+			listeTerritoires.add(new Territoire("Bayasabhad",listeBA));
+			listeTerritoires.add(new Territoire("Qarth",listeQA));
+			listeTerritoires.add(new Territoire("Sarnor",listeSAR));
+			listeTerritoires.add(new Territoire("Abandoned Lands",listeAL));
+			listeTerritoires.add(new Territoire("Kingdoms Of The Jfeqevron",listeKOTJ));
+			listeTerritoires.add(new Territoire("The Footprint",listeTF));
+			listeTerritoires.add(new Territoire("Jbben",listeJB));
+			listeTerritoires.add(new Territoire("Realms Of Jhogrvin",listeROJ));
+			listeTerritoires.add(new Territoire("Vaes Dothrak",listeVD));
+			listeTerritoires.add(new Territoire("Parched Fields",listePF));
+			listeTerritoires.add(new Territoire("Western Grass Sea",listeWGS));
+			listeTerritoires.add(new Territoire("Easter Grass Sea",listeEGS));
 		
 		
 			for(int i = 0; i < listeTerritoires.size();i++)
@@ -291,7 +288,7 @@ public class Jeu {
 				ArrayList<Unitee> liste = new ArrayList<Unitee>();
 						
 				listeTerritoires.get(i).setListeUnitees(liste);
-				listeTerritoires.get(i).ajouterUniteTerritoire(new Unitee(0,1,6,2,1,2,0,0));
+				listeTerritoires.get(i).ajouterUniteTerritoire(new Unitee(0,1,6,2,1,2));
 			}
 			
 			//Continents
@@ -371,8 +368,8 @@ public class Jeu {
 		for(int i = 0;i < listeTerritoires.size();i++)//On attribue dans l'ordre de la liste mélangée les territoires aux joueurs
 		{
 			listeTerritoires.get(listeRandomTerritoires.get(i)).setProprietaire(listeJoueurs.get(indexJoueur));//On définit le propriétaire
-			
 			listeJoueurs.get(indexJoueur).ajouterTerritoire(1);//On ajoute une troupe au joueur
+			listeJoueurs.get(indexJoueur).ajouterTerritoireControle(listeTerritoires.get(listeRandomTerritoires.get(i)));
 			
 			indexJoueur++;
 			

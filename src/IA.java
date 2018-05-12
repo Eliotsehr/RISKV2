@@ -6,10 +6,8 @@ public class IA extends Joueur{
 	
 	private ArrayList<Territoire> listeTerritoiresControles;
 	
-	public IA(String nom, int nombreDeTerritoires, int numeroDeJoueur, int nombreTerritoiresCaptures, Mission mission,ArrayList<Territoire> listeTerritoiresControles) {
-		super(nom, nombreDeTerritoires, numeroDeJoueur, nombreTerritoiresCaptures, mission);
-		
-		this.listeTerritoiresControles = listeTerritoiresControles;
+	public IA(String nom, int nombreDeTerritoires, int numeroDeJoueur) {
+		super(nom, nombreDeTerritoires);
 	}
 
 	
@@ -45,7 +43,7 @@ public class IA extends Joueur{
 	
 	public void choixUnitesAttaque(Territoire territoire)
 	{
-		Unitee uniteATT = new Unitee(0,0,0,0,0,0,0,0);
+		Unitee uniteATT = new Unitee(0,0,0,0,0,0);
 		int type = 0;
 		for(int i = 0;i < territoire.getListeUnitees().size() || i < 3;i++)
 		{

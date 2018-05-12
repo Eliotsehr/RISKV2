@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Joueur {
 	
@@ -11,11 +12,14 @@ public class Joueur {
 	
 	private Jeu risk = Main.risk;
 	
-	public int nombreTroupesDeploiement;
+	private int nombreTroupesDeploiement;
 	
-	public int nombreSoldatsDeploiement;
-	public int nombreCavaliersDeploiement;
-	public int nombreCanonsDeploiement;
+	private int nombreSoldatsDeploiement;
+	private int nombreCavaliersDeploiement;
+	private int nombreCanonsDeploiement;
+	
+	private ArrayList<Territoire> listeTerritoiresControles = new ArrayList<Territoire>();
+	
 
 	
 
@@ -27,12 +31,9 @@ public class Joueur {
 	 * @param int nombreTerritoiresCaptures Le nombre de territoires capturés par le joueur au tour précédent
 	 * @param Mission mission La mission à effectuer par le joueur
 	 */
- 	public Joueur(String nom, int nombreDeTerritoires, int numeroDeJoueur, int nombreTerritoiresCaptures, Mission mission) {
+ 	public Joueur(String nom,int numeroDeJoueur) {
 		this.nom = nom;
-		this.nombreDeTerritoires = nombreDeTerritoires;
 		this.numeroDeJoueur = numeroDeJoueur;
-		this.nombreTerritoiresCaptures = nombreTerritoiresCaptures;
-		this.mission = mission;
 	}
 
 	
@@ -105,6 +106,26 @@ public class Joueur {
 	{
 		this.mission = mission;
 	}
+	
+	
+	/**
+	 * Ajouter un territoire de la liste des territoires controler par le joueur
+	 * @param territoire le territoire qu'on veut ajouter
+	 */
+	public void ajouterTerritoireControle(Territoire territoire)
+	{
+		this.listeTerritoiresControles.add(territoire);
+	}
+	
+	
+	/**
+	 * Supprimer un territoire de la liste des territoires controler par le joueur
+	 * @param territoire le territoire qu'on veut supprimer
+	 */
+	public void supprimerTerritoireControle(Territoire territoire)
+	{
+		this.listeTerritoiresControles.remove(territoire);
+	}
 	//MODIFICATIONS
 
 	
@@ -121,28 +142,28 @@ public class Joueur {
 		{
 			if(risk.listeJoueurs.size() == 2)
 			{
-				this.nombreTroupesDeploiement = 19;
+				this.setNombreTroupesDeploiement(19);
 			}
 			else if(risk.listeJoueurs.size() == 3)
 			{
-				this.nombreTroupesDeploiement = 21;
+				this.setNombreTroupesDeploiement(21);
 			}
 			else if(risk.listeJoueurs.size() == 4)
 			{
-				this.nombreTroupesDeploiement = 20;
+				this.setNombreTroupesDeploiement(20);
 			}
 			else if(risk.listeJoueurs.size() == 5)
 			{
-				this.nombreTroupesDeploiement = 17;
+				this.setNombreTroupesDeploiement(17);
 			}
 			else
 			{
-				this.nombreTroupesDeploiement = 13;
+				this.setNombreTroupesDeploiement(13);
 			}
 		}
 		else
 		{
-			this.nombreTroupesDeploiement = (int) (Math.floor(this.nombreDeTerritoires/3) + this.bonusContinent() + this.bonusCapture());
+			this.setNombreTroupesDeploiement((int) (Math.floor(this.nombreDeTerritoires/3) + this.bonusContinent() + this.bonusCapture()));
 		}
 	}
 	
@@ -260,5 +281,55 @@ public class Joueur {
 
 	public void setMission(Mission mission) {
 		this.mission = mission;
+	}
+
+
+	public int getNombreTroupesDeploiement() {
+		return nombreTroupesDeploiement;
+	}
+
+
+	public void setNombreTroupesDeploiement(int nombreTroupesDeploiement) {
+		this.nombreTroupesDeploiement = nombreTroupesDeploiement;
+	}
+
+
+	public int getNombreSoldatsDeploiement() {
+		return nombreSoldatsDeploiement;
+	}
+
+
+	public void setNombreSoldatsDeploiement(int nombreSoldatsDeploiement) {
+		this.nombreSoldatsDeploiement = nombreSoldatsDeploiement;
+	}
+
+
+	public int getNombreCavaliersDeploiement() {
+		return nombreCavaliersDeploiement;
+	}
+
+
+	public void setNombreCavaliersDeploiement(int nombreCavaliersDeploiement) {
+		this.nombreCavaliersDeploiement = nombreCavaliersDeploiement;
+	}
+
+
+	public int getNombreCanonsDeploiement() {
+		return nombreCanonsDeploiement;
+	}
+
+
+	public void setNombreCanonsDeploiement(int nombreCanonsDeploiement) {
+		this.nombreCanonsDeploiement = nombreCanonsDeploiement;
+	}
+
+
+	public ArrayList<Territoire> getListeTerritoiresControles() {
+		return listeTerritoiresControles;
+	}
+
+
+	public void setListeTerritoiresControles(ArrayList<Territoire> listeTerritoiresControles) {
+		this.listeTerritoiresControles = listeTerritoiresControles;
 	}
 }

@@ -2,21 +2,19 @@ import java.util.ArrayList;
 
 public class Territoire {
 	
-
-	
 	private String nom = new String();
 	
-	private int nombreTroupesTotal;
+	private int nombreTroupesTotal = 1;
 	
-	private int nombreSoldats;
-	private int nombreCavaliers;
-	private int nombreCanons;
+	private int nombreSoldats = 1;
+	private int nombreCavaliers = 0;
+	private int nombreCanons = 0;
 	
 	private Joueur proprietaire;
 	
 	private String[] territoiresAdjacents;
 	
-	private ArrayList<Unitee> listeUnitees;
+	private ArrayList<Unitee> listeUnitees = new ArrayList<Unitee>();
 	
 	ArrayList<Unitee> uniteCombat = new ArrayList<Unitee>();
 	
@@ -34,17 +32,9 @@ public class Territoire {
 	 * @param int nombreCanons Nombre de canons sur le territoire
 	 * @param ArrayList<Unitee> listeUnitees liste des unités sur le territoire
 	 */
-	public Territoire(String nom,Joueur proprietaire, int nombreTroupesTotal, String[] territoiresAdjacents, int nombreSoldats, int nombreCavaliers, int nombreCanons, ArrayList<Unitee> listeUnitees) {
+	public Territoire(String nom, String[] territoiresAdjacents) {
 		this.nom = nom;
-		this.nombreTroupesTotal = nombreTroupesTotal;
-		this.proprietaire = proprietaire;
 		this.territoiresAdjacents = territoiresAdjacents;
-		
-		this.nombreSoldats = nombreSoldats;
-		this.nombreCavaliers = nombreCavaliers;
-		this.nombreCanons =nombreCanons;
-		
-		this.listeUnitees = listeUnitees;
 	}
 	
 	
@@ -451,30 +441,30 @@ public class Territoire {
 	 */
 	public void deploiement(Joueur joueur)
 	{
-		if(joueur.nombreCanonsDeploiement > 0)
+		if(joueur.getNombreCanonsDeploiement() > 0)
 		{
-			this.ajouterUniteTerritoire(new Unitee(2,4,9,3,2,1,0,0));//Canon
+			this.ajouterUniteTerritoire(new Unitee(2,4,9,3,2,1));//Canon
 			
 			this.ajouterTroupe(7);
 			this.ajouterCanons(1);
 			
-			joueur.nombreCanonsDeploiement--;
+			joueur.setNombreCanonsDeploiement(joueur.getNombreCanonsDeploiement() - 1);
 		}
-		else if(joueur.nombreCavaliersDeploiement > 0)
+		else if(joueur.getNombreCavaliersDeploiement() > 0)
 		{
-			this.ajouterUniteTerritoire(new Unitee(1,2,7,1,3,3,0,0));//Cavalier
+			this.ajouterUniteTerritoire(new Unitee(1,2,7,1,3,3));//Cavalier
 			
 			this.ajouterTroupe(3);
 			this.ajouterCavaliers(1);
-			joueur.nombreCavaliersDeploiement--;
+			joueur.setNombreCavaliersDeploiement(joueur.getNombreCavaliersDeploiement() - 1);
 		}
 		else
 		{
-			this.ajouterUniteTerritoire(new Unitee(0,1,6,2,1,2,0,0));//Soldat
+			this.ajouterUniteTerritoire(new Unitee(0,1,6,2,1,2));//Soldat
 			
 			this.ajouterTroupe(1);
 			this.ajouterSoldats(1);
-			joueur.nombreSoldatsDeploiement--;
+			joueur.setNombreSoldatsDeploiement(joueur.getNombreSoldatsDeploiement() - 1);
 		}
 	}
 	
@@ -519,8 +509,6 @@ public class Territoire {
 	}
 	
 	
-	
-	
 	/**
 	 * Ajoute une unite sur un territoire
 	 * @param unite
@@ -533,10 +521,10 @@ public class Territoire {
 	
 	/**
 	 * Ajoute des unités dans la liste
-	 * @param int type le type d'unité
-	 * @param int rang 0 par défaut
-	 * @param ArrayList<Unitee> listeUniteeDEF
-	 * @param Territoire territoireDEF
+	 * @param type le type d'unité
+	 * @param rang 0 par défaut
+	 * @param listeUniteeDEF
+	 * @param territoireDEF
 	 * @return l'unité à ajouter
 	 */
 	public void ajouterUniteListe(int type,int rang)
@@ -545,7 +533,7 @@ public class Territoire {
 		{
 			this.uniteCombat.add(this.listeUnitees.get(rang));
 		}
-		else if(this.listeUnitees.get(rang).getType() == type && this.listeUnitees.get(rang).pasDansLaListe(this.uniteCombat))
+		else if(this.listeUnitees.get(rang).getType() == type && this.uniteCombat.contains(this.listeUnitees.get(rang)) == false)
 		{
 			this.uniteCombat.add(this.listeUnitees.get(rang));
 		}
@@ -637,16 +625,22 @@ public class Territoire {
 	public void changeProprietaire(Territoire territoireVainqueur)
 	{
 		this.proprietaire.ajouterTerritoire(-1);
-		territoireVainqueur.proprietaire.ajouterTerritoire(1);
-		this.proprietaire = territoireVainqueur.proprietaire;
+		this.proprietaire.supprimerTerritoireControle(this);
 		
+		territoireVainqueur.proprietaire.ajouterTerritoire(1);
+		territoireVainqueur.proprietaire.ajouterTerritoireControle(this);
+		
+		this.proprietaire = territoireVainqueur.proprietaire;
 	}
 	
+	
+	/**
+	 * 
+	 * @param territoire2
+	 * @param deplacement
+	 */
 	public void deplacement(Territoire territoire2, Unitee deplacement)
 	{
-		
-		
-		
 		this.supprimerUnite(deplacement,0);
 		deplacement.setNombreDeplacement(deplacement.getNombreDeplacement() + 1);
 		territoire2.ajouterUniteTerritoire(deplacement);
