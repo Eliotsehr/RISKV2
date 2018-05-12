@@ -6,6 +6,7 @@ public class Continent {
 	private int continent;
 	private ArrayList<Territoire> territoiresDuContinent;
 
+	
 /**
  *
  * @param continent numero permettant d'identifier (comme un nom mais plus simple)
