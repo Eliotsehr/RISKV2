@@ -16,7 +16,7 @@ public class Mission {
 	 * @param index int numéro de la mission
 	 */
 	public Mission(String intitule, int index) {
-		this.setIntitule(intitule);
+		this.intitule = intitule;
 		this.index = index;
 	}
 
@@ -178,10 +178,6 @@ public class Mission {
 		return intitule;
 	}
 
-	public void setIntitule(String intitule) {
-		this.intitule = intitule;
-	}
-	
 	public int getIndex()
 	{
 		return this.index;

@@ -16,6 +16,9 @@ public class Jeu {
 	public boolean ia = false;
 	public int nombreJoueurs;
 	
+	public boolean debut = true;
+	public boolean continuer = false;
+	
 	public int nombreTroupesATT;
 	
 	
@@ -458,7 +461,7 @@ public class Jeu {
 		
 		if(this.tour == 0)
 		{
-			Main.interf.setDebut(false);
+			this.debut = false;
 		}
 	}
 
@@ -492,6 +495,158 @@ public class Jeu {
 			Main.jeu = false;
 		}
 	}
+
+	
+	
+	
+	/**
+	 * Methodes regroupant tous les types de verifications nescessaires au bon fonctionnement du jeu
+	 * @param joueur Joueur le joueur sur lequel on fait la verification
+	 * @param territoire Territoire le territoire sur lequel on fait la verification
+	 * @param mode indice de la verification qu'on veut faire
+	 * @return true ou false selon ce qu'on verifie, il n'y a pas de sortie "type"
+	 */
+	public boolean verifications(Interface interf, Territoire territoire, int mode)
+	{
+		//Ces deux lignes sont pour corriger le bug du StdDraw.isMousePressed()
+		interf.sourisX = 0;
+		interf.sourisY = 0;
+
+		switch(mode)
+		{
+		case 0:	//Deploiment
+
+			if(territoire.appartientA(interf.joueurEnCours) && (interf.joueurEnCours.getNombreSoldatsDeploiement() > 0 || interf.joueurEnCours.getNombreCavaliersDeploiement() > 0 || interf.joueurEnCours.getNombreCanonsDeploiement() > 0 ))
+			{
+				territoire.deploiement(interf.joueurEnCours);
+
+				if(interf.joueurEnCours.getNombreSoldatsDeploiement() == 0 && interf.joueurEnCours.getNombreCavaliersDeploiement() == 0 && interf.joueurEnCours.getNombreCanonsDeploiement() == 0  && debut)
+				{
+					tour(tour);
+					interf.joueurEnCours = listeJoueurs.get(tour);
+					
+					interf.joueurEnCours.combienTroupe(debut);
+
+
+					if(debut)
+					{
+						interf.couche = 9;
+						interf.reset(4);
+					}
+					else
+					{
+						interf.couche = 3;//Deploiement
+						interf.mode = 0;
+						interf.reset(0);
+					}
+
+
+					return false;
+				}
+				else if( interf.joueurEnCours.getNombreSoldatsDeploiement() == 0 && interf.joueurEnCours.getNombreCavaliersDeploiement() == 0 && interf.joueurEnCours.getNombreCanonsDeploiement() == 0 )
+				{
+					interf.couche = 4;//Choix
+
+					interf.reset(1);//Choix
+
+					return false;
+				}
+				else
+				{
+					interf.reset(-1);//Vide
+				}
+
+				interf.infosDeploiement();
+
+				return false;
+			}
+			else
+			{
+				interf.infosBas(6);
+				return true;
+			}
+
+
+		case 1://Selection du territoire duquel le interf.joueurEnCours attaque
+
+			if(territoire.appartientA(interf.joueurEnCours) && territoire.peutAttaquer())
+			{
+				interf.territoire1 = territoire;
+				interf.mode = 2;//Attaque etape 2
+
+				interf.infosHaut(0);
+				interf.infosBas(1);
+				return false;
+			}
+			else
+			{
+				interf.infosBas(2);
+				return true;
+			}
+
+		case 2://Selection du territoire qu'il attaque
+
+			if(territoire.appartientA(interf.joueurEnCours) == false && territoire.estAdjacentA(interf.territoire1))
+			{
+				interf.territoire2 = territoire;
+				interf.couche = 6;
+
+				nombreTroupesATT = interf.territoire1.nombreDesATT();
+
+				interf.infosHaut(10);
+				interf.confirmationAttaque();
+
+				return false;
+			}
+			else if(territoire.estAdjacentA(interf.territoire1) != true)
+			{
+				interf.infosBas(4);
+				return true;
+			}
+			else
+			{
+				interf.infosBas(3);
+				return true;
+			}
+
+		case 3://Selection du territoire duquel le interf.joueurEnCours fait le deplacement
+
+			if(territoire.appartientA(interf.joueurEnCours) && territoire.peutAttaquer())
+			{
+				interf.territoire1 = territoire;
+				interf.mode = 4;//Deplacement etape 2
+
+				interf.infosHaut(0);
+				interf.infosBas(0);
+				return false;
+			}
+			else
+			{
+				interf.infosBas(5);
+				return true;
+			}
+
+		case 4://Selection du territoire sur lequel on fait le deplacement
+
+			if(territoire.appartientA(interf.joueurEnCours) && territoire.estAdjacentA(interf.territoire1))
+			{
+				interf.territoire2 = territoire;
+				interf.couche = 8;
+
+				interf.coucheDeplacement();
+				return false;
+			}
+			else
+			{
+				interf.infosBas(6);
+				return true;
+			}
+
+		default:
+			return false;
+	}
+
+}
 
 	
 	

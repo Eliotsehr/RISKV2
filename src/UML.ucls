@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="Continent" project="RiskGit" file="/RiskGit/src/Continent.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1395" y="182"/>    
+    <position height="-1" width="-1" x="1375" y="430"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -111,7 +111,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="22">    
-    <bendpoint x="631" y="1368"/>    
+    <bendpoint x="927" y="1307"/>    
     <end type="SOURCE" refId="7" navigable="false">      
       <attribute id="23" name="territoire2"/>      
       <multiplicity id="24" minimum="0" maximum="1"/>    
@@ -129,6 +129,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="28">    
+    <bendpoint x="1314" y="277"/>    
     <end type="SOURCE" refId="4" navigable="false">      
       <attribute id="29" name="listeContinents"/>      
       <multiplicity id="30" minimum="0" maximum="2147483647"/>    
@@ -163,7 +164,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="40">    
-    <bendpoint x="851" y="754"/>    
+    <bendpoint x="793" y="626"/>    
     <end type="SOURCE" refId="6" navigable="false">      
       <attribute id="41" name="proprietaire"/>      
       <multiplicity id="42" minimum="0" maximum="1"/>    
@@ -181,7 +182,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="46">    
-    <bendpoint x="636" y="1062"/>    
+    <bendpoint x="847" y="1153"/>    
     <end type="SOURCE" refId="7" navigable="false">      
       <attribute id="47" name="territoire1"/>      
       <multiplicity id="48" minimum="0" maximum="1"/>    
@@ -199,7 +200,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="52">    
-    <bendpoint x="1250" y="1100"/>    
+    <bendpoint x="1338" y="1097"/>    
     <end type="SOURCE" refId="6" navigable="false">      
       <attribute id="53" name="uniteCombat"/>      
       <multiplicity id="54" minimum="0" maximum="2147483647"/>    

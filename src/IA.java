@@ -9,8 +9,15 @@ public class IA extends Joueur{
 	public IA(String nom, int nombreDeTerritoires, int numeroDeJoueur) {
 		super(nom, nombreDeTerritoires);
 	}
-
 	
+	
+	//deploiement
+	
+	//while(peut attaque)
+
+	//while peut deplacer
+	
+	//fin de tour
 	
 	
 	//Attaque
@@ -40,6 +47,22 @@ public class IA extends Joueur{
 			return territoireQuiDefend(territoire,rang);
 		}
 	}
+	
+	
+	
+	public void deplacement(Territoire territoire1, Territoire territoire2)
+	{
+		for(int i = 0;i < territoire1.getListeUnitees().size();i++)
+		{
+			if(territoire1.getListeUnitees().get(i).peutDeplacer() && territoire1.peutAttaquer())
+			{
+				territoire1.deplacement(territoire2, territoire1.getListeUnitees().get(i));
+			}
+		}
+	}
+	
+	
+	
 	
 	public void choixUnitesAttaque(Territoire territoire)
 	{
