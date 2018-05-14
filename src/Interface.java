@@ -17,7 +17,8 @@ public class Interface {
 	 * 8 - Deplacement
 	 * 9 - Lettre de mission
 	 * 10 - Mission
-	 * 11 - IA
+	 * 11 - Cartes
+	 * 12 - IA
 	*/
 	public int couche;
 
@@ -833,6 +834,7 @@ public class Interface {
 	 * 9: Lettre de mission
 	 * 10: Mission
 	 * 11: Choix cartes
+	 * 12: IA
 	 */
 	public void cliqueCouche(int couche)
 	{
@@ -896,7 +898,7 @@ public class Interface {
 			
 			risk.nombreJoueurs = Integer.parseInt(nombreJoueur);
 			
-			if(risk.nombreJoueurs > 6 || risk.nombreJoueurs < 2)
+			if((risk.nombreJoueurs > 6 || risk.nombreJoueurs < 2) && risk.ia == false)
 			{
 				risk.nombreJoueurs = 2;
 			}
@@ -946,6 +948,12 @@ public class Interface {
 				risk.listeJoueurs.add(new Joueur(nomJoueur,i-1));
 
 				ecranNomJoueurs();
+			}
+			
+			if(risk.ia)
+			{
+				risk.nombreJoueurs++;
+				risk.listeJoueurs.add(new IA("Patricia", risk.listeJoueurs.size()));
 			}
 
 			this.couche= 9;//Mission
@@ -1111,6 +1119,63 @@ public class Interface {
 			
 			break;
 			
+		case 12:
+			
+			IA IA = (IA) risk.listeJoueurs.get(risk.listeJoueurs.size()-1);
+			
+			IA.echange();
+			
+			IA.deploiement();
+			
+			reset(-1);
+			
+			while(IA.peutAttaquer())
+			{
+				territoire1 = IA.territoireQuiAttaque(0);
+				territoire2 = IA.territoireQuiDefend(territoire1, 0);
+				
+				IA.choixUnitesAttaque(territoire1);
+				
+				territoire1.attaque(territoire2);
+				
+				infosHaut(1);
+				infosBas(-1);
+
+				StdDraw.pause(4000);//On attend un petit peu avant d'afficher le resultat du combat
+
+				infosHaut(3);
+
+				if(territoire2.estConquis())
+				{
+					IA.ajouterTerritoireCapture();
+					IA.deplacement(territoire1, territoire2);
+				}
+				
+				StdDraw.pause(3000);
+				
+				territoire1.uniteCombat.clear();
+				territoire2.uniteCombat.clear();
+
+				territoire1.resetTroupes();
+				
+				reset(-1);
+			}
+			
+			this.couche = 3;//Deploiement
+			mode = 0;//Deploiement
+
+			joueurEnCours.missionComplete();
+			risk.resetDeplacement(joueurEnCours);
+			risk.defaiteJoueur();
+			risk.finPartie();
+			risk.tour(risk.tour);
+			
+			joueurEnCours = risk.listeJoueurs.get(risk.tour);
+			joueurEnCours.combienTroupe(risk.debut);
+			joueurEnCours.resetTerritoireCapture();
+
+			reset(0);//Deploiement
+			
 		}
 	}
 
@@ -1132,11 +1197,19 @@ public class Interface {
 			ecranNombreJoueurs();
 			return false;
 		}
-		else if((sourisX > 0.18 && sourisX < 0.82) && (sourisY > 0.39 && sourisY < 0.46))
+		else if((sourisX > 0.18 && sourisX < 0.82) && (sourisY > 0.39 && sourisY < 0.46))//Cartes
 		{
 			couche = 11;//Cartes
 			
 			ecranMap();
+			return false;
+		}
+		else if((sourisX > 0.18 && sourisX < 0.82) && (sourisY > 0.24 && sourisY < 0.31))//IA
+		{
+			couche = 1;//Nombre joueurs
+			risk.ia = true;
+			
+			ecranNombreJoueurs();
 			return false;
 		}
 		else
@@ -1279,20 +1352,30 @@ public class Interface {
 		}
 		else if((sourisX > 0.65 && sourisX < 0.80) && (sourisY > 0.06 && sourisY < 0.11))//Fin de tour
 		{
-			couche = 3;//Deploiement
-			mode = 0;//Deploiement
-
 			joueurEnCours.missionComplete();
 			risk.resetDeplacement(joueurEnCours);
 			risk.defaiteJoueur();
 			risk.finPartie();
 			risk.tour(risk.tour);
 			
+			if(risk.ia && risk.tour == risk.listeJoueurs.size()-1)
+			{
+				couche = 12;//IA
+				reset(-1);
+			}
+			else
+			{
+				couche = 3;//Deploiement
+				mode = 0;//Deploiement
+				reset(0);//Choix
+
+			}
+			
 			joueurEnCours = risk.listeJoueurs.get(risk.tour);
 			joueurEnCours.combienTroupe(risk.debut);
 			joueurEnCours.resetTerritoireCapture();
 
-			reset(0);//Choix
+
 
 			return false;
 		}

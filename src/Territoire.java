@@ -45,7 +45,7 @@ public class Territoire {
 	 */
 	public boolean peutAttaquer()
 	{
-		if((this.nombreSoldats + this.nombreCanons + this.nombreCavaliers < 2) && this.unitesPeuventAttaquer())
+		if((this.nombreSoldats + this.nombreCanons + this.nombreCavaliers < 2) || this.unitesPeuventAttaquer() == false)
 		{
 			return false;
 		}
@@ -659,7 +659,7 @@ public class Territoire {
 			territoire2.ajouterTroupe(3);
 			territoire2.ajouterCavaliers(1);
 		}
-		else
+		else if(deplacement.getType() == 2)
 		{
 			this.ajouterTroupe(-7);
 			this.ajouterCanons(-1);

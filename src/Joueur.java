@@ -18,7 +18,7 @@ public class Joueur {
 	private int nombreCavaliersDeploiement;
 	private int nombreCanonsDeploiement;
 	
-	private ArrayList<Territoire> listeTerritoiresControles = new ArrayList<Territoire>();
+	public ArrayList<Territoire> listeTerritoiresControles = new ArrayList<Territoire>();
 	
 
 	

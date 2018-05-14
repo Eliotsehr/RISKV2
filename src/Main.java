@@ -17,7 +17,6 @@ public class Main {
 		interf.ecranMenu();
 		
 
-
 		while(jeu)
 		{
 			interf.cliqueCouche(interf.getCouche());

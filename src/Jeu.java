@@ -373,7 +373,6 @@ public class Jeu {
 			listeTerritoires.get(listeRandomTerritoires.get(i)).setProprietaire(listeJoueurs.get(indexJoueur));//On définit le propriétaire
 			listeJoueurs.get(indexJoueur).ajouterTerritoire(1);//On ajoute une troupe au joueur
 			listeJoueurs.get(indexJoueur).ajouterTerritoireControle(listeTerritoires.get(listeRandomTerritoires.get(i)));
-			
 			indexJoueur++;
 			
 			if(indexJoueur>=listeJoueurs.size())
@@ -528,10 +527,32 @@ public class Jeu {
 					interf.joueurEnCours.combienTroupe(debut);
 
 
-					if(debut)
+					if(debut && ia && tour == listeJoueurs.size()-1)
+					{
+						IA ia = (IA) listeJoueurs.get(tour);
+						
+						ia.echange();
+						
+						ia.deploiement();
+						
+						tour(tour);
+						
+						debut = false;
+						interf.joueurEnCours = listeJoueurs.get(tour);
+						
+						interf.joueurEnCours.combienTroupe(debut);
+						interf.couche = 3;
+						interf.reset(0);
+					}
+					else if(debut)
 					{
 						interf.couche = 9;
 						interf.reset(4);
+					}
+					else if(tour == listeJoueurs.size()-1)
+					{
+						interf.couche = 12;
+						interf.reset(-1);
 					}
 					else
 					{
