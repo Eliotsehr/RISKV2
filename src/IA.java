@@ -139,7 +139,7 @@ public class IA extends Joueur{
 			{
 				nombreCavaliers++;
 				troupes = troupes -3;
-			} 
+			}
 			else
 			{
 				nombreSoldats++;
@@ -169,28 +169,37 @@ public class IA extends Joueur{
 	public void deploiement()
 	{
 		for(int i = 0; i < this.listeUniteADeployer.size();i++)
-		{
-			if(this.listeTerritoiresControles.get(i).estEntoure() == false)
 			{
-				this.listeTerritoiresControles.get(i).ajouterUniteTerritoire(listeUniteADeployer.get(i));
-
-				switch(listeUniteADeployer.get(i).getType())
+				if(this.listeTerritoiresControles.get(i).estEntoure() == false)
 				{
-				case 0:
-					this.listeTerritoiresControles.get(i).ajouterSoldats(1);
-					this.listeTerritoiresControles.get(i).ajouterTroupe(1);
-					break;
-				case 1:
-					this.listeTerritoiresControles.get(i).ajouterCavaliers(1);
-					this.listeTerritoiresControles.get(i).ajouterTroupe(3);
-					break;
-				case 2:
-					this.listeTerritoiresControles.get(i).ajouterCanons(1);
-					this.listeTerritoiresControles.get(i).ajouterTroupe(7);
-					break;
+					this.listeTerritoiresControles.get(i).ajouterUniteTerritoire(listeUniteADeployer.get(i));
+					
+					switch(listeUniteADeployer.get(i).getType())
+					{
+					case 0:
+						this.listeTerritoiresControles.get(i).ajouterSoldats(1);
+						this.listeTerritoiresControles.get(i).ajouterTroupe(1);
+						break;
+					case 1:
+						this.listeTerritoiresControles.get(i).ajouterCavaliers(1);
+						this.listeTerritoiresControles.get(i).ajouterTroupe(3);
+						break;
+					case 2:
+						this.listeTerritoiresControles.get(i).ajouterCanons(1);
+						this.listeTerritoiresControles.get(i).ajouterTroupe(7);
+						break;
+					}
+					
+					this.listeUniteADeployer.remove(listeUniteADeployer.get(i));
 				}
+				
+				if(i == this.listeTerritoiresControles.size()-1 && this.listeUniteADeployer.size() > 0)
+				{
+					i = 0;
+				}
+
 			}
-		}
+		
 		
 		this.listeUniteADeployer.clear();
 	}

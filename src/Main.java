@@ -16,6 +16,7 @@ public class Main {
 		interf = new Interface(1080,720,0);
 		interf.ecranMenu();
 		
+		
 
 		while(jeu)
 		{

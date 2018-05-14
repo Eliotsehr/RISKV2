@@ -64,13 +64,13 @@ public class Jeu {
 			String[] listeIR = {"Mongolie","Kamchatka","Yakouti","Sibérie"};
 			String[] listeAL = {"Kamchatka","Alberta","Territoires du Nord"};
 			String[] listeTN = {"Ontario","Alberta","Alaska","Groenland"};
-			String[] listeALB = {"Alaska","Territoires du Nord","Ontario","Etats de l'Ouest"};
-			String[] listeON = {"Territoires du Nord","Alberta","Etats de l'Ouest","Etats de L'Est","Quebec","Groenland"};
+			String[] listeALB = {"Alaska","Territoires du Nord","Ontario","Etats de L'Ouest"};
+			String[] listeON = {"Territoires du Nord","Alberta","Etats de L'Ouest","Etats de L'Est","Quebec","Groenland"};
 			String[] listeGR = {"Ontario","Territoires du Nord","Quebec","Island"};
-			String[] listeQU = {"Etats de l'Est","Ontario","Groenland"};
-			String[] listeEDO = {"Etats de l'Est","Amerique Centrale","Ontario","Alberta"};
-			String[] listeEDE = {"Etats de l'Ouest","Amerique Centrale","Ontario","Quebec"};
-			String[] listeAC = {"Venezuela","Etats de l'Est","Etats de l'Ouest"};
+			String[] listeQU = {"Etats de L'Est","Ontario","Groenland"};
+			String[] listeEDO = {"Etats de L'Est","Amerique Centrale","Ontario","Alberta"};
+			String[] listeEDE = {"Etats de L'Ouest","Amerique Centrale","Ontario","Quebec"};
+			String[] listeAC = {"Venezuela","Etats de L'Est","Etats de L'Ouest"};
 			String[] listeVE = {"Amerique Centrale","Pérou","Brésil"};
 			String[] listeBR = {"Argentine","Afrique du Nord","Pérou","Venezuela"};
 			String[] listePE = {"Argentine","Brésil","Venezuela"};
@@ -78,7 +78,7 @@ public class Jeu {
 			String[] listeIND = {"Nouvelle Guinée","Siam","Australie de l'Ouest"};
 			String[] listeNG = {"Indonésie","Australie de l'Ouest","Australie de l'Est"};
 			String[] listeADO = {"Australie de l'Est","Nouvelle Guinée","Indonésie"};
-			String[] listeADE = {"Australie de l'Ouest","Nouvelle Guinnée"};
+			String[] listeADE = {"Australie de l'Ouest","Nouvelle Guinée"};
 			
 			//Territoires	
 			
@@ -114,8 +114,8 @@ public class Jeu {
 			listeTerritoires.add(new Territoire("Ontario",listeON));
 			listeTerritoires.add(new Territoire("Groenland",listeGR));
 			listeTerritoires.add(new Territoire("Quebec",listeQU));
-			listeTerritoires.add(new Territoire("Etats de l'Ouest",listeEDO));
-			listeTerritoires.add(new Territoire("Etats de l'Est",listeEDE));
+			listeTerritoires.add(new Territoire("Etats de L'Ouest",listeEDO));
+			listeTerritoires.add(new Territoire("Etats de L'Est",listeEDE));
 			listeTerritoires.add(new Territoire("Amerique Centrale",listeAC));
 			listeTerritoires.add(new Territoire("Venezuela",listeVE));
 			listeTerritoires.add(new Territoire("Brésil",listeBR));

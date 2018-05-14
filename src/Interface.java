@@ -724,7 +724,7 @@ public class Interface {
 	{
 		StdDraw.clear();
 
-		StdDraw.picture(0.5, 0.5, "victoire.png");
+		StdDraw.picture(0.5, 0.5, "img/victoire.png");
 		StdDraw.setPenColor(StdDraw.BLACK);
 
 		int tour;
@@ -1071,7 +1071,7 @@ public class Interface {
 			break;
 
 		case 9:
-
+			
 			while(cliqueMissionLettre(sourisX,sourisY))
 			{
 				if(clique())
@@ -1129,7 +1129,7 @@ public class Interface {
 			
 			reset(-1);
 			
-			while(IA.peutAttaquer())
+			while(IA.peutAttaquer() && risk.listeJoueurs.size() > 1)
 			{
 				territoire1 = IA.territoireQuiAttaque(0);
 				territoire2 = IA.territoireQuiDefend(territoire1, 0);
@@ -1141,7 +1141,7 @@ public class Interface {
 				infosHaut(1);
 				infosBas(-1);
 
-				StdDraw.pause(4000);//On attend un petit peu avant d'afficher le resultat du combat
+				//StdDraw.pause(4000);//On attend un petit peu avant d'afficher le resultat du combat
 
 				infosHaut(3);
 
@@ -1151,7 +1151,7 @@ public class Interface {
 					IA.deplacement(territoire1, territoire2);
 				}
 				
-				StdDraw.pause(3000);
+				//StdDraw.pause(3000);
 				
 				territoire1.uniteCombat.clear();
 				territoire2.uniteCombat.clear();
@@ -1159,6 +1159,9 @@ public class Interface {
 				territoire1.resetTroupes();
 				
 				reset(-1);
+				
+				risk.defaiteJoueur();
+				risk.finPartie();
 			}
 			
 			this.couche = 3;//Deploiement
@@ -1172,8 +1175,12 @@ public class Interface {
 			
 			joueurEnCours = risk.listeJoueurs.get(risk.tour);
 			joueurEnCours.combienTroupe(risk.debut);
+			if(joueurEnCours.getNombreTroupesDeploiement() == 0)
+			{
+				joueurEnCours.setNombreTroupesDeploiement(1);
+			}
 			joueurEnCours.resetTerritoireCapture();
-
+			
 			reset(0);//Deploiement
 			
 		}
@@ -1373,9 +1380,11 @@ public class Interface {
 			
 			joueurEnCours = risk.listeJoueurs.get(risk.tour);
 			joueurEnCours.combienTroupe(risk.debut);
-			joueurEnCours.resetTerritoireCapture();
-
-
+			if(joueurEnCours.getNombreTroupesDeploiement() == 0)
+			{
+				joueurEnCours.setNombreTroupesDeploiement(1);
+			}
+			joueurEnCours.resetTerritoireCapture();			
 
 			return false;
 		}
