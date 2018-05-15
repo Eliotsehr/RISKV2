@@ -485,7 +485,6 @@ public class Jeu {
 
 	/**
 	 * Permet de savoir si un joueur a gagné
-	 * @return true s'il ne reste qu'un joueur false sinon
 	 */
 	public void finPartie()
 	{
@@ -590,7 +589,7 @@ public class Jeu {
 
 		case 1://Selection du territoire duquel le interf.joueurEnCours attaque
 
-			if(territoire.appartientA(interf.joueurEnCours) && territoire.peutAttaquer())
+			if(territoire.appartientA(interf.joueurEnCours) && territoire.peutAttaquerOuDeplacer())
 			{
 				interf.territoire1 = territoire;
 				interf.mode = 2;//Attaque etape 2
@@ -632,7 +631,7 @@ public class Jeu {
 
 		case 3://Selection du territoire duquel le interf.joueurEnCours fait le deplacement
 
-			if(territoire.appartientA(interf.joueurEnCours) && territoire.peutAttaquer())
+			if(territoire.appartientA(interf.joueurEnCours) && territoire.peutAttaquerOuDeplacer())
 			{
 				interf.territoire1 = territoire;
 				interf.mode = 4;//Deplacement etape 2

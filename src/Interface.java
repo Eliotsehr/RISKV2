@@ -1129,8 +1129,9 @@ public class Interface {
 			
 			reset(-1);
 			
-			while(IA.peutAttaquer() && risk.listeJoueurs.size() > 1)
+			while(IA.peutAttaquerOuDeplacer() && Main.jeu)
 			{
+				System.out.println(IA.peutAttaquerOuDeplacer());
 				territoire1 = IA.territoireQuiAttaque(0);
 				territoire2 = IA.territoireQuiDefend(territoire1, 0);
 				
@@ -1164,24 +1165,30 @@ public class Interface {
 				risk.finPartie();
 			}
 			
-			this.couche = 3;//Deploiement
-			mode = 0;//Deploiement
-
-			joueurEnCours.missionComplete();
-			risk.resetDeplacement(joueurEnCours);
-			risk.defaiteJoueur();
-			risk.finPartie();
-			risk.tour(risk.tour);
+			//IA.deplaceUniteeBloquee();
 			
-			joueurEnCours = risk.listeJoueurs.get(risk.tour);
-			joueurEnCours.combienTroupe(risk.debut);
-			if(joueurEnCours.getNombreTroupesDeploiement() == 0)
+			if(Main.jeu)
 			{
-				joueurEnCours.setNombreTroupesDeploiement(1);
+				
+				
+				
+				this.couche = 3;//Deploiement
+				mode = 0;//Deploiement
+
+				joueurEnCours.missionComplete();
+				risk.resetDeplacement(joueurEnCours);
+				risk.tour(risk.tour);
+				
+				joueurEnCours = risk.listeJoueurs.get(risk.tour);
+				joueurEnCours.combienTroupe(risk.debut);
+				if(joueurEnCours.getNombreTroupesDeploiement() == 0)
+				{
+					joueurEnCours.setNombreTroupesDeploiement(1);
+				}
+				joueurEnCours.resetTerritoireCapture();
+				
+				reset(0);//Deploiement
 			}
-			joueurEnCours.resetTerritoireCapture();
-			
-			reset(0);//Deploiement
 			
 		}
 	}
@@ -1970,16 +1977,16 @@ public class Interface {
 
 		Unitee deplacement;
 		
-		if((sourisX > 0.304 && sourisX < 0.425) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreSoldats() > 0 && territoire1.peutAttaquer())//Soldat
+		if((sourisX > 0.304 && sourisX < 0.425) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreSoldats() > 0 && territoire1.peutAttaquerOuDeplacer())//Soldat
 		{
 			deplacement = territoire1.uniteDeplacement(0, 0);
 
 		}
-		else if((sourisX > 0.445 && sourisX < 0.56) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreCavaliers() > 0 && territoire1.peutAttaquer())//Cavalier
+		else if((sourisX > 0.445 && sourisX < 0.56) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreCavaliers() > 0 && territoire1.peutAttaquerOuDeplacer())//Cavalier
 		{
 			deplacement = territoire1.uniteDeplacement(1, 0);
 		}
-		else if((sourisX > 0.58 && sourisX < 0.69) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreCanons() > 0 && territoire1.peutAttaquer())//Canon
+		else if((sourisX > 0.58 && sourisX < 0.69) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreCanons() > 0 && territoire1.peutAttaquerOuDeplacer())//Canon
 		{
 			deplacement = territoire1.uniteDeplacement(2, 0);
 		}

@@ -43,7 +43,7 @@ public class Territoire {
 	 * Permet de savoir si un territoire peut attaquer ou pas
 	 * @return true ou false s'il peut ou non attaquer
 	 */
-	public boolean peutAttaquer()
+	public boolean peutAttaquerOuDeplacer()
 	{
 		if((this.nombreSoldats + this.nombreCanons + this.nombreCavaliers < 2) || this.unitesPeuventAttaquer() == false)
 		{

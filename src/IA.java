@@ -5,6 +5,7 @@ public class IA extends Joueur{
 	
 	private ArrayList<Unitee> listeUniteADeployer = new ArrayList<Unitee>();
 	
+	private ArrayList<Territoire> listeTerritoiresParcourus = new ArrayList<Territoire>();
 	/**
 	 * Constructeur d'un objet IA
 	 * @param nom
@@ -32,7 +33,7 @@ public class IA extends Joueur{
 	 */
 	public Territoire territoireQuiAttaque(int rang)
 	{
-		if(this.listeTerritoiresControles.get(rang).peutAttaquer() && this.listeTerritoiresControles.get(rang).estEntoure() == false)
+		if(this.listeTerritoiresControles.get(rang).peutAttaquerOuDeplacer() && this.listeTerritoiresControles.get(rang).estEntoure() == false)
 		{
 			return this.listeTerritoiresControles.get(rang);
 		}
@@ -130,7 +131,12 @@ public class IA extends Joueur{
 		
 		while(troupes > 0)
 		{
-			if((int) troupes/7 >= 1)
+			if(true)
+			{
+				nombreCavaliers = nombreCavaliers + 2;
+				troupes = troupes -1;
+			}
+			else if((int) troupes/7 >= 1)
 			{
 				nombreCanons++;
 				troupes = troupes - 7;
@@ -139,11 +145,6 @@ public class IA extends Joueur{
 			{
 				nombreCavaliers++;
 				troupes = troupes -3;
-			}
-			else
-			{
-				nombreSoldats++;
-				troupes = troupes -1;
 			}
 		}
 		
@@ -168,38 +169,38 @@ public class IA extends Joueur{
 	 */
 	public void deploiement()
 	{
-		for(int i = 0; i < this.listeUniteADeployer.size();i++)
+		
+		for(int i = 0; i < this.listeTerritoiresControles.size();i++)
+		{
+			if(this.listeTerritoiresControles.get(i).estEntoure() == false && this.listeUniteADeployer.size() > 0)
 			{
-				if(this.listeTerritoiresControles.get(i).estEntoure() == false)
+				this.listeTerritoiresControles.get(i).ajouterUniteTerritoire(this.listeUniteADeployer.get(0));
+				
+				switch(this.listeUniteADeployer.get(0).getType())
 				{
-					this.listeTerritoiresControles.get(i).ajouterUniteTerritoire(listeUniteADeployer.get(i));
-					
-					switch(listeUniteADeployer.get(i).getType())
-					{
-					case 0:
-						this.listeTerritoiresControles.get(i).ajouterSoldats(1);
-						this.listeTerritoiresControles.get(i).ajouterTroupe(1);
-						break;
-					case 1:
-						this.listeTerritoiresControles.get(i).ajouterCavaliers(1);
-						this.listeTerritoiresControles.get(i).ajouterTroupe(3);
-						break;
-					case 2:
-						this.listeTerritoiresControles.get(i).ajouterCanons(1);
-						this.listeTerritoiresControles.get(i).ajouterTroupe(7);
-						break;
-					}
-					
-					this.listeUniteADeployer.remove(listeUniteADeployer.get(i));
+				case 0:
+					this.listeTerritoiresControles.get(i).ajouterSoldats(1);
+					this.listeTerritoiresControles.get(i).ajouterTroupe(1);
+					break;
+				case 1:
+					this.listeTerritoiresControles.get(i).ajouterCavaliers(1);
+					this.listeTerritoiresControles.get(i).ajouterTroupe(3);
+					break;
+				case 2:
+					this.listeTerritoiresControles.get(i).ajouterCanons(1);
+					this.listeTerritoiresControles.get(i).ajouterTroupe(7);
+					break;
 				}
 				
-				if(i == this.listeTerritoiresControles.size()-1 && this.listeUniteADeployer.size() > 0)
-				{
-					i = 0;
-				}
-
+				this.listeUniteADeployer.remove(listeUniteADeployer.get(0));
 			}
+		}
 		
+
+		if(this.listeUniteADeployer.size() > 0)
+		{
+			deploiement();
+		}
 		
 		this.listeUniteADeployer.clear();
 	}
@@ -208,11 +209,11 @@ public class IA extends Joueur{
 	 * Check si l'IA peut encore attaquer
 	 * @return true si elle peut, false sinon
 	 */
-	public boolean peutAttaquer()
+	public boolean peutAttaquerOuDeplacer()
 	{
 		for(int i = 0; i < this.listeTerritoiresControles.size();i++)
 		{
-			if(this.listeTerritoiresControles.get(i).peutAttaquer() && this.listeTerritoiresControles.get(i).estEntoure() == false)
+			if(this.listeTerritoiresControles.get(i).peutAttaquerOuDeplacer() && this.listeTerritoiresControles.get(i).estEntoure() == false)
 			{
 				return true;
 			}
@@ -223,17 +224,91 @@ public class IA extends Joueur{
 	
 	
 	//Deplacement
+	
+	/**
+	 * Déplacer les unites bloques entre des territoires controlés par l'IA
+	 */
 	public void deplaceUniteeBloquee()
 	{
-		for(int i = 0; i < risk.listeTerritoires.size(); i++)
+
+		if(uneTroupeEstBloquee())
 		{
-			Territoire territoire = risk.listeTerritoires.get(i);
-			
-			if(territoire.getProprietaire().equals(this) && territoire.estEntoure())
+			for(int i = 0; i < this.listeTerritoiresControles.size();i++)
 			{
-				
+				if(this.listeTerritoiresControles.get(i).estEntoure() && this.listeTerritoiresControles.get(i).peutAttaquerOuDeplacer() && this.listeTerritoiresParcourus.contains(this.listeTerritoiresControles.get(i)) == false)
+				{
+
+					//Choix du territoire duquel on effectue le déplacement et le territoire sur lequel on fait le dépalacement
+					Territoire territoireArrive = null;
+					Territoire territoireDepart = this.listeTerritoiresControles.get(i);
+	
+					
+					this.listeTerritoiresParcourus.add(this.listeTerritoiresControles.get(i));
+					
+
+					for(int j = 0; j < this.listeTerritoiresControles.get(i).getTerritoiresAdjacents().length;j++)
+					{
+						if(this.listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]).estEntoure() == false)
+						{
+							territoireArrive = this.listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]);
+						}
+					}
+					
+					if(territoireArrive == null)
+					{
+						territoireArrive = this.listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(0).getTerritoiresAdjacents()[0]);
+					}//Fin choix territoire
+					
+					Unitee uniteQuiSeDeplace = new Unitee(0,0,0,0,0,0);
+					
+					//Choix de l'unité qui se déplace
+					for(int j = 0; j < territoireDepart.getListeUnitees().size();j++)
+					{
+						if(territoireDepart.getListeUnitees().get(j).peutDeplacer())
+						{
+							uniteQuiSeDeplace = territoireDepart.getListeUnitees().get(j);
+						}
+					}
+					
+					
+					territoireDepart.deplacement(territoireArrive, uniteQuiSeDeplace);
+					
+				}
 			}
 		}
+		
+		if(uneTroupeEstBloquee())
+		{
+			deplaceUniteeBloquee();
+		}
+	}
+	
+	
+	/**
+	 * Check si une troupe est bloquée
+	 * @return true si ou, false sinon
+	 */
+	public boolean uneTroupeEstBloquee()
+	{
+		for(int i = 0; i < this.listeTerritoiresControles.size();i++)
+		{
+			if(this.listeTerritoiresControles.get(i).estEntoure() && this.listeTerritoiresControles.get(i).peutAttaquerOuDeplacer())
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+
+	public ArrayList<Territoire> getListeTerritoiresParcourus() {
+		return listeTerritoiresParcourus;
+	}
+
+
+	public void setListeTerritoiresParcourus(ArrayList<Territoire> listeTerritoiresParcourus) {
+		this.listeTerritoiresParcourus = listeTerritoiresParcourus;
 	}
 
 }
