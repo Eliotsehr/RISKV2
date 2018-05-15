@@ -1131,7 +1131,7 @@ public class Interface {
 			
 			while(IA.peutAttaquerOuDeplacer() && Main.jeu)
 			{
-				System.out.println(IA.peutAttaquerOuDeplacer());
+
 				territoire1 = IA.territoireQuiAttaque(0);
 				territoire2 = IA.territoireQuiDefend(territoire1, 0);
 				

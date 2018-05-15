@@ -186,7 +186,7 @@ public class Jeu {
 			String[] listeSK = {"The Wall","The Grev Cliffs"};
 			String[] listeTGC = {"The Wall","Skagos","Wolfswood","Winterfell"};
 			String[] listeWO = {"The Wall","The Grev Cliffs","Winterfell","The Neck","The Rills"};
-			String[] listeWI = {"The Grev Cliffs","Wolfswoo","The Neck","The Flint Chiff"};
+			String[] listeWI = {"The Grev Cliffs","Wolfswood","The Neck","The Flint Chiff"};
 			String[] listeTR = {"Wolfswood","The Neck"};
 			String[] listeTN = {"Wolfswood","The Rills","Winterfell","The Flint Chiff","The Vale"};
 			String[] listeTFC = {"The Neck","The Vale","Jron Islands","Riverlands"};
@@ -204,34 +204,34 @@ public class Jeu {
 			String[] listeBC = {"Andalos", "Fills of Norvos"};
 			String[] listeAN = {"Braavosian Coastland", "Fills of Norvos", "The Golden Fields",  "Crownlands", "Stormlands"};
 			String[] listeFON = {"Braavosian Coastland","Andalos", "The Golden Fields", "Qhoyne Lands"};
-			String[] listeQHL = {"Fills of Norvos", "Forrest of Dohor" , "The Golden Fields" , "Rhoynian Veld" };
+			String[] listeQHL = {"Fills of Norvos", "Forrest Of Dohor" , "The Golden Fields" , "Rhoynian Veld" };
 			String[] listeFOD = {"Sarnor", "Parched Fields" , "Rhoynian Veld", "Qhoyne Lands"};
 			String[] listeTGF = {"Andalos", "Fills of Norvos", "Qhoyne Lands","Sar Mell"};
 			String[] listeTDL = {"Dorne", "Sar Mell","The Golden Fields"};
-			String[] listeRHV = {"Sar Mell","Wester Waste","Parched Fields","Forrest of Dohor","Qhoyne Lands", "The Golden Fields"};
+			String[] listeRHV = {"Sar Mell","Western Waste","Parched Fields","Forrest Of Dohor","Qhoyne Lands", "The Golden Fields"};
 			String[] listeSM = {"The Disputed Lands", "The Golden Fields","Rhoynian Veld", "Western Waste", "Sea of Sighs" };
 			String[] listeWW = {"Sea of Sighs","Sar Mell","Rhoynian Veld","Parched Fields","Painted Mountains"};
 			String[] listeSOS = {"Sar Mell","Western Waste", "Elyria","Valyria"};
 			String[] listeEL = {"Sea of Sighs","Painted Mountains", "Valyria"};
 			String[] listeVA = {"Sea of Sighs", "Valyria"};
-			String[] listePM = {"Elyria", "Western Waste", "Parched Fields", "Western Grass Sea" ,"Lhazar", "Slaver's Bay"};
+			String[] listePM = {"Elyria", "Western Waste", "Parched Fields", "Western Grass Sea" ,"Lhazar", "Slayer's Bay"};
 			String[] listeSB = {"Ghiscar", "Red Waste", "Lhazar", "Painted Mountains"};
-			String[] listeLH = {"Slaver's Bay", "Painted Mountains", "Western Grass Sea", "Eastern Grass Sea", "Samyrian Fills","Bayasabhad", "Red Waste"};
+			String[] listeLH = {"Slayer's Bay", "Painted Mountains", "Western Grass Sea", "Eastern Grass Sea", "Samyrian Fills","Bayasabhad", "Red Waste"};
 			String[] listeSA = {"Bayasabhad", "Lhazar", "Eastern Grass Sea", "Vaes Dothrak"};
 			String[] listeGH = {"Slayer's Bay", "Red Waste"};
 			String[] listeRW = {"Ghiscar", "Slayer's Bay", "Lhazar", "Bayasabhad", "Qarth"};
 			String[] listeBA = {"Qarth", "Red Waste", "Lhazar" ,"Samyrian Fills"};
 			String[] listeQA = {"Red Waste" ,"Bayasabhad"};
-			String[] listeSAR = {"Forrest of Dohor" ,"Parched Fields", "Abandoned Lands"};
+			String[] listeSAR = {"Forrest Of Dohor" ,"Parched Fields", "Abandoned Lands"};
 			String[] listeAL = {"Sarnor" ,"Parched Fields","Western Grass Sea", "Kingdoms of the Jfqevron"};
 			String[] listeKOTJ = {"Abandoned Lands" ,"Western Grass Sea" ,"Eastern Grass Sea", "Vaes Dothrak" ,"The Footprint"};
-			String[] listeTF = {"Kingdoms of the Jfqevron", "Vaes Dothrak", "Realms of Jhogrvin", "Jbben"};
+			String[] listeTF = {"Kingdoms of the Jfqevron", "Vaes Dothrak", "Realms Of Jhogrvin", "Jbben"};
 			String[] listeJB = {"The Footprint"};
 			String[] listeROJ = {"Vaes Dothrak" ,"The Footprint","Riverlands"};
-			String[] listeVD = {"Realms of Jhogrvin", "The Footprint", "Kingdoms of the Jfqevron" ,"Eastern Grass Sea" , "Samyrian Fills"};
-			String[] listePF = {"Painted Mountains","Western Waste" ,"Rhoynian Veld" ,"Forrest of Dohor" ,"Sarnor" ,"Abandoned Lands" , "Western Grass Sea"};
+			String[] listeVD = {"Realms Of Jhogrvin", "The Footprint", "Kingdoms of the Jfqevron" ,"Eastern Grass Sea" , "Samyrian Fills"};
+			String[] listePF = {"Painted Mountains","Western Waste" ,"Rhoynian Veld" ,"Forrest Of Dohor" ,"Sarnor" ,"Abandoned Lands" , "Western Grass Sea"};
 			String[] listeWGS = {"Painted Mountains" ,"Parched Fields","Abandoned Lands","Kingdoms of the Jfqevron","Eastern Grass Sea", "Lhazar"};
-			String[] listeEGS = {"Wester Grass Sea","Kingdoms of the Jfqevron", "Vaes Dothrak" ,"Samyrian Fills","Lhazar"};
+			String[] listeEGS = {"Western Grass Sea","Kingdoms of the Jfqevron", "Vaes Dothrak" ,"Samyrian Fills","Lhazar"};
 			
 			//Territoires
 			listeTerritoires.add(new Territoire("The Wall",listeTW));
@@ -240,7 +240,7 @@ public class Jeu {
 			listeTerritoires.add(new Territoire("Wolfswood",listeWO));
 			listeTerritoires.add(new Territoire("Winterfell",listeWI));
 			listeTerritoires.add(new Territoire("The Rills",listeTR));
-			listeTerritoires.add(new Territoire("The Flint Cliff",listeTFC));
+			listeTerritoires.add(new Territoire("The Flint Chiff",listeTFC));
 			listeTerritoires.add(new Territoire("The Neck",listeTN));
 			listeTerritoires.add(new Territoire("The Vale",listeTV));
 			listeTerritoires.add(new Territoire("Jron Islands",listeJI));
@@ -250,7 +250,7 @@ public class Jeu {
 			listeTerritoires.add(new Territoire("Shield Lands",listeSL));
 			listeTerritoires.add(new Territoire("The Reach",listeTRE));
 			listeTerritoires.add(new Territoire("Stormlands",listeSTRM));
-			listeTerritoires.add(new Territoire("Whispering Sounds",listeWS));
+			listeTerritoires.add(new Territoire("Whispering Sound",listeWS));
 			listeTerritoires.add(new Territoire("Red Mountains",listeRM));
 			listeTerritoires.add(new Territoire("Dorne",listeDR));
 			listeTerritoires.add(new Territoire("Braavosian Coastland",listeBC));
@@ -263,11 +263,11 @@ public class Jeu {
 			listeTerritoires.add(new Territoire("Rhoynian Veld",listeRHV));
 			listeTerritoires.add(new Territoire("Sar Mell",listeSM));
 			listeTerritoires.add(new Territoire("Western Waste",listeWW));
-			listeTerritoires.add(new Territoire("Sea Of Sight",listeSOS));
+			listeTerritoires.add(new Territoire("Sea of Sighs",listeSOS));
 			listeTerritoires.add(new Territoire("Elyria",listeEL));
 			listeTerritoires.add(new Territoire("Valyria",listeVA));
 			listeTerritoires.add(new Territoire("Painted Mountains",listePM));
-			listeTerritoires.add(new Territoire("Slaver's Bay",listeSB));
+			listeTerritoires.add(new Territoire("Slayer's Bay",listeSB));
 			listeTerritoires.add(new Territoire("Lhazar",listeLH));
 			listeTerritoires.add(new Territoire("Samyrian Fills",listeSA));
 			listeTerritoires.add(new Territoire("Ghiscar",listeGH));
@@ -276,14 +276,14 @@ public class Jeu {
 			listeTerritoires.add(new Territoire("Qarth",listeQA));
 			listeTerritoires.add(new Territoire("Sarnor",listeSAR));
 			listeTerritoires.add(new Territoire("Abandoned Lands",listeAL));
-			listeTerritoires.add(new Territoire("Kingdoms Of The Jfeqevron",listeKOTJ));
+			listeTerritoires.add(new Territoire("Kingdoms of the Jfqevron",listeKOTJ));
 			listeTerritoires.add(new Territoire("The Footprint",listeTF));
 			listeTerritoires.add(new Territoire("Jbben",listeJB));
 			listeTerritoires.add(new Territoire("Realms Of Jhogrvin",listeROJ));
 			listeTerritoires.add(new Territoire("Vaes Dothrak",listeVD));
 			listeTerritoires.add(new Territoire("Parched Fields",listePF));
 			listeTerritoires.add(new Territoire("Western Grass Sea",listeWGS));
-			listeTerritoires.add(new Territoire("Easter Grass Sea",listeEGS));
+			listeTerritoires.add(new Territoire("Eastern Grass Sea",listeEGS));
 		
 		
 			for(int i = 0; i < listeTerritoires.size();i++)

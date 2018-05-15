@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Unitee {
 	
 	private int type;
@@ -8,6 +10,8 @@ public class Unitee {
 	private int mvtTOUR;
 	private int scoreDES;//Score des dés de l'unité lors d'un combat
 	private int nombreDeplacement;//Nombre de déplacement de l'unité lors du tour en cours
+	
+	public ArrayList<Territoire> listeTerritoiresParcourus = new ArrayList<Territoire>();
 	
 	/**
 	 * Contructeur de l'objet unité

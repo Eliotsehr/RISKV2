@@ -5,7 +5,6 @@ public class IA extends Joueur{
 	
 	private ArrayList<Unitee> listeUniteADeployer = new ArrayList<Unitee>();
 	
-	private ArrayList<Territoire> listeTerritoiresParcourus = new ArrayList<Territoire>();
 	/**
 	 * Constructeur d'un objet IA
 	 * @param nom
@@ -230,25 +229,36 @@ public class IA extends Joueur{
 	 */
 	public void deplaceUniteeBloquee()
 	{
-
+		Unitee uniteQuiSeDeplace = new Unitee(0,0,0,0,0,0);
 		if(uneTroupeEstBloquee())
 		{
 			for(int i = 0; i < this.listeTerritoiresControles.size();i++)
 			{
-				if(this.listeTerritoiresControles.get(i).estEntoure() && this.listeTerritoiresControles.get(i).peutAttaquerOuDeplacer() && this.listeTerritoiresParcourus.contains(this.listeTerritoiresControles.get(i)) == false)
+				if(this.listeTerritoiresControles.get(i).estEntoure() && this.listeTerritoiresControles.get(i).peutAttaquerOuDeplacer())
 				{
+					
+					
 
 					//Choix du territoire duquel on effectue le déplacement et le territoire sur lequel on fait le dépalacement
 					Territoire territoireArrive = null;
 					Territoire territoireDepart = this.listeTerritoiresControles.get(i);
+					
+					//Choix de l'unité qui se déplace
+					for(int j = 0; j < territoireDepart.getListeUnitees().size();j++)
+					{
+						if(territoireDepart.getListeUnitees().get(j).peutDeplacer())
+						{
+							uniteQuiSeDeplace = territoireDepart.getListeUnitees().get(j);
+						}
+					}
 	
 					
-					this.listeTerritoiresParcourus.add(this.listeTerritoiresControles.get(i));
+					uniteQuiSeDeplace.listeTerritoiresParcourus.add(this.listeTerritoiresControles.get(i));
 					
 
 					for(int j = 0; j < this.listeTerritoiresControles.get(i).getTerritoiresAdjacents().length;j++)
 					{
-						if(this.listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]).estEntoure() == false)
+						if(this.listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]).estEntoure() == false && uniteQuiSeDeplace.listeTerritoiresParcourus.contains(this.listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j])))
 						{
 							territoireArrive = this.listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]);
 						}
@@ -259,16 +269,7 @@ public class IA extends Joueur{
 						territoireArrive = this.listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(0).getTerritoiresAdjacents()[0]);
 					}//Fin choix territoire
 					
-					Unitee uniteQuiSeDeplace = new Unitee(0,0,0,0,0,0);
-					
-					//Choix de l'unité qui se déplace
-					for(int j = 0; j < territoireDepart.getListeUnitees().size();j++)
-					{
-						if(territoireDepart.getListeUnitees().get(j).peutDeplacer())
-						{
-							uniteQuiSeDeplace = territoireDepart.getListeUnitees().get(j);
-						}
-					}
+
 					
 					
 					territoireDepart.deplacement(territoireArrive, uniteQuiSeDeplace);
@@ -281,6 +282,11 @@ public class IA extends Joueur{
 		{
 			deplaceUniteeBloquee();
 		}
+		else
+		{
+			uniteQuiSeDeplace.listeTerritoiresParcourus.clear();
+		}
+		
 	}
 	
 	
@@ -299,16 +305,6 @@ public class IA extends Joueur{
 		}
 		
 		return false;
-	}
-
-
-	public ArrayList<Territoire> getListeTerritoiresParcourus() {
-		return listeTerritoiresParcourus;
-	}
-
-
-	public void setListeTerritoiresParcourus(ArrayList<Territoire> listeTerritoiresParcourus) {
-		this.listeTerritoiresParcourus = listeTerritoiresParcourus;
 	}
 
 }
