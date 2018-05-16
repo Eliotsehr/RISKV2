@@ -38,11 +38,11 @@ public class Jeu {
 		{
 			//Territoires adjacents
 			String[] listeIS = {"Scandinavie","Grande-Bretagne","Groenland"};
-			String[] listeSC = {"Island","Grande-Bretagne","Ukraine"};
+			String[] listeSC = {"Island","Grande-Bretagne","Ukraine","Europe du Nord"};
 			String[] listeGB = {"Island","Scandinavie","Europe de l'Ouest"};
 			String[] listeEO = {"Grande-Bretagne","Europe du Nord","Europe du Sud"};
 			String[] listeES = {"Europe de l'Ouest","Europe du Nord","Ukraine","Egypte","Afrique du Nord"};
-			String[] listeEN = {"Grande-Bretagne","Ukraine","Europe de l'Ouest","Europe du Sud"};
+			String[] listeEN = {"Grande-Bretagne","Ukraine","Europe de l'Ouest","Europe du Sud","Scandinavie"};
 			String[] listeUK = {"Scandinavie","Europe du Nord","Europe du Sud","Oural","Afganistan","Moyen-Orient"};
 			String[] listeEG = {"Afrique de l'Est","Afrique du Nord","Moyen-Orient","Europe du Sud"};
 			String[] listeAN = {"Europe de l'Ouest","Europe du Sud","Egypte","Brésil","Congo","Afrique de l'Est"};
@@ -357,6 +357,7 @@ public class Jeu {
 	{
 		//Cette partie permet de créer une liste mélangée des territoires
 		ArrayList<Integer> listeRandomTerritoires = new ArrayList<Integer>();
+		
 	    for (int i=0; i<listeTerritoires.size(); i++)
 	    {
 	    	listeRandomTerritoires.add(new Integer(i));
@@ -684,6 +685,22 @@ public class Jeu {
 				listeTerritoires.get(i).resetDeplacements();
 			}
 		}
+	}
+	
+	
+	
+	
+	public Territoire retrouverAvecNom(String nom)
+	{
+		for(int i = 0;i < listeTerritoires.size();i++)
+		{
+			if(listeTerritoires.get(i).getNom() == nom)
+			{
+				return listeTerritoires.get(i);
+			}
+		}
+		
+		return null;
 	}
 	//DIVERS
 

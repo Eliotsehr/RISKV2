@@ -32,7 +32,7 @@ public class IA extends Joueur{
 	 */
 	public Territoire territoireQuiAttaque(int rang)
 	{
-		if(this.listeTerritoiresControles.get(rang).peutAttaquerOuDeplacer() && this.listeTerritoiresControles.get(rang).estEntoure() == false)
+		if(this.listeTerritoiresControles.get(rang).peutAttaquerOuDeplacer() && this.listeTerritoiresControles.get(rang).estEntoure() == false && this.listeTerritoiresControles.get(rang).estPlusPuissantQueAdjacent())
 		{
 			return this.listeTerritoiresControles.get(rang);
 		}
@@ -51,9 +51,9 @@ public class IA extends Joueur{
 	 */
 	public Territoire territoireQuiDefend(Territoire territoire,int rang)
 	{
-		if(territoire.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).appartientA(this) == false)
+		if(risk.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).appartientA(this) == false && risk.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).estPlusPuissant(territoire) == false)
 		{
-			return territoire.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]);
+			return risk.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]);
 		}
 		else
 		{
@@ -130,20 +130,21 @@ public class IA extends Joueur{
 		
 		while(troupes > 0)
 		{
-			if(true)
-			{
-				nombreCavaliers = nombreCavaliers + 2;
-				troupes = troupes -1;
-			}
-			else if((int) troupes/7 >= 1)
+
+			if((int) troupes > 30)
 			{
 				nombreCanons++;
 				troupes = troupes - 7;
 			}
-			else if((int)troupes/3 >= 1)
+			else if((int)troupes > 10)
 			{
 				nombreCavaliers++;
 				troupes = troupes -3;
+			}
+			else
+			{
+				nombreSoldats++;
+				troupes = troupes -1;
 			}
 		}
 		
@@ -212,7 +213,7 @@ public class IA extends Joueur{
 	{
 		for(int i = 0; i < this.listeTerritoiresControles.size();i++)
 		{
-			if(this.listeTerritoiresControles.get(i).peutAttaquerOuDeplacer() && this.listeTerritoiresControles.get(i).estEntoure() == false)
+			if(this.listeTerritoiresControles.get(i).peutAttaquerOuDeplacer() && this.listeTerritoiresControles.get(i).estEntoure() == false && this.listeTerritoiresControles.get(i).estPlusPuissantQueAdjacent())
 			{
 				return true;
 			}
@@ -258,15 +259,15 @@ public class IA extends Joueur{
 
 					for(int j = 0; j < this.listeTerritoiresControles.get(i).getTerritoiresAdjacents().length;j++)
 					{
-						if(this.listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]).estEntoure() == false && uniteQuiSeDeplace.listeTerritoiresParcourus.contains(this.listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j])))
+						if(risk.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]).estEntoure() == false && uniteQuiSeDeplace.listeTerritoiresParcourus.contains(risk.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j])))
 						{
-							territoireArrive = this.listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]);
+							territoireArrive = risk.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]);
 						}
 					}
 					
 					if(territoireArrive == null)
 					{
-						territoireArrive = this.listeTerritoiresControles.get(i).retrouverAvecNom(this.listeTerritoiresControles.get(0).getTerritoiresAdjacents()[0]);
+						territoireArrive = risk.retrouverAvecNom(this.listeTerritoiresControles.get(0).getTerritoiresAdjacents()[0]);
 					}//Fin choix territoire
 					
 

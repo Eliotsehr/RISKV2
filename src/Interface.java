@@ -380,13 +380,13 @@ public class Interface {
 			StdDraw.text(0.5, 0.03, "Place tes troupes !");
 			break;
 		case 8:
-			StdDraw.text(0.5, 0.03, "Tu n'as pas assez de troupes pour ea !");
+			StdDraw.text(0.5, 0.03, "Tu n'as pas assez de troupes pour ça !");
 			break;
 		case 9:
 			StdDraw.text(0.5, 0.03, "Selectionne tes troupes d'attaque d'abord !");
 			break;
 		case 10:
-			StdDraw.text(0.5, 0.03, "Cette troupe a deje effectue tout ses deplacements !");
+			StdDraw.text(0.5, 0.03, "Cette troupe a deja effectue tout ses deplacements !");
 			break;
 		default:
 			break;
@@ -1142,7 +1142,7 @@ public class Interface {
 				infosHaut(1);
 				infosBas(-1);
 
-				//StdDraw.pause(4000);//On attend un petit peu avant d'afficher le resultat du combat
+				StdDraw.pause(3000);//On attend un petit peu avant d'afficher le resultat du combat
 
 				infosHaut(3);
 
@@ -1152,7 +1152,7 @@ public class Interface {
 					IA.deplacement(territoire1, territoire2);
 				}
 				
-				//StdDraw.pause(3000);
+				StdDraw.pause(3000);
 				
 				territoire1.uniteCombat.clear();
 				territoire2.uniteCombat.clear();
@@ -1165,12 +1165,10 @@ public class Interface {
 				risk.finPartie();
 			}
 			
-			//IA.deplaceUniteeBloquee();
+			IA.deplaceUniteeBloquee();
 			
 			if(Main.jeu)
 			{
-				
-				
 				
 				this.couche = 3;//Deploiement
 				mode = 0;//Deploiement
@@ -1181,6 +1179,7 @@ public class Interface {
 				
 				joueurEnCours = risk.listeJoueurs.get(risk.tour);
 				joueurEnCours.combienTroupe(risk.debut);
+				
 				if(joueurEnCours.getNombreTroupesDeploiement() == 0)
 				{
 					joueurEnCours.setNombreTroupesDeploiement(1);
@@ -1381,18 +1380,19 @@ public class Interface {
 			{
 				couche = 3;//Deploiement
 				mode = 0;//Deploiement
-				reset(0);//Choix
 
 			}
 			
 			joueurEnCours = risk.listeJoueurs.get(risk.tour);
 			joueurEnCours.combienTroupe(risk.debut);
+			
 			if(joueurEnCours.getNombreTroupesDeploiement() == 0)
 			{
 				joueurEnCours.setNombreTroupesDeploiement(1);
 			}
 			joueurEnCours.resetTerritoireCapture();			
 
+			reset(0);//Choix
 			return false;
 		}
 		else

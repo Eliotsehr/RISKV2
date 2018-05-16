@@ -676,7 +676,7 @@ public class Territoire {
 	{
 		for(int i = 0;i<this.territoiresAdjacents.length;i++)
 		{
-			if(retrouverAvecNom(this.territoiresAdjacents[i]).getProprietaire() != this.getProprietaire())
+			if(risk.retrouverAvecNom(this.territoiresAdjacents[i]).getProprietaire() != this.getProprietaire())
 			{
 				return false;
 			}
@@ -685,18 +685,62 @@ public class Territoire {
 		return true;
 	}
 	
-	public Territoire retrouverAvecNom(String nom)
+	
+	/**
+	 * Check si le territoire qui veut attaquer est plus puissant que le territoire qui défend
+	 * @param territoire2 territoire que l'ia attaque
+	 * @return true si oui, false sinon
+	 */
+	public boolean estPlusPuissant(Territoire territoire2)
 	{
-		for(int i = 0;i < risk.listeTerritoires.size();i++)
+		double puissanceAttaque = 0;
+		double puissanceDefense = 0;
+		
+		for(int i = 0; i < this.listeUnitees.size();i++)
 		{
-			if(risk.listeTerritoires.get(i).getNom() == nom)
+			puissanceAttaque = puissanceAttaque + this.listeUnitees.get(i).getpMax();
+		}
+		for(int i = 0; i < territoire2.listeUnitees.size();i++)
+		{
+			puissanceDefense = puissanceDefense + territoire2.listeUnitees.get(i).getpMax();
+		}
+		
+		double puissanceAttaqueMoyenne = puissanceAttaque / this.listeUnitees.size();
+		
+		double puissanceDefenseMoyenne = puissanceDefense / territoire2.listeUnitees.size();
+		
+		
+		if(puissanceAttaque > puissanceDefense && puissanceAttaqueMoyenne >= puissanceDefenseMoyenne/2)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * Check si le territoire est plus puissant qu'au moins un territoire adjacent
+	 * @return
+	 */
+	public boolean estPlusPuissantQueAdjacent()
+	{
+		for(int i = 0; i < this.territoiresAdjacents.length;i++)
+		{
+			if(this.estPlusPuissant(risk.retrouverAvecNom(this.territoiresAdjacents[i])) && risk.retrouverAvecNom(this.territoiresAdjacents[i]).appartientA(this.proprietaire) == false)
 			{
-				return risk.listeTerritoires.get(i);
+				return true;
 			}
 		}
 		
-		return null;
+		return false;
 	}
+	
+	//IA
+	
+
 	
 	public boolean appartientAuContinent(Continent continent)
 	{
