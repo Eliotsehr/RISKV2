@@ -741,7 +741,11 @@ public class Territoire {
 	//IA
 	
 
-	
+	/**
+	 * Check si un territoire appartient a un continent
+	 * @param continent le continent en question
+	 * @return true s'il appartient false sinon
+	 */
 	public boolean appartientAuContinent(Continent continent)
 	{
 		for(int i = 0;i < continent.getTerritoiresDuContinent().size();i++)
@@ -755,27 +759,6 @@ public class Territoire {
 		return false;
 	}
 
-	
-	public int rapportUnités(Territoire territoireDEF)
-	{
-		int force = 0;
-		
-		if(this.nombreCanons > territoireDEF.nombreCanons)
-		{
-			force++;
-		}
-		if(this.nombreCavaliers > territoireDEF.nombreCavaliers)
-		{
-			force++;
-		}
-		if(this.nombreSoldats > territoireDEF.nombreSoldats)
-		{
-			force++;
-		}
-	
-		return force;
-	}
-	
 	//IA
 
 	

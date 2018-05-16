@@ -32,6 +32,10 @@ public class Jeu {
 	public Jeu() {
 	}
 	
+	//INITIALISATION
+	/**
+	 * Initialisation des territories en fonction de la carte selectionee
+	 */
 	public void creerTerritoires()
 	{
 		if(map == 0)
@@ -348,8 +352,7 @@ public class Jeu {
 		}
 	}
 
-	
-	//DIVERS
+
 	/**
 	 * Distribue les territoires entre les joueurs
 	 */
@@ -406,8 +409,10 @@ public class Jeu {
 			listeJoueurs.get(i).definirMission(mission(listeRandomMissions.get(i)));
 		}
 	}
-
+	//INITIALISATION
 	
+	
+	//DIVERS
 	/**
 	 * Renvoit une mission en fonction de l'index
 	 * @param int index l'index de la mission
@@ -441,9 +446,6 @@ public class Jeu {
 			return null;
 		}
 	}
-	
-	
-
 	
 	
 	/**
@@ -495,8 +497,6 @@ public class Jeu {
 		}
 	}
 
-	
-	
 	
 	/**
 	 * Methodes regroupant tous les types de verifications nescessaires au bon fonctionnement du jeu
@@ -670,8 +670,6 @@ public class Jeu {
 }
 
 	
-	
-	
 	/**
 	 * Reset les déplacements d'un joueur
 	 * @param joueur
@@ -688,8 +686,11 @@ public class Jeu {
 	}
 	
 	
-	
-	
+	/**
+	 * Permet de retrouver un territoire via son nom
+	 * @param nom le nom du territoire
+	 * @return le territoire
+	 */
 	public Territoire retrouverAvecNom(String nom)
 	{
 		for(int i = 0;i < listeTerritoires.size();i++)

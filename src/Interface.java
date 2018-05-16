@@ -740,9 +740,7 @@ public class Interface {
 		StdDraw.text(0.86, 0.255,"Victoire de "+risk.listeJoueurs.get(tour).getNom());
 	}
 
-
-
-
+	
 	/**
 	 * Infos de deploiement
 	 */
@@ -763,8 +761,6 @@ public class Interface {
 	}
 
 
-
-
 	/**
 	 * Affiche les fenetres de confirmation d'attaque
 	 */
@@ -780,8 +776,6 @@ public class Interface {
 		StdDraw.text(0.76, 0.35, ""+territoire1.getNombreCavaliers());
 		StdDraw.text(0.9, 0.35, ""+territoire1.getNombreCanons());
 	}
-
-
 
 
 	/**
@@ -1192,9 +1186,7 @@ public class Interface {
 		}
 	}
 
-
-
-
+	
 	/**
 	 * Hitbox du menu
 	 * @param sourisX valeur en x de la souris
@@ -1231,8 +1223,13 @@ public class Interface {
 		}
 	}
 
-
-
+	
+	/**
+	 * Hitbox du choix des cartes
+	 * @param sourisX coordonee en x de la souris
+	 * @param sourisY coordonee en y de la souris
+	 * @return
+	 */
 	public boolean cliqueCarte(double sourisX, double sourisY)
 	{
 		if((sourisX > 0.53 && sourisX < 0.79) && (sourisY > 0.48 && sourisY < 0.64))//Map classique
@@ -1817,8 +1814,6 @@ public class Interface {
 	}
 
 
-
-
 	/**
 	 * Hitbox du choix des troupes d'attaque
 	 * @param sourisX
@@ -1899,8 +1894,6 @@ public class Interface {
 			return true;
 		}
 	}
-
-
 
 
 	/**
@@ -2025,8 +2018,6 @@ public class Interface {
 	}
 
 
-
-
 	/**
 	 * Hitbox confirmation mission
 	 * @param sourisX
@@ -2088,9 +2079,7 @@ public class Interface {
 		return StdDraw.mouseX();
 	}
 
-
-
-
+	
 	/**
 	 *
 	 * @return la position en y de la souris
@@ -2101,8 +2090,6 @@ public class Interface {
 	}
 
 
-
-
 	/**
 	 *
 	 * @return true ou false selon s'il y a un clique ou non
@@ -2111,8 +2098,6 @@ public class Interface {
 	{
 		return StdDraw.isMousePressed();
 	}
-
-
 
 
 	/**
