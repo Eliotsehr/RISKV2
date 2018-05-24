@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -19,6 +20,8 @@ public class Jeu {
 	public boolean debut = true;
 	public boolean continuer = false;
 	
+	public int cache = 0;
+	
 	public int nombreTroupesATT;
 	
 	
@@ -30,9 +33,26 @@ public class Jeu {
 	 * Constructeur du jeu, initialise les territoires, continent et unités
 	 */
 	public Jeu() {
+		
+		effacerCache();
 	}
 	
-	//INITIALISATION
+	//IN
+	
+	/**
+	 * Vider le cache du jeu
+	 */
+	public void effacerCache()
+	{
+		for(File file: new java.io.File("C:\\Users\\user\\git\\RISKV2\\img\\cache").listFiles()) 
+	    if (!file.isDirectory()) 
+	    {
+	    	file.delete();
+	    }
+	        
+	}
+	
+	
 	/**
 	 * Initialisation des territories en fonction de la carte selectionee
 	 */
@@ -409,10 +429,8 @@ public class Jeu {
 			listeJoueurs.get(i).definirMission(mission(listeRandomMissions.get(i)));
 		}
 	}
-	//INITIALISATION
+
 	
-	
-	//DIVERS
 	/**
 	 * Renvoit une mission en fonction de l'index
 	 * @param int index l'index de la mission
@@ -517,14 +535,20 @@ public class Jeu {
 
 			if(territoire.appartientA(interf.joueurEnCours) && (interf.joueurEnCours.getNombreSoldatsDeploiement() > 0 || interf.joueurEnCours.getNombreCavaliersDeploiement() > 0 || interf.joueurEnCours.getNombreCanonsDeploiement() > 0 ))
 			{
+				interf.territoire1 = territoire;
 				territoire.deploiement(interf.joueurEnCours);
 
 				if(interf.joueurEnCours.getNombreSoldatsDeploiement() == 0 && interf.joueurEnCours.getNombreCavaliersDeploiement() == 0 && interf.joueurEnCours.getNombreCanonsDeploiement() == 0  && debut)
 				{
+					interf.reset(5);
+					
+					interf.savePlateau();
 					tour(tour);
 					interf.joueurEnCours = listeJoueurs.get(tour);
 					
 					interf.joueurEnCours.combienTroupe(debut);
+					
+					
 
 
 					if(debut && ia && tour == listeJoueurs.size()-1)
@@ -533,7 +557,7 @@ public class Jeu {
 						
 						ia.echange();
 						
-						ia.deploiement();
+						ia.deploiement(interf);
 						
 						tour(tour);
 						
@@ -561,11 +585,16 @@ public class Jeu {
 						interf.reset(0);
 					}
 
-
+					
+					
 					return false;
 				}
 				else if( interf.joueurEnCours.getNombreSoldatsDeploiement() == 0 && interf.joueurEnCours.getNombreCavaliersDeploiement() == 0 && interf.joueurEnCours.getNombreCanonsDeploiement() == 0 )
 				{
+					interf.reset(5);
+					
+					interf.savePlateau();
+					
 					interf.couche = 4;//Choix
 
 					interf.reset(1);//Choix
@@ -574,7 +603,7 @@ public class Jeu {
 				}
 				else
 				{
-					interf.reset(-1);//Vide
+					interf.reset(5);
 				}
 
 				interf.infosDeploiement();
@@ -588,7 +617,7 @@ public class Jeu {
 			}
 
 
-		case 1://Selection du territoire duquel le interf.joueurEnCours attaque
+		case 1://Selection du territoire duquel le joueur attaque
 
 			if(territoire.appartientA(interf.joueurEnCours) && territoire.peutAttaquerOuDeplacer())
 			{
@@ -612,6 +641,7 @@ public class Jeu {
 				interf.territoire2 = territoire;
 				interf.couche = 6;
 
+
 				nombreTroupesATT = interf.territoire1.nombreDesATT();
 
 				interf.infosHaut(10);
@@ -630,7 +660,7 @@ public class Jeu {
 				return true;
 			}
 
-		case 3://Selection du territoire duquel le interf.joueurEnCours fait le deplacement
+		case 3://Selection du territoire duquel le joueur fait le deplacement
 
 			if(territoire.appartientA(interf.joueurEnCours) && territoire.peutAttaquerOuDeplacer())
 			{
@@ -653,6 +683,7 @@ public class Jeu {
 			{
 				interf.territoire2 = territoire;
 				interf.couche = 8;
+				
 
 				interf.coucheDeplacement();
 				return false;

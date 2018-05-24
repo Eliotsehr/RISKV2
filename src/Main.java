@@ -1,4 +1,4 @@
-
+import java.io.IOException;
 
 public class Main {
 
@@ -10,7 +10,7 @@ public class Main {
 	
 	static boolean jeu = true;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		risk = new Jeu();
 		
 		interf = new Interface(1080,720,0);

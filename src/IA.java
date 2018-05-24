@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+
+import edu.princeton.cs.introcs.StdDraw;
 public class IA extends Joueur{
 
 	Jeu risk = Main.risk;
@@ -74,7 +76,9 @@ public class IA extends Joueur{
 		{
 			if(territoire1.getListeUnitees().get(i).peutDeplacer())
 			{
-				territoire1.deplacement(territoire2, territoire1.getListeUnitees().get(i));
+				Unitee uniteADeplacer = territoire1.getListeUnitees().get(i);
+				territoire1.getListeUnitees().remove(i);
+				territoire1.deplacement(territoire2, uniteADeplacer);
 			}
 		}
 	}
@@ -100,7 +104,7 @@ public class IA extends Joueur{
 			}
 			
 			uniteATT = new Unitee(0,0,0,0,0,0);
-			territoire.ajouterUniteListe(type, 0);
+			territoire.ajouterUniteCombat(type, 0);
 			
 			switch(type)
 			{
@@ -167,7 +171,7 @@ public class IA extends Joueur{
 	/**
 	 * Permet à l'ia de déployer ses unités
 	 */
-	public void deploiement()
+	public void deploiement(Interface interf)
 	{
 		
 		for(int i = 0; i < this.listeTerritoiresControles.size();i++)
@@ -180,28 +184,30 @@ public class IA extends Joueur{
 				{
 				case 0:
 					this.listeTerritoiresControles.get(i).ajouterSoldats(1);
-					this.listeTerritoiresControles.get(i).ajouterTroupe(1);
 					break;
 				case 1:
 					this.listeTerritoiresControles.get(i).ajouterCavaliers(1);
-					this.listeTerritoiresControles.get(i).ajouterTroupe(3);
 					break;
 				case 2:
 					this.listeTerritoiresControles.get(i).ajouterCanons(1);
-					this.listeTerritoiresControles.get(i).ajouterTroupe(7);
+
 					break;
 				}
 				
 				this.listeUniteADeployer.remove(listeUniteADeployer.get(0));
+				
+				interf.territoire1 = this.listeTerritoiresControles.get(i);
+				interf.reset(5);
 			}
 		}
 		
 
 		if(this.listeUniteADeployer.size() > 0)
 		{
-			deploiement();
+			deploiement(interf);
 		}
 		
+		interf.savePlateau();
 		this.listeUniteADeployer.clear();
 	}
 	//Divers
@@ -274,6 +280,8 @@ public class IA extends Joueur{
 					
 					
 					territoireDepart.deplacement(territoireArrive, uniteQuiSeDeplace);
+					
+					StdDraw.save("plateau.png");
 					
 				}
 			}

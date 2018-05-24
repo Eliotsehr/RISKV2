@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import edu.princeton.cs.introcs.StdDraw;
 
 public class Interface {
@@ -34,6 +36,10 @@ public class Interface {
 	public double sourisX;
 	public double sourisY;
 	
+	public double[][] cooTerritoiresClassique = {{0.37,0.77},{0.44,0.79},{0.35,0.66},{0.36,0.55},{0.44,0.57},{0.44,0.64},{0.53,0.73},{0.47,0.425},{0.4,0.37},{0.52,0.32}, {0.47,0.26},{0.47,0.15},{0.56,0.15},{0.55,0.49},{0.64,0.48},{0.6,0.62},{0.61,0.73},{0.65,0.81},{0.72,0.44},{0.7,0.55}, {0.73,0.84},{0.72,0.64},{0.82,0.62},{0.8,0.84},{0.72,0.73},{0.04,0.81},{0.15,0.81},{0.1,0.74},{0.18,0.72},{0.3,0.86}, {0.26,0.72},{0.13,0.65},{0.19,0.6},{0.14,0.51},{0.2,0.44},{0.26,0.35},{0.18,0.31},{0.23,0.22},{0.73,0.29},{0.81,0.32},{0.76,0.15},{0.83,0.19}};
+	public double [][] cooTerritoiresGOT = {{0.2,0.84},{0.26,0.86},{0.24,0.79},{0.11,0.77},{0.22,0.74},{0.1,0.7},{0.12,0.64},{0.16,0.67},{0.22,0.56},{0.08,0.56},{0.12,0.53},{0.2,0.47},{0.13,0.47},{0.11,0.39},{0.17,0.41},{0.23,0.38},{0.09,0.32},{0.16,0.31},{0.23,0.27},{0.36,0.57},{0.36,0.47},{0.4,0.51},{0.45,0.48},{0.51,0.48},{0.41,0.38},{0.39,0.29},{0.49,0.41},{0.47,0.31},{0.54,0.35},{0.54,0.26},{0.57,0.22},{0.55,0.13},{0.64,0.33},{0.71,0.28},{0.78,0.32},{0.87,0.38},{0.71,0.18},{0.79,0.24},{0.87,0.29},{0.88,0.22},{0.57,0.54},{0.65,0.49},{0.74,0.49},{0.81,0.58},{0.84,0.75},{0.94,0.57},{0.84,0.5},{0.6,0.4},{0.7,0.4},{0.8,0.42}};
+	
+	
 
 	public Territoire territoire1;
 	public Territoire territoire2;
@@ -41,7 +47,14 @@ public class Interface {
 	public Joueur joueurEnCours;
 
 	Jeu risk = Main.risk;
+	
 
+	ArrayList<Unitee> deplacement = new ArrayList<Unitee>();
+
+	String douille = new String();
+	
+
+	
 	/**
 	 *
 	 * @param xMax int largeur de la fenetre
@@ -123,6 +136,25 @@ public class Interface {
 		}
 	}
 
+	
+	/**
+	 * 
+	 */
+	public void savePlateau()
+	{
+		infosHaut(-1);
+		infosBas(-1);
+		
+		String nom = "img/cache/plateau"+risk.cache+".png";
+		StdDraw.save(nom);
+		risk.cache++;
+	}
+	
+	public void loadPlateau()
+	{
+		String nom = "img/cache/plateau"+(risk.cache-1)+".png";
+		StdDraw.picture(0.5, 0.5, nom);
+	}
 
 	/**
  	* Affiche l'interface de choix pour le joueur
@@ -143,7 +175,7 @@ public class Interface {
 		StdDraw.filledRectangle(0, 1, 0.1, 0.055);//Tour
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.text(0.06, 0.97, "TOUR:               "+risk.listeJoueurs.get(tour).getNom());
-		pion(0.075,0.975,tour);
+		pion(0.075,0.975,tour,0);
 	}
 
 
@@ -171,6 +203,7 @@ public class Interface {
 	 * @param posX position en x du centre
 	 * @param posY position en y du centre
 	 * @param couleur
+	 * @param indexTerritoire
 	 * 1. bleu
 	 * 2. rouge
 	 * 3. jaune
@@ -178,25 +211,26 @@ public class Interface {
 	 * 5. vert
 	 * 6. gris
 	 */
-	public void pion(double posX, double posY, int couleur)
+	public void pion(double posX, double posY, int couleur,int indexTerritoire)
 	{
 		if(couleur == 0)
 		{
 			if(risk.map == 0)
 			{
-				StdDraw.picture(posX,posY,"img/rondbleu.png");
+				StdDraw.picture(posX,posY,"img/jetonBleu.png");
 			}
 			else
 			{
 				StdDraw.picture(posX,posY,"img/GOTbleu.png");
 			}
 			
+			
 		}
 		else if(couleur == 1)
 		{
 			if(risk.map == 0)
 			{
-				StdDraw.picture(posX,posY,"img/rondrouge.png");
+				StdDraw.picture(posX,posY,"img/jetonRouge.png");
 			}
 			else
 			{
@@ -249,7 +283,11 @@ public class Interface {
 			}
 		}
 
-
+		StdDraw.text(posX-0.02, posY-0.015, "" + risk.listeTerritoires.get(indexTerritoire).getNombreSoldats());
+		StdDraw.text(posX, posY-.015, "" + risk.listeTerritoires.get(indexTerritoire).getNombreCavaliers());
+		StdDraw.text(posX+0.02, posY-.015, "" + risk.listeTerritoires.get(indexTerritoire).getNombreCanons());
+		
+		//douille = douille+",{"+posX+","+posY+"}";
 
 	}
 
@@ -400,29 +438,50 @@ public class Interface {
 	 */
 	public void reset(int mode)
 	{
-		couchePlateau();
-		couchePions();
-		coucheTour(risk.tour);
-
-		if(mode == 0)
+		
+		switch(mode)
+		{
+		case 0:
 		{
 			coucheDeploiement();
+			break;
 		}
-		else if(mode == 1)
+		case  1:
 		{
+			loadPlateau();
 			coucheChoix();
+			break;
 		}
-		else if(mode == 2)
+		case  2:
 		{
+			loadPlateau();
 			croix();
+			break;
 		}
-		else if(mode == 3)
+		case  3:
 		{
 			coucheMission(joueurEnCours.getMission().getIndex());
+			break;
 		}
-		else if(mode == 4)
+		case  4:
 		{
 			coucheMissionLettre();
+			break;
+		}
+		case  5:
+		{
+			maj(territoire1);
+			break;
+		}
+		case  6:
+		{
+			loadPlateau();
+			maj(territoire1);
+			maj(territoire2);
+			croix();
+			break;
+		}
+			
 		}
 	}
 
@@ -432,290 +491,40 @@ public class Interface {
 	 */
 	public void couchePions()
 	{
+		
 		if(risk.map == 0)
 		{
-			pion(0.37, 0.77, risk.listeTerritoires.get(0).getProprietaire().getNumeroDeJoueur());//Island
-			StdDraw.text(0.37,0.77, ""+risk.listeTerritoires.get(0).getNombreTroupesTotal());
+			
+			for(int i = 0; i < cooTerritoiresClassique.length;i++)
+			{
+				pion(cooTerritoiresClassique[i][0], cooTerritoiresClassique[i][1],risk.listeTerritoires.get(i).getProprietaire().getNumeroDeJoueur(),i);
+			}
 
-			pion(0.44, 0.79, risk.listeTerritoires.get(1).getProprietaire().getNumeroDeJoueur());//Scandinavie
-			StdDraw.text(0.44,0.79, ""+risk.listeTerritoires.get(1).getNombreTroupesTotal());
-
-			pion(0.35, 0.66, risk.listeTerritoires.get(2).getProprietaire().getNumeroDeJoueur());//Grande-Bretagne
-			StdDraw.text(0.35,0.66, ""+risk.listeTerritoires.get(2).getNombreTroupesTotal());
-
-			pion(0.38, 0.55, risk.listeTerritoires.get(3).getProprietaire().getNumeroDeJoueur());//Europe de l'Ouest
-			StdDraw.text(0.38,0.55, ""+risk.listeTerritoires.get(3).getNombreTroupesTotal());
-
-			pion(0.44, 0.57, risk.listeTerritoires.get(4).getProprietaire().getNumeroDeJoueur());//Europe du Sud
-			StdDraw.text(0.44,0.57, ""+risk.listeTerritoires.get(4).getNombreTroupesTotal());
-
-			pion(0.44, 0.64, risk.listeTerritoires.get(5).getProprietaire().getNumeroDeJoueur());//Europe du Nord
-			StdDraw.text(0.44,0.64, ""+risk.listeTerritoires.get(5).getNombreTroupesTotal());
-
-			pion(0.53, 0.73, risk.listeTerritoires.get(6).getProprietaire().getNumeroDeJoueur());//Ukraine
-			StdDraw.text(0.53,0.73, ""+risk.listeTerritoires.get(6).getNombreTroupesTotal());
-
-			pion(0.47, 0.425, risk.listeTerritoires.get(7).getProprietaire().getNumeroDeJoueur());//Egypte
-			StdDraw.text(0.47,0.425, ""+risk.listeTerritoires.get(7).getNombreTroupesTotal());
-
-			pion(0.4, 0.37, risk.listeTerritoires.get(8).getProprietaire().getNumeroDeJoueur());//Afrique du Sud
-			StdDraw.text(0.4,0.37, ""+risk.listeTerritoires.get(8).getNombreTroupesTotal());
-
-			pion(0.52, 0.32, risk.listeTerritoires.get(9).getProprietaire().getNumeroDeJoueur());//Afrique de l'Est
-			StdDraw.text(0.52,0.32, ""+risk.listeTerritoires.get(9).getNombreTroupesTotal());
-
-			pion(0.47, 0.26, risk.listeTerritoires.get(10).getProprietaire().getNumeroDeJoueur());//Congo
-			StdDraw.text(0.47,0.26, ""+risk.listeTerritoires.get(10).getNombreTroupesTotal());
-
-			pion(0.47, 0.15, risk.listeTerritoires.get(11).getProprietaire().getNumeroDeJoueur());//Afrique du Sud
-			StdDraw.text(0.47,0.15, ""+risk.listeTerritoires.get(11).getNombreTroupesTotal());
-
-			pion(0.56, 0.15, risk.listeTerritoires.get(12).getProprietaire().getNumeroDeJoueur());//Madagascar
-			StdDraw.text(0.56,0.15, ""+risk.listeTerritoires.get(12).getNombreTroupesTotal());
-
-			pion(0.55, 0.49, risk.listeTerritoires.get(13).getProprietaire().getNumeroDeJoueur());//Moyen Orient
-			StdDraw.text(0.55,0.49, ""+risk.listeTerritoires.get(13).getNombreTroupesTotal());
-
-			pion(0.64, 0.48, risk.listeTerritoires.get(14).getProprietaire().getNumeroDeJoueur());//Inde
-			StdDraw.text(0.64,0.48, ""+risk.listeTerritoires.get(14).getNombreTroupesTotal());
-
-			pion(0.60, 0.62, risk.listeTerritoires.get(15).getProprietaire().getNumeroDeJoueur());//Afganistan
-			StdDraw.text(0.60,0.62, ""+risk.listeTerritoires.get(15).getNombreTroupesTotal());
-
-			pion(0.61, 0.73, risk.listeTerritoires.get(16).getProprietaire().getNumeroDeJoueur());//Oural
-			StdDraw.text(0.61,0.73, ""+risk.listeTerritoires.get(16).getNombreTroupesTotal());
-
-			pion(0.65, 0.81, risk.listeTerritoires.get(17).getProprietaire().getNumeroDeJoueur());//Siberie
-			StdDraw.text(0.65,0.81, ""+risk.listeTerritoires.get(17).getNombreTroupesTotal());
-
-			pion(0.72, 0.44, risk.listeTerritoires.get(18).getProprietaire().getNumeroDeJoueur());//Siam
-			StdDraw.text(0.72,0.44, ""+risk.listeTerritoires.get(18).getNombreTroupesTotal());
-
-			pion(0.70, 0.55, risk.listeTerritoires.get(19).getProprietaire().getNumeroDeJoueur());//Chine
-			StdDraw.text(0.70,0.55, ""+risk.listeTerritoires.get(19).getNombreTroupesTotal());
-
-			pion(0.73, 0.84, risk.listeTerritoires.get(20).getProprietaire().getNumeroDeJoueur());//Yakouti
-			StdDraw.text(0.73,0.84, ""+risk.listeTerritoires.get(20).getNombreTroupesTotal());
-
-			pion(0.72, 0.64, risk.listeTerritoires.get(21).getProprietaire().getNumeroDeJoueur());//Mongolie
-			StdDraw.text(0.72,0.64, ""+risk.listeTerritoires.get(21).getNombreTroupesTotal());
-
-			pion(0.82, 0.62, risk.listeTerritoires.get(22).getProprietaire().getNumeroDeJoueur());//Japon
-			StdDraw.text(0.82,0.62, ""+risk.listeTerritoires.get(22).getNombreTroupesTotal());
-
-			pion(0.80, 0.84, risk.listeTerritoires.get(23).getProprietaire().getNumeroDeJoueur());//Kamchatka
-			StdDraw.text(0.8,0.84, ""+risk.listeTerritoires.get(23).getNombreTroupesTotal());
-
-			pion(0.72, 0.73, risk.listeTerritoires.get(24).getProprietaire().getNumeroDeJoueur());//Irkustk
-			StdDraw.text(0.72,0.73, ""+risk.listeTerritoires.get(24).getNombreTroupesTotal());
-
-			pion(0.04, 0.81, risk.listeTerritoires.get(25).getProprietaire().getNumeroDeJoueur());//Alaska
-			StdDraw.text(0.04,0.81, ""+risk.listeTerritoires.get(25).getNombreTroupesTotal());
-
-			pion(0.15, 0.81, risk.listeTerritoires.get(26).getProprietaire().getNumeroDeJoueur());//Territoires du Nord
-			StdDraw.text(0.15,0.81, ""+risk.listeTerritoires.get(26).getNombreTroupesTotal());
-
-			pion(0.13, 0.74, risk.listeTerritoires.get(27).getProprietaire().getNumeroDeJoueur());//Alberta
-			StdDraw.text(0.13,0.74, ""+risk.listeTerritoires.get(27).getNombreTroupesTotal());
-
-			pion(0.18, 0.72, risk.listeTerritoires.get(28).getProprietaire().getNumeroDeJoueur());//Ontario
-			StdDraw.text(0.18,0.72, ""+risk.listeTerritoires.get(28).getNombreTroupesTotal());
-
-			pion(0.30, 0.86, risk.listeTerritoires.get(29).getProprietaire().getNumeroDeJoueur());//Groenland
-			StdDraw.text(0.30,0.86, ""+risk.listeTerritoires.get(29).getNombreTroupesTotal());
-
-			pion(0.24, 0.72, risk.listeTerritoires.get(30).getProprietaire().getNumeroDeJoueur());//Quebec
-			StdDraw.text(0.24,0.72, ""+risk.listeTerritoires.get(30).getNombreTroupesTotal());
-
-			pion(0.13, 0.65, risk.listeTerritoires.get(31).getProprietaire().getNumeroDeJoueur());//Etats de L'Ouest
-			StdDraw.text(0.13,0.65, ""+risk.listeTerritoires.get(31).getNombreTroupesTotal());
-
-			pion(0.19, 0.60, risk.listeTerritoires.get(32).getProprietaire().getNumeroDeJoueur());//Etats de l'Est
-			StdDraw.text(0.19,0.6, ""+risk.listeTerritoires.get(32).getNombreTroupesTotal());
-
-			pion(0.14, 0.51, risk.listeTerritoires.get(33).getProprietaire().getNumeroDeJoueur());//Amerique Centrale
-			StdDraw.text(0.14,0.51, ""+risk.listeTerritoires.get(33).getNombreTroupesTotal());
-
-			pion(0.2, 0.44, risk.listeTerritoires.get(34).getProprietaire().getNumeroDeJoueur());//Venezuela
-			StdDraw.text(0.2,0.44, ""+risk.listeTerritoires.get(34).getNombreTroupesTotal());
-
-			pion(0.26, 0.35, risk.listeTerritoires.get(35).getProprietaire().getNumeroDeJoueur());//Bresil
-			StdDraw.text(0.26,0.35, ""+risk.listeTerritoires.get(35).getNombreTroupesTotal());
-
-			pion(0.22, 0.31, risk.listeTerritoires.get(36).getProprietaire().getNumeroDeJoueur());//Perou
-			StdDraw.text(0.22,0.31, ""+risk.listeTerritoires.get(36).getNombreTroupesTotal());
-
-			pion(0.23, 0.22, risk.listeTerritoires.get(37).getProprietaire().getNumeroDeJoueur());//Argentine
-			StdDraw.text(0.23,0.22, ""+risk.listeTerritoires.get(37).getNombreTroupesTotal());
-
-			pion(0.73, 0.29, risk.listeTerritoires.get(38).getProprietaire().getNumeroDeJoueur());//Indonesie
-			StdDraw.text(0.73,0.29, ""+risk.listeTerritoires.get(38).getNombreTroupesTotal());
-
-			pion(0.81, 0.32, risk.listeTerritoires.get(39).getProprietaire().getNumeroDeJoueur());//Nouvelle Guinee
-			StdDraw.text(0.81,0.32, ""+risk.listeTerritoires.get(39).getNombreTroupesTotal());
-
-			pion(0.78, 0.15, risk.listeTerritoires.get(40).getProprietaire().getNumeroDeJoueur());//Australie de l'Ouest
-			StdDraw.text(0.78,0.15, ""+risk.listeTerritoires.get(40).getNombreTroupesTotal());
-
-			pion(0.83, 0.19, risk.listeTerritoires.get(41).getProprietaire().getNumeroDeJoueur());//Australie de l'Est
-			StdDraw.text(0.83,0.19, ""+risk.listeTerritoires.get(41).getNombreTroupesTotal());
 		}
 		else if(risk.map == 1)
 		{
-			pion(0.2, 0.84, risk.listeTerritoires.get(0).getProprietaire().getNumeroDeJoueur());//The Wall
-			StdDraw.text(0.2,0.84, ""+risk.listeTerritoires.get(0).getNombreTroupesTotal());
-
-			pion(0.26, 0.86, risk.listeTerritoires.get(1).getProprietaire().getNumeroDeJoueur());//Skagos
-			StdDraw.text(0.26,0.86, ""+risk.listeTerritoires.get(1).getNombreTroupesTotal());
-
-			pion(0.24, 0.79, risk.listeTerritoires.get(2).getProprietaire().getNumeroDeJoueur());//The Grev Cliffs
-			StdDraw.text(0.24,0.79, ""+risk.listeTerritoires.get(2).getNombreTroupesTotal());
-
-			pion(0.11, 0.77, risk.listeTerritoires.get(3).getProprietaire().getNumeroDeJoueur());//Wolfswood
-			StdDraw.text(0.11,0.77, ""+risk.listeTerritoires.get(3).getNombreTroupesTotal());
-
-			pion(0.22, 0.74, risk.listeTerritoires.get(4).getProprietaire().getNumeroDeJoueur());//Winterfell
-			StdDraw.text(0.22,0.74, ""+risk.listeTerritoires.get(4).getNombreTroupesTotal());
-
-			pion(0.1, 0.7, risk.listeTerritoires.get(5).getProprietaire().getNumeroDeJoueur());//The Rills
-			StdDraw.text(0.1,0.7, ""+risk.listeTerritoires.get(5).getNombreTroupesTotal());
-
-			pion(0.12, 0.64, risk.listeTerritoires.get(6).getProprietaire().getNumeroDeJoueur());//The Neck
-			StdDraw.text(0.12,0.64, ""+risk.listeTerritoires.get(6).getNombreTroupesTotal());
-
-			pion(0.16, 0.67, risk.listeTerritoires.get(7).getProprietaire().getNumeroDeJoueur());//The Flint Cliff
-			StdDraw.text(0.16,0.67, ""+risk.listeTerritoires.get(7).getNombreTroupesTotal());
-
-			pion(0.22, 0.56, risk.listeTerritoires.get(8).getProprietaire().getNumeroDeJoueur());//The Vale
-			StdDraw.text(0.22,0.56, ""+risk.listeTerritoires.get(8).getNombreTroupesTotal());
-
-			pion(0.08, 0.56, risk.listeTerritoires.get(9).getProprietaire().getNumeroDeJoueur());//Jron Islands
-			StdDraw.text(0.08,0.56, ""+risk.listeTerritoires.get(9).getNombreTroupesTotal());
-
-			pion(0.12, 0.53, risk.listeTerritoires.get(10).getProprietaire().getNumeroDeJoueur());//Riverlands
-			StdDraw.text(0.12,0.53, ""+risk.listeTerritoires.get(10).getNombreTroupesTotal());
-
-			pion(0.2, 0.47, risk.listeTerritoires.get(11).getProprietaire().getNumeroDeJoueur());//Crownlands
-			StdDraw.text(0.2,0.47, ""+risk.listeTerritoires.get(11).getNombreTroupesTotal());
-
-			pion(0.13, 0.47, risk.listeTerritoires.get(12).getProprietaire().getNumeroDeJoueur());//Westerlands
-			StdDraw.text(0.13,0.47, ""+risk.listeTerritoires.get(12).getNombreTroupesTotal());
-
-			pion(0.11, 0.39, risk.listeTerritoires.get(13).getProprietaire().getNumeroDeJoueur());//Shield Lands
-			StdDraw.text(0.11,0.39, ""+risk.listeTerritoires.get(13).getNombreTroupesTotal());
-
-			pion(0.17, 0.41, risk.listeTerritoires.get(14).getProprietaire().getNumeroDeJoueur());//The Reach
-			StdDraw.text(0.17,0.41, ""+risk.listeTerritoires.get(14).getNombreTroupesTotal());
-
-			pion(0.23, 0.38, risk.listeTerritoires.get(15).getProprietaire().getNumeroDeJoueur());//Stormlands
-			StdDraw.text(0.23,0.38, ""+risk.listeTerritoires.get(15).getNombreTroupesTotal());
-
-			pion(0.09, 0.32, risk.listeTerritoires.get(16).getProprietaire().getNumeroDeJoueur());//Whispering Sounds
-			StdDraw.text(0.09,0.32, ""+risk.listeTerritoires.get(16).getNombreTroupesTotal());
-
-			pion(0.16, 0.31, risk.listeTerritoires.get(17).getProprietaire().getNumeroDeJoueur());//Red Mountains
-			StdDraw.text(0.16,0.31, ""+risk.listeTerritoires.get(17).getNombreTroupesTotal());
-
-			pion(0.23, 0.27, risk.listeTerritoires.get(18).getProprietaire().getNumeroDeJoueur());//Dorne
-			StdDraw.text(0.23,0.27, ""+risk.listeTerritoires.get(18).getNombreTroupesTotal());
-
-			pion(0.36, 0.57, risk.listeTerritoires.get(19).getProprietaire().getNumeroDeJoueur());//Braavosian Costland
-			StdDraw.text(0.36,0.57, ""+risk.listeTerritoires.get(19).getNombreTroupesTotal());
-
-			pion(0.36, 0.47, risk.listeTerritoires.get(20).getProprietaire().getNumeroDeJoueur());//Andalos
-			StdDraw.text(0.36,0.47, ""+risk.listeTerritoires.get(20).getNombreTroupesTotal());
-
-			pion(0.4, 0.51, risk.listeTerritoires.get(21).getProprietaire().getNumeroDeJoueur());//Fills Of Norvos
-			StdDraw.text(0.4,0.51, ""+risk.listeTerritoires.get(21).getNombreTroupesTotal());
-
-			pion(0.45, 0.48, risk.listeTerritoires.get(22).getProprietaire().getNumeroDeJoueur());//Qhoyne Lands
-			StdDraw.text(0.45,0.48, ""+risk.listeTerritoires.get(22).getNombreTroupesTotal());
-
-			pion(0.51, 0.48, risk.listeTerritoires.get(23).getProprietaire().getNumeroDeJoueur());//Forrest Of Dohor
-			StdDraw.text(0.51,0.48, ""+risk.listeTerritoires.get(23).getNombreTroupesTotal());
-
-			pion(0.41, 0.38, risk.listeTerritoires.get(24).getProprietaire().getNumeroDeJoueur());//The Golden Fields
-			StdDraw.text(0.41, 0.38, ""+risk.listeTerritoires.get(24).getNombreTroupesTotal());
-
-			pion(0.39, 0.29, risk.listeTerritoires.get(25).getProprietaire().getNumeroDeJoueur());//The Disputed Lands
-			StdDraw.text(0.39,0.29, ""+risk.listeTerritoires.get(25).getNombreTroupesTotal());
-
-			pion(0.49, 0.41, risk.listeTerritoires.get(26).getProprietaire().getNumeroDeJoueur());//Rhoynian Veld
-			StdDraw.text(0.49,0.41, ""+risk.listeTerritoires.get(26).getNombreTroupesTotal());
-
-			pion(0.47, 0.31, risk.listeTerritoires.get(27).getProprietaire().getNumeroDeJoueur());//Sar Mell
-			StdDraw.text(0.47, 0.31, ""+risk.listeTerritoires.get(27).getNombreTroupesTotal());
-
-			pion(0.54, 0.35, risk.listeTerritoires.get(28).getProprietaire().getNumeroDeJoueur());//Western Waste
-			StdDraw.text(0.54,0.35, ""+risk.listeTerritoires.get(28).getNombreTroupesTotal());
-
-			pion(0.54, 0.26, risk.listeTerritoires.get(29).getProprietaire().getNumeroDeJoueur());//Sea Of Sight
-			StdDraw.text(0.54,0.26, ""+risk.listeTerritoires.get(29).getNombreTroupesTotal());
-
-			pion(0.57, 0.22, risk.listeTerritoires.get(30).getProprietaire().getNumeroDeJoueur());//Elyria
-			StdDraw.text(0.57,0.22, ""+risk.listeTerritoires.get(30).getNombreTroupesTotal());
-
-			pion(0.55, 0.13, risk.listeTerritoires.get(31).getProprietaire().getNumeroDeJoueur());//Valyria
-			StdDraw.text(0.55,0.13, ""+risk.listeTerritoires.get(31).getNombreTroupesTotal());
-
-			pion(0.64, 0.33, risk.listeTerritoires.get(32).getProprietaire().getNumeroDeJoueur());//Painted Mountains
-			StdDraw.text(0.64, 0.33, ""+risk.listeTerritoires.get(32).getNombreTroupesTotal());
-
-			pion(0.71, 0.28, risk.listeTerritoires.get(33).getProprietaire().getNumeroDeJoueur());//Slaver's Bay
-			StdDraw.text(0.71,0.28, ""+risk.listeTerritoires.get(33).getNombreTroupesTotal());
-
-			pion(0.78, 0.32, risk.listeTerritoires.get(34).getProprietaire().getNumeroDeJoueur());//Lhazar
-			StdDraw.text(0.78,0.32, ""+risk.listeTerritoires.get(34).getNombreTroupesTotal());
-
-			pion(0.87, 0.38, risk.listeTerritoires.get(35).getProprietaire().getNumeroDeJoueur());//Samyrian Fills
-			StdDraw.text(0.87,0.38, ""+risk.listeTerritoires.get(35).getNombreTroupesTotal());
-
-			pion(0.71, 0.18, risk.listeTerritoires.get(36).getProprietaire().getNumeroDeJoueur());//Ghiscar
-			StdDraw.text(0.71,0.18, ""+risk.listeTerritoires.get(36).getNombreTroupesTotal());
-
-			pion(0.79, 0.24, risk.listeTerritoires.get(37).getProprietaire().getNumeroDeJoueur());//Red Waste
-			StdDraw.text(0.79, 0.24, ""+risk.listeTerritoires.get(37).getNombreTroupesTotal());
-
-			pion(0.87, 0.29, risk.listeTerritoires.get(38).getProprietaire().getNumeroDeJoueur());//Bayasabhad
-			StdDraw.text(0.87,0.29, ""+risk.listeTerritoires.get(38).getNombreTroupesTotal());
-
-			pion(0.88, 0.22, risk.listeTerritoires.get(39).getProprietaire().getNumeroDeJoueur());//Quarth
-			StdDraw.text(0.88,0.22, ""+risk.listeTerritoires.get(39).getNombreTroupesTotal());
-
-			pion(0.57, 0.54, risk.listeTerritoires.get(40).getProprietaire().getNumeroDeJoueur());//Sarnor
-			StdDraw.text(0.57,0.54, ""+risk.listeTerritoires.get(40).getNombreTroupesTotal());
-
-			pion(0.65, 0.49, risk.listeTerritoires.get(41).getProprietaire().getNumeroDeJoueur());//Abandoned Lands
-			StdDraw.text(0.65,0.49, ""+risk.listeTerritoires.get(41).getNombreTroupesTotal());
-			
-			pion(0.74, 0.49, risk.listeTerritoires.get(42).getProprietaire().getNumeroDeJoueur());//Kingdoms Of The Jfeqevron
-			StdDraw.text(0.74,0.49, ""+risk.listeTerritoires.get(42).getNombreTroupesTotal());
-
-			pion(0.81, 0.58, risk.listeTerritoires.get(43).getProprietaire().getNumeroDeJoueur());//The Footprint
-			StdDraw.text(0.81,0.58, ""+risk.listeTerritoires.get(43).getNombreTroupesTotal());
-			
-			pion(0.84, 0.75, risk.listeTerritoires.get(44).getProprietaire().getNumeroDeJoueur());//Jbben
-			StdDraw.text(0.84,0.75, ""+risk.listeTerritoires.get(44).getNombreTroupesTotal());
-			
-			pion(0.94, 0.57, risk.listeTerritoires.get(45).getProprietaire().getNumeroDeJoueur());//Realms Of Jhogrvin
-			StdDraw.text(0.94,0.57, ""+risk.listeTerritoires.get(45).getNombreTroupesTotal());
-			
-			pion(0.84, 0.5, risk.listeTerritoires.get(46).getProprietaire().getNumeroDeJoueur());//Vaes Dothrak
-			StdDraw.text(0.84,0.5, ""+risk.listeTerritoires.get(46).getNombreTroupesTotal());
-			
-			pion(0.6, 0.4, risk.listeTerritoires.get(47).getProprietaire().getNumeroDeJoueur());//Parched Fields
-			StdDraw.text(0.6,0.4, ""+risk.listeTerritoires.get(47).getNombreTroupesTotal());
-			
-			pion(0.7, 0.4, risk.listeTerritoires.get(48).getProprietaire().getNumeroDeJoueur());//Western Grass Sea
-			StdDraw.text(0.7,0.4, ""+risk.listeTerritoires.get(48).getNombreTroupesTotal());
-			
-			pion(0.8, 0.42, risk.listeTerritoires.get(49).getProprietaire().getNumeroDeJoueur());//Easter Grass Sea
-			StdDraw.text(0.8,0.42, ""+risk.listeTerritoires.get(49).getNombreTroupesTotal());
-			
+			for(int i = 0; i < cooTerritoiresGOT.length;i++)
+			{
+				pion(cooTerritoiresGOT[i][0], cooTerritoiresGOT[i][1],risk.listeTerritoires.get(i).getProprietaire().getNumeroDeJoueur(),i);
 			}
+		}
 
 	}
 
+	
+	/**
+	 * Met à jour l'affichage d'un territoire
+	 * @param territoire
+	 */
+	public void maj(Territoire territoire)
+	{
+		int index = territoire.getIndexTerritoire();
+		
+		String nom = "img/mask/"+index+".png";
+		
+		StdDraw.picture(0.5, 0.5, nom);
+		pion(cooTerritoiresClassique[index][0], cooTerritoiresClassique[index][1],territoire.getProprietaire().getNumeroDeJoueur(),index);
+	}
 
 	/**
 	 * Ecran de victoire
@@ -960,8 +769,11 @@ public class Interface {
 			joueurEnCours.combienTroupe(risk.debut);
 
 			StdDraw.setCanvasSize(this.xMax, this.yMax);
-
-
+			
+			couchePlateau();
+			couchePions();
+			
+			savePlateau();
 			reset(4);//Mission lettre
 
 
@@ -1119,9 +931,9 @@ public class Interface {
 			
 			IA.echange();
 			
-			IA.deploiement();
+			IA.deploiement(this);
 			
-			reset(-1);
+			reset(5);
 			
 			while(IA.peutAttaquerOuDeplacer() && Main.jeu)
 			{
@@ -1140,6 +952,7 @@ public class Interface {
 
 				infosHaut(3);
 
+				
 				if(territoire2.estConquis())
 				{
 					IA.ajouterTerritoireCapture();
@@ -1153,11 +966,16 @@ public class Interface {
 
 				territoire1.resetTroupes();
 				
-				reset(-1);
+				maj(territoire1);
+				maj(territoire2);
+				
+				
 				
 				risk.defaiteJoueur();
 				risk.finPartie();
 			}
+			
+			savePlateau();
 			
 			IA.deplaceUniteeBloquee();
 			
@@ -1275,8 +1093,8 @@ public class Interface {
 			mode = 0;//Deploiement
 			couche = 5;//Modes
 
-			reset(-1);//Vide
-
+			loadPlateau();
+			
 			infosDeploiement();
 
 			return false;
@@ -1362,6 +1180,7 @@ public class Interface {
 		}
 		else if((sourisX > 0.65 && sourisX < 0.80) && (sourisY > 0.06 && sourisY < 0.11))//Fin de tour
 		{
+			
 			joueurEnCours.missionComplete();
 			risk.resetDeplacement(joueurEnCours);
 			risk.defaiteJoueur();
@@ -1371,12 +1190,13 @@ public class Interface {
 			if(risk.ia && risk.tour == risk.listeJoueurs.size()-1)
 			{
 				couche = 12;//IA
-				reset(-1);
+				loadPlateau();
 			}
 			else
 			{
 				couche = 3;//Deploiement
 				mode = 0;//Deploiement
+				reset(0);//Choix
 
 			}
 			
@@ -1387,9 +1207,7 @@ public class Interface {
 			{
 				joueurEnCours.setNombreTroupesDeploiement(1);
 			}
-			joueurEnCours.resetTerritoireCapture();			
-
-			reset(0);//Choix
+			joueurEnCours.resetTerritoireCapture();
 			return false;
 		}
 		else
@@ -1397,7 +1215,6 @@ public class Interface {
 			return true;
 		}
 	}
-
 
 
 	/**
@@ -1581,6 +1398,8 @@ public class Interface {
 			}
 			else if((sourisX > 0.89 && sourisX < 0.94) && (sourisY > 0.03 && sourisY < 0.15))//Annuler
 			{
+				savePlateau();
+				
 				reset(1);//Choix
 
 				couche = 4;//Choix
@@ -1843,9 +1662,9 @@ public class Interface {
 
 			return false;
 		}
-		else if((sourisX > 0.56 && sourisX < 0.67) && (sourisY > 0.32 && sourisY < 0.61) && territoire1.getNombreSoldats() > 0)//Soldat
+		else if((sourisX > 0.56 && sourisX < 0.67) && (sourisY > 0.32 && sourisY < 0.61) && territoire1.getNombreSoldats() > 0  && territoire1.unitePeutAttaquer(0))//Soldat
 		{
-			territoire1.ajouterUniteListe(0, 0);
+			territoire1.ajouterUniteCombat(0, 0);
 			risk.nombreTroupesATT--;
 			territoire1.ajouterSoldats(-1);
 
@@ -1853,9 +1672,9 @@ public class Interface {
 
 			return false;
 		}
-		else if((sourisX > 0.70 && sourisX < 0.81) && (sourisY > 0.32 && sourisY < 0.61) && territoire1.getNombreCavaliers() > 0)//Cavalier
+		else if((sourisX > 0.70 && sourisX < 0.81) && (sourisY > 0.32 && sourisY < 0.61) && territoire1.getNombreCavaliers() > 0  && territoire1.unitePeutAttaquer(1))//Cavalier
 		{
-			territoire1.ajouterUniteListe(1, 0);
+			territoire1.ajouterUniteCombat(1, 0);
 			risk.nombreTroupesATT--;
 			territoire1.ajouterCavaliers(-1);
 
@@ -1863,9 +1682,9 @@ public class Interface {
 
 			return false;
 		}
-		else if((sourisX > 0.83 && sourisX < 0.95) && (sourisY > 0.32 && sourisY < 0.61) && territoire1.getNombreCanons() > 0)//Canon
+		else if((sourisX > 0.83 && sourisX < 0.95) && (sourisY > 0.32 && sourisY < 0.61) && territoire1.getNombreCanons() > 0 && territoire1.unitePeutAttaquer(2))//Canon
 		{
-			territoire1.ajouterUniteListe(2, 0);
+			territoire1.ajouterUniteCombat(2, 0);
 			risk.nombreTroupesATT--;
 			territoire1.ajouterCanons(-1);
 
@@ -1932,15 +1751,17 @@ public class Interface {
 
 			StdDraw.pause(3000);
 
-			reset(2);//Croix
-
-			infosHaut(2);
-			infosBas(0);
-
 			territoire1.uniteCombat.clear();
 			territoire2.uniteCombat.clear();
 
 			territoire1.resetTroupes();
+			
+			reset(6);
+			
+			savePlateau();
+
+			infosHaut(2);
+			infosBas(0);
 
 			if(territoire2.estConquis())
 			{
@@ -1967,23 +1788,52 @@ public class Interface {
 	{
 		this.sourisX = 0;
 		this.sourisY = 0;
-
-		Unitee deplacement;
 		
 		if((sourisX > 0.304 && sourisX < 0.425) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreSoldats() > 0 && territoire1.peutAttaquerOuDeplacer())//Soldat
 		{
-			deplacement = territoire1.uniteDeplacement(0, 0);
-
+			deplacement.add(territoire1.uniteDeplacement(0, 0));
+			if(deplacement.get(deplacement.size()-1) == null)
+			{
+				deplacement.remove(deplacement.get((deplacement.size()-1)));
+				infosBas(10);
+			}
+			else
+			{
+				infosHaut(11);
+			}
+		
+			
 		}
 		else if((sourisX > 0.445 && sourisX < 0.56) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreCavaliers() > 0 && territoire1.peutAttaquerOuDeplacer())//Cavalier
 		{
-			deplacement = territoire1.uniteDeplacement(1, 0);
+			deplacement.add(territoire1.uniteDeplacement(1, 0));
+			if(deplacement.get(deplacement.size()-1) == null)
+			{
+				deplacement.remove(deplacement.get((deplacement.size()-1)));
+				infosBas(10);
+			}
+			else
+			{
+				infosHaut(12);
+			}
 		}
 		else if((sourisX > 0.58 && sourisX < 0.69) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreCanons() > 0 && territoire1.peutAttaquerOuDeplacer())//Canon
 		{
-			deplacement = territoire1.uniteDeplacement(2, 0);
+			deplacement.add(territoire1.uniteDeplacement(2, 0));
+			if(deplacement.get(deplacement.size()-1) == null)
+			{
+				deplacement.remove(deplacement.get((deplacement.size()-1)));
+				infosBas(10);
+			}
+			else
+			{
+				infosHaut(13);
+			}
+			
 		}
-		else if((sourisX > 0.4 && sourisX < 0.59) && (sourisY > 0.16 && sourisY < 0.20))
+		
+		
+		if((sourisX > 0.30 && sourisX < 0.49) && (sourisY > 0.15 && sourisY < 0.21))//Anuler
 		{
 
 			couche = 5;
@@ -1991,30 +1841,55 @@ public class Interface {
 
 			reset(2);
 			infosBas(0);
+			
+			for(int i = 0; i < deplacement.size(); i++)
+			{
+				switch(deplacement.get(i).getType())
+				{
+				case 0:
+					territoire1.ajouterSoldats(1);
+					break;
+				case 1:
+					territoire1.ajouterCavaliers(1);
+					break;
+				case 2:
+					territoire1.ajouterCanons(1);
+					break;
+				}
+			}
 
+			deplacement.clear();
+			
 			return false;
+		}
+		else if((sourisX > 0.51 && sourisX < 0.69) && (sourisY > 0.15 && sourisY < 0.21))//Confirmer
+		{
+			if(deplacement.size() == 0)
+			{
+				infosBas(10);
+				return false;
+			}
+			else
+			{
+				for(int i = 0;i < deplacement.size(); i ++)
+				{
+					territoire1.deplacement(territoire2, deplacement.get(i));
+				}
+				reset(6);
+
+				couche = 5;
+				mode = 3;
+
+				deplacement.clear();
+				
+				return false;
+			}
 		}
 		else
 		{
 			return true;
 		}
 		
-		
-		if(deplacement == null)
-		{
-			infosBas(10);
-			return false;
-		}
-		else
-		{
-			territoire1.deplacement(territoire2, deplacement);
-			reset(2);
-
-			couche = 5;
-			mode = 3;
-
-			return false;
-		}
 	}
 
 
@@ -2064,12 +1939,7 @@ public class Interface {
 	//COUCHES
 
 
-	//DIVERS
-
-
 	//CLIQUE
-
-
 	/**
 	 *
 	 * @return la position en x de la souris

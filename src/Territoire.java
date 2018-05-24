@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class Territoire {
 	
-	private String nom = new String();
+	private String nom;
 	
-	private int nombreTroupesTotal = 1;
+	//private int nombreTroupesTotal = 1;
 	
 	private int nombreSoldats = 1;
 	private int nombreCavaliers = 0;
@@ -24,13 +24,7 @@ public class Territoire {
 	/**
 	 * Constructueur de l'objet Territoire
 	 * @param String nom Nom du territoire
-	 * @param Joueur proprietaire Proprietaire du territoire
-	 * @param int nombreTroupesTotal Nombre de troupes sur le territoire
 	 * @param String[] territoiresAdjacents Liste des territoires adjacents à celui-là
-	 * @param int nombreSoldats Nombre de soldats sur le territoire
-	 * @param int nombreCavaliers Nombre de cavaliers sur le territoire
-	 * @param int nombreCanons Nombre de canons sur le territoire
-	 * @param ArrayList<Unitee> listeUnitees liste des unités sur le territoire
 	 */
 	public Territoire(String nom, String[] territoiresAdjacents) {
 		this.nom = nom;
@@ -73,7 +67,23 @@ public class Territoire {
 		return false;
 	}
 	
-	
+	/**
+	 * Verifie si sur le territoire au moins une troupe du type "type" peut attaquer
+	 * @param type
+	 * @return true si oui false sinon
+	 */
+	public boolean unitePeutAttaquer(int type)
+	{
+		for(int i = 0;i < this.listeUnitees.size(); i++)
+		{
+			if(this.listeUnitees.get(i).getType() == type && this.listeUnitees.get(i).peutDeplacer())
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	
 	/**
 	 * Permet de savoir si un territoire est conquis à l'issue d'un combat
@@ -246,17 +256,17 @@ public class Territoire {
 		{
 			if(soldats > 0)
 			{
-				this.ajouterUniteListe(0,0);
+				this.ajouterUniteCombat(0,0);
 				soldats--;
 			}
 			else if(canons > 0)
 			{
-				this.ajouterUniteListe(2,0);
+				this.ajouterUniteCombat(2,0);
 				canons--;
 			}
 			else if(cavaliers > 0)
 			{
-				this.ajouterUniteListe(1,0);
+				this.ajouterUniteCombat(1,0);
 				cavaliers--;
 			}
 		}
@@ -400,21 +410,36 @@ public class Territoire {
 			this.supprimerUniteAleat(0, 0);
 			
 			this.ajouterSoldats(-1);
-			this.ajouterTroupe(-1);
 		}
 		else if(unitee.getType() == 1)
 		{
 			this.supprimerUniteAleat(1, 0);
 			
 			this.ajouterCavaliers(-1);
-			this.ajouterTroupe(-3);
 		}
 		else if(unitee.getType() == 2)
 		{
 			this.supprimerUniteAleat(2, 0);
 			
 			this.ajouterCanons(-1);
-			this.ajouterTroupe(-7);
+		}
+	}
+	
+	
+	/**
+	 * Supprime aléatoirement une unité sur le territoire
+	 * @param int type Type de l'unité qu'on supprime
+	 * @param int rang 0 par défaut
+	 */
+	public void supprimerUniteAleat(int type, int rang)
+	{
+		if(this.listeUnitees.get(rang).getType() == type)
+		{
+				this.listeUnitees.remove(rang);
+		}
+		else
+		{
+			supprimerUniteAleat(type,rang+1);
 		}
 	}
 	
@@ -444,8 +469,6 @@ public class Territoire {
 		if(joueur.getNombreCanonsDeploiement() > 0)
 		{
 			this.ajouterUniteTerritoire(new Unitee(2,4,9,3,2,1));//Canon
-			
-			this.ajouterTroupe(7);
 			this.ajouterCanons(1);
 			
 			joueur.setNombreCanonsDeploiement(joueur.getNombreCanonsDeploiement() - 1);
@@ -453,31 +476,28 @@ public class Territoire {
 		else if(joueur.getNombreCavaliersDeploiement() > 0)
 		{
 			this.ajouterUniteTerritoire(new Unitee(1,2,7,1,3,3));//Cavalier
-			
-			this.ajouterTroupe(3);
 			this.ajouterCavaliers(1);
 			joueur.setNombreCavaliersDeploiement(joueur.getNombreCavaliersDeploiement() - 1);
 		}
 		else
 		{
 			this.ajouterUniteTerritoire(new Unitee(0,1,6,2,1,2));//Soldat
-			
-			this.ajouterTroupe(1);
 			this.ajouterSoldats(1);
 			joueur.setNombreSoldatsDeploiement(joueur.getNombreSoldatsDeploiement() - 1);
 		}
 	}
 	
+	/*
 	
 	/**
 	 * Permet d'ajouter des troupes sur un territoire
 	 * @param nombreTroupes le nombre de troupes qu'on veut ajouter
-	 */
+	 
 	public void ajouterTroupe(int nombreTroupes)
 	{
 		this.nombreTroupesTotal = this.nombreTroupesTotal + nombreTroupes;
 	}
-
+	*/
 	
 	/**
 	 * Permet d'ajouter des soldats sur un territoire
@@ -527,46 +547,25 @@ public class Territoire {
 	 * @param territoireDEF
 	 * @return l'unité à ajouter
 	 */
-	public void ajouterUniteListe(int type,int rang)
+	public void ajouterUniteCombat(int type,int rang)
 	{
-		if(this.uniteCombat.size() == 0 && this.listeUnitees.get(rang).getType() == type)
+		if(this.uniteCombat.size() == 0 && this.listeUnitees.get(rang).getType() == type && this.listeUnitees.get(rang).peutDeplacer())
 		{
 			this.uniteCombat.add(this.listeUnitees.get(rang));
 		}
-		else if(this.listeUnitees.get(rang).getType() == type && this.uniteCombat.contains(this.listeUnitees.get(rang)) == false)
+		else if(this.listeUnitees.get(rang).getType() == type && this.uniteCombat.contains(this.listeUnitees.get(rang)) == false && this.listeUnitees.get(rang).peutDeplacer())
 		{
 			this.uniteCombat.add(this.listeUnitees.get(rang));
 		}
 		else
 		{
-			ajouterUniteListe(type, rang+1);
+			ajouterUniteCombat(type, rang+1);
 		}
 	}
 		
-
-	
-	
 	
 	/**
-	 * Supprime aléatoirement une unité sur le territoire
-	 * @param int type Type de l'unité qu'on supprime
-	 * @param int rang 0 par défaut
-	 */
-	public void supprimerUniteAleat(int type, int rang)
-	{
-		if(this.listeUnitees.get(rang).getType() == type)
-		{
-				this.listeUnitees.remove(rang);
-		}
-		else
-		{
-			supprimerUniteAleat(type,rang+1);
-		}
-		
-	}
-	
-	/**
-	 * Suppprimer une unitee précise
+	 * Suppprimer une unitee précise d'un territoire pour la deplacer sur un autre
 	 * @param unitee
 	 * @param rang
 	 */
@@ -595,9 +594,24 @@ public class Territoire {
 		{
 			return null;
 		}
-		else if(this.listeUnitees.get(rang).getType() == type && this.listeUnitees.get(rang).peutDeplacer())
+		else if(this.listeUnitees.get(rang).getType() == type && this.listeUnitees.get(rang).peutDeplacer() && this.peutAttaquerOuDeplacer())
 		{
-			return this.listeUnitees.get(rang);
+			Unitee uniteDeplacement = this.listeUnitees.get(rang);
+			this.supprimerUnite(this.listeUnitees.get(rang), 0);
+			
+			switch(uniteDeplacement.getType())
+			{
+			case 0:
+				this.ajouterSoldats(-1);
+				break;
+			case 1:
+				this.ajouterCavaliers(-1);
+				break;
+			case 2:
+				this.ajouterCanons(-1);
+				break;
+			}
+			return uniteDeplacement;
 		}
 		else
 		{
@@ -641,29 +655,19 @@ public class Territoire {
 	 */
 	public void deplacement(Territoire territoire2, Unitee deplacement)
 	{
-		this.supprimerUnite(deplacement,0);
 		deplacement.setNombreDeplacement(deplacement.getNombreDeplacement() + 1);
 		territoire2.ajouterUniteTerritoire(deplacement);
 		
 		if(deplacement.getType() == 0)
 		{
-			this.ajouterTroupe(-1);
-			this.ajouterSoldats(-1);
-			territoire2.ajouterTroupe(1);
 			territoire2.ajouterSoldats(1);
 		}
 		else if(deplacement.getType()  == 1)
 		{
-			this.ajouterTroupe(-3);
-			this.ajouterCavaliers(-1);
-			territoire2.ajouterTroupe(3);
 			territoire2.ajouterCavaliers(1);
 		}
 		else if(deplacement.getType() == 2)
 		{
-			this.ajouterTroupe(-7);
-			this.ajouterCanons(-1);
-			territoire2.ajouterTroupe(7);
 			territoire2.ajouterCanons(1);
 		}
 		
@@ -763,6 +767,21 @@ public class Territoire {
 
 	
 	
+	public int getIndexTerritoire()
+	{
+		for(int i = 0; i < risk.listeTerritoires.size();i++)
+		{
+			if(risk.listeTerritoires.get(i).equals(this))
+			{
+				return i;
+			}
+		}
+		
+		return -1;
+	}
+	
+	
+	
 	
 	
 	//Getters Setters
@@ -788,14 +807,8 @@ public class Territoire {
 
 	public int getNombreTroupesTotal()
 	{
-		return this.nombreTroupesTotal;
+		return this.nombreCanons + this.nombreCavaliers + this.nombreSoldats;
 	}
-	
-	public void setNombreTroupesTotal(int nombreTroupesTotal)
-	{
-		this.nombreTroupesTotal = nombreTroupesTotal;
-	}
-
 
 
 	public String[] getTerritoiresAdjacents() {
