@@ -272,9 +272,10 @@ public class IA extends Joueur{
 					interf.territoire1= territoireDepart;
 					interf.territoire2 = territoireArrive;
 					
-					interf.reset(6);
+					interf.maj(interf.territoire1);
+					interf.maj(interf.territoire2);
 					
-					interf.savePlateau();
+					
 				}
 			}
 		}
@@ -286,6 +287,7 @@ public class IA extends Joueur{
 		else
 		{
 			uniteQuiSeDeplace.listeTerritoiresParcourus.clear();
+			interf.savePlateau();
 		}
 		
 	}

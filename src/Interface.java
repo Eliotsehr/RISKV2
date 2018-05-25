@@ -953,8 +953,6 @@ public class Interface {
 				
 			IA.deplaceUniteeBloquee(this);
 			
-			savePlateau();
-			
 			if(Main.jeu)
 			{
 				

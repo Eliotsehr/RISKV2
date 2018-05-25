@@ -17,6 +17,8 @@ public class Main {
 			interf.cliqueCouche(interf.couche);
 		}
 
+		risk.effacerCache();
+		
 		interf.coucheVictoire();
 	}
 }
