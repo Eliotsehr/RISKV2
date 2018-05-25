@@ -2,8 +2,6 @@ import java.util.ArrayList;
 
 public class IA extends Joueur{
 
-	Jeu risk = Main.risk;
-	
 	private ArrayList<Unitee> listeUniteADeployer = new ArrayList<Unitee>();
 	
 	/**
@@ -42,9 +40,9 @@ public class IA extends Joueur{
 	 */
 	public Territoire territoireQuiDefend(Territoire territoire,int rang)
 	{
-		if(risk.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).appartientA(this) == false && risk.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).estPlusPuissant(territoire) == false)
+		if(Jeu.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).appartientA(this) == false && Jeu.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).estPlusPuissant(territoire) == false)
 		{
-			return risk.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]);
+			return Jeu.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]);
 		}
 		else
 		{
@@ -69,6 +67,7 @@ public class IA extends Joueur{
 				territoire1.deplacement(territoire2, uniteADeplacer);
 			}
 		}
+		
 	}
 	
 	/**
@@ -93,18 +92,7 @@ public class IA extends Joueur{
 			uniteATT = new Unitee(0,0,0,0,0,0);
 			territoire.ajouterUniteCombat(type, 0);
 			
-			switch(type)
-			{
-			case 0:
-				territoire.ajouterSoldats(-1);
-				break;
-			case 1:
-				territoire.ajouterCavaliers(-1);
-				break;
-			case 2:
-				territoire.ajouterCanons(-1);
-				break;
-			}
+
 		}
 	}
 	
@@ -248,34 +236,81 @@ public class IA extends Joueur{
 					}
 	
 					
-					uniteQuiSeDeplace.listeTerritoiresParcourus.add(this.listeTerritoiresControles.get(i));
+					uniteQuiSeDeplace.listeTerritoiresParcourus.add(territoireDepart);
 					
 
 					for(int j = 0; j < this.listeTerritoiresControles.get(i).getTerritoiresAdjacents().length;j++)
 					{
-						if(risk.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]).estEntoure() == false && uniteQuiSeDeplace.listeTerritoiresParcourus.contains(risk.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j])))
+						Territoire territoireAdjacent = (Jeu.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]));
+						if(territoireAdjacent.estEntoure() == false && uniteQuiSeDeplace.listeTerritoiresParcourus.contains(territoireAdjacent) == false && territoireAdjacent.appartientA(this))
 						{
-							territoireArrive = risk.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]);
+							territoireArrive = territoireAdjacent;
 						}
 					}
 					
 					if(territoireArrive == null)
 					{
-						territoireArrive = risk.retrouverAvecNom(this.listeTerritoiresControles.get(0).getTerritoiresAdjacents()[0]);
+						for(int j = 0; j < this.listeTerritoiresControles.get(i).getTerritoiresAdjacents().length;j++)
+						{
+							Territoire territoireAdjacent = (Jeu.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]));
+							if(uniteQuiSeDeplace.listeTerritoiresParcourus.contains(territoireAdjacent) == false && territoireAdjacent.appartientA(this))
+							{
+								territoireArrive = territoireAdjacent;
+							}	
+						}
+					}
+					
+					if(territoireArrive == null)
+					{
+						for(int j = 0; j < this.listeTerritoiresControles.get(i).getTerritoiresAdjacents().length;j++)
+						{
+							Territoire territoireAdjacent = (Jeu.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]));
+							if(territoireAdjacent.appartientA(this))
+							{
+								territoireArrive = territoireAdjacent;
+							}	
+						}
 					}//Fin choix territoire
+					//Fin choix territoire
+					
+					
+					
 					
 
+					uniteQuiSeDeplace.setNombreDeplacement(uniteQuiSeDeplace.getNombreDeplacement()+1);
 					
 					
-					territoireDepart.deplacement(territoireArrive, uniteQuiSeDeplace);
+				/*	for(int i = 0; i < territoireDepart.listeUnitees.size(); i++)
+					{
+						if(territoireDepart.listeUnitees.remove(uniteQuiSeDeplace));
+					}
+					*/
+					
+					
+					territoireDepart.listeUnitees.remove(uniteQuiSeDeplace);
+					territoireArrive.listeUnitees.add(uniteQuiSeDeplace);
+					
+					switch(uniteQuiSeDeplace.getType())
+					{
+					case 0:
+						territoireDepart.ajouterSoldats(-1);
+						territoireArrive.ajouterSoldats(1);
+						break;
+					case 1:
+						territoireDepart.ajouterCavaliers(-1);
+						territoireArrive.ajouterCavaliers(1);
+						break;
+					case 2:
+						territoireDepart.ajouterCanons(-1);
+						territoireArrive.ajouterCanons(1);
+						break;
+					}
 					
 					interf.territoire1= territoireDepart;
 					interf.territoire2 = territoireArrive;
 					
 					interf.maj(interf.territoire1);
 					interf.maj(interf.territoire2);
-					
-					
 				}
 			}
 		}

@@ -5,8 +5,6 @@ public class Mission {
 	private String intitule;
 	private int index;
 	
-	private Jeu risk = Main.risk;
-	
 	public Joueur joueurAEliminer;
 	
 
@@ -33,11 +31,11 @@ public class Mission {
 		{
 			ArrayList<Continent> continentsControles = new ArrayList<Continent>();
 			
-			for(int i = 0; i < risk.listeContinents.size();i++)
+			for(int i = 0; i < Jeu.listeContinents.size();i++)
 			{
-				if(risk.listeContinents.get(i).estControlePar(joueur, 0))
+				if(Jeu.listeContinents.get(i).estControlePar(joueur, 0))
 				{
-					continentsControles.add(risk.listeContinents.get(i));
+					continentsControles.add(Jeu.listeContinents.get(i));
 				}
 			}
 			
@@ -54,15 +52,15 @@ public class Mission {
 		{
 			ArrayList<Continent> continentsControles = new ArrayList<Continent>();
 			
-			for(int i = 0; i < risk.listeContinents.size();i++)
+			for(int i = 0; i < Jeu.listeContinents.size();i++)
 			{
-				if(risk.listeContinents.get(i).estControlePar(joueur, 0))
+				if(Jeu.listeContinents.get(i).estControlePar(joueur, 0))
 				{
-					continentsControles.add(risk.listeContinents.get(i));
+					continentsControles.add(Jeu.listeContinents.get(i));
 				}
 			}
 			
-			if(risk.listeContinents.get(2).estControlePar(joueur, 0) && continentsControles.size() >= 2)
+			if(Jeu.listeContinents.get(2).estControlePar(joueur, 0) && continentsControles.size() >= 2)
 			{
 				return true;
 			}
@@ -96,9 +94,9 @@ public class Mission {
 		}
 		else if(this.index == 4)//Detruire le joueur X
 		{
-			for(int i = 0;i < risk.listeElimines.size();i++)
+			for(int i = 0;i < Jeu.listeElimines.size();i++)
 			{
-				if(risk.listeElimines.get(i).equals(joueurAEliminer))
+				if(Jeu.listeElimines.get(i).equals(joueurAEliminer))
 				{
 					return true;
 				}
@@ -117,9 +115,9 @@ public class Mission {
 			{
 				int territoiresAvec2Troupes = 0;
 				
-				for(int i = 0; i < risk.listeTerritoires.size();i++)
+				for(int i = 0; i < Jeu.listeTerritoires.size();i++)
 				{
-					if(risk.listeTerritoires.get(i).getProprietaire().equals(joueur) && (risk.listeTerritoires.get(i).getNombreTroupesTotal() > 1))	
+					if(Jeu.listeTerritoires.get(i).getProprietaire().equals(joueur) && (Jeu.listeTerritoires.get(i).getNombreTroupesTotal() > 1))	
 					{
 						territoiresAvec2Troupes++;
 					}

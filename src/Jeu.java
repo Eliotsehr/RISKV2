@@ -6,22 +6,22 @@ import edu.princeton.cs.introcs.StdDraw;
 
 public class Jeu {
 	
-	public ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
-	public ArrayList<Territoire> listeTerritoires = new ArrayList<Territoire>();
-	public ArrayList<Continent> listeContinents = new ArrayList<Continent>();
+	public static ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
+	public static ArrayList<Territoire> listeTerritoires = new ArrayList<Territoire>();
+	public static ArrayList<Continent> listeContinents = new ArrayList<Continent>();
 	
-	public int tour = 0;
-	public int map = 0;
-	public int nombreJoueurs;
+	public static int tour = 0;
+	public static int map = 0;
+	public static int nombreJoueurs;
 	
-	public boolean ia = false;
-	public boolean debutPartie = true;
-	public boolean saisieTexte = false;
+	public static boolean ia = false;
+	public static boolean debutPartie = true;
+	public static boolean saisieTexte = false;
 	
-	public int cache = 0;
+	public static int cache = 0;
 	
-	public ArrayList<Territoire> listeGagnants = new ArrayList<Territoire>();
-	public ArrayList<Joueur> listeElimines = new ArrayList<Joueur>();
+	public static ArrayList<Territoire> listeGagnants = new ArrayList<Territoire>();
+	public static ArrayList<Joueur> listeElimines = new ArrayList<Joueur>();
 	
 	
 	/**
@@ -37,7 +37,7 @@ public class Jeu {
 	/**
 	 * Vider le cache du jeu
 	 */
-	public void effacerCache()
+	public static void effacerCache()
 	{
 		for(File file: new java.io.File("C:\\Users\\user\\git\\RISKV2\\img\\cache").listFiles()) 
 	    if (!file.isDirectory()) 
@@ -50,7 +50,7 @@ public class Jeu {
 	/**
 	 * Initialisation des territories en fonction de la carte selectionee
 	 */
-	public void creerTerritoires()
+	public static void creerTerritoires()
 	{
 		if(map == 0)
 		{
@@ -369,7 +369,7 @@ public class Jeu {
 	/**
 	 * Distribue les territoires entre les joueurs
 	 */
-	public void attributionTerritoire()
+	public static void attributionTerritoire()
 	{
 		//Cette partie permet de créer une liste mélangée des territoires
 		ArrayList<Integer> listeRandomTerritoires = new ArrayList<Integer>();
@@ -403,7 +403,7 @@ public class Jeu {
 	/**
 	 * Attribu un mission à un joueur
 	 */
-	public void attributionMission()
+	public static void attributionMission()
 	{
 		//Cette partie permet de créer une liste mélangée des territoires
 		ArrayList<Integer> listeRandomMissions = new ArrayList<Integer>();
@@ -427,7 +427,7 @@ public class Jeu {
 	 * @param int index l'index de la mission
 	 * @return la mission
 	 */
-	public Mission mission(int index)
+	public static Mission mission(int index)
 	{
 		switch(index)
 		{
@@ -463,34 +463,52 @@ public class Jeu {
 	 * Definit le tour auquel on est
 	 * @param tour
 	 */
-	public void tour(int tour)
+	public static void tourSuivant()
 	{
-		this.tour++;
+		tour++;
 		
-		if(this.tour == listeJoueurs.size())
+		if(tour >= listeJoueurs.size())
 		{
-			this.tour = 0;
+			tour = 0;
 		}
 		
-		if(this.tour == 0)
+		
+		while(listeJoueurs.get(tour) == null)
 		{
-			this.debutPartie = false;
+			tour++;
+			if(tour >= listeJoueurs.size())
+			{
+				tour = 0;
+			}
+		}
+		
+		
+		if(tour == 0 && debutPartie == true)
+		{
+			debutPartie = false;
 		}
 	}
 
 	/**
 	 * Check si un joueur a perdu
 	 */
-	public void defaiteJoueur()
+	public static void defaiteJoueur()
 	{
 		for(int i = 0; i < listeJoueurs.size();i++)
 		{
-			if(listeJoueurs.get(i).aPerdu())
+			if(listeJoueurs.get(i) != null)
 			{
-				listeElimines.add(listeJoueurs.get(i));
-				StdDraw.text(0.5, 0.97, listeJoueurs.get(i).getNom()+" a perdu !");
-				listeJoueurs.remove(i);
-				StdDraw.pause(3000);
+				if(listeJoueurs.get(i).aPerdu())
+				{
+					StdDraw.setPenColor(StdDraw.WHITE);
+					StdDraw.filledRectangle(0.5, 1, 0.3, 0.05);
+					StdDraw.setPenColor(StdDraw.BLACK);
+					
+					listeElimines.add(listeJoueurs.get(i));
+					StdDraw.text(0.5, 0.97, listeJoueurs.get(i).getNom()+" a perdu !");
+					listeJoueurs.set(i,null);
+					StdDraw.pause(3000);
+				}
 			}
 		}
 	}
@@ -498,9 +516,9 @@ public class Jeu {
 	/**
 	 * Permet de savoir si un joueur a gagné
 	 */
-	public void finPartie()
+	public static void finPartie()
 	{
-		if(listeJoueurs.size() == 1)
+		if(listeElimines.size() == listeJoueurs.size()-1)
 		{
 			Main.jeu = false;
 		}
@@ -513,7 +531,7 @@ public class Jeu {
 	 * @param mode indice de la verification qu'on veut faire
 	 * @return true ou false selon ce qu'on verifie, il n'y a pas de sortie "type"
 	 */
-	public boolean verifications(Interface interf, Territoire territoire, int mode)
+	public static boolean verifications(Interface interf, Territoire territoire, int mode)
 	{
 		//Ces deux lignes sont pour corriger le bug du StdDraw.isMousePressed()
 		interf.sourisX = 0;
@@ -533,7 +551,7 @@ public class Jeu {
 					interf.reset(5);
 					
 					interf.savePlateau();
-					tour(tour);
+					tourSuivant();
 					interf.joueurEnCours = listeJoueurs.get(tour);
 					
 					interf.joueurEnCours.combienTroupe(debutPartie);
@@ -549,7 +567,7 @@ public class Jeu {
 						
 						ia.deploiement(interf);
 						
-						tour(tour);
+						tourSuivant();
 						
 						debutPartie = false;
 						interf.joueurEnCours = listeJoueurs.get(tour);
@@ -694,7 +712,7 @@ public class Jeu {
 	 * Reset les déplacements d'un joueur
 	 * @param joueur
 	 */
-	public void resetDeplacement(Joueur joueur)
+	public static void resetDeplacement(Joueur joueur)
 	{
 		for(int i = 0;i<listeTerritoires.size();i++)
 		{
@@ -710,7 +728,7 @@ public class Jeu {
 	 * @param nom le nom du territoire
 	 * @return le territoire
 	 */
-	public Territoire retrouverAvecNom(String nom)
+	public static Territoire retrouverAvecNom(String nom)
 	{
 		for(int i = 0;i < listeTerritoires.size();i++)
 		{

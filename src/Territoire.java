@@ -13,11 +13,9 @@ public class Territoire {
 	
 	private String[] territoiresAdjacents;
 	
-	private ArrayList<Unitee> listeUnitees = new ArrayList<Unitee>();
+	public ArrayList<Unitee> listeUnitees = new ArrayList<Unitee>();
 	
 	ArrayList<Unitee> uniteCombat = new ArrayList<Unitee>();
-	
-	Jeu risk = Main.risk;
 	
 	
 	/**
@@ -351,7 +349,7 @@ public class Territoire {
 			}
 		}
 		
-		risk.listeGagnants = listeGagnants;
+		Jeu.listeGagnants = listeGagnants;
 	}
 	
 	/**
@@ -361,40 +359,18 @@ public class Territoire {
 	 */
 	public void miseAJourUnitee(Unitee unitee)
 	{
+		this.listeUnitees.remove(unitee);
 		if(unitee.getType() == 0)
 		{
-			this.supprimerUniteAleat(0, 0);
-			
 			this.ajouterSoldats(-1);
 		}
 		else if(unitee.getType() == 1)
 		{
-			this.supprimerUniteAleat(1, 0);
-			
 			this.ajouterCavaliers(-1);
 		}
 		else if(unitee.getType() == 2)
 		{
-			this.supprimerUniteAleat(2, 0);
-			
 			this.ajouterCanons(-1);
-		}
-	}
-	
-	/**
-	 * Supprime aléatoirement une unité sur le territoire
-	 * @param int type Type de l'unité qu'on supprime
-	 * @param int rang 0 par défaut
-	 */
-	public void supprimerUniteAleat(int type, int rang)
-	{
-		if(this.listeUnitees.get(rang).getType() == type)
-		{
-				this.listeUnitees.remove(rang);
-		}
-		else
-		{
-			supprimerUniteAleat(type,rang+1);
 		}
 	}
 	
@@ -487,11 +463,11 @@ public class Territoire {
 	 */
 	public void ajouterUniteCombat(int type,int rang)
 	{
-		if(this.uniteCombat.size() == 0 && this.listeUnitees.get(rang).getType() == type && this.listeUnitees.get(rang).peutDeplacer())
+		if(this.uniteCombat.size() == 0 && this.listeUnitees.get(rang).getType() == type)
 		{
 			this.uniteCombat.add(this.listeUnitees.get(rang));
 		}
-		else if(this.listeUnitees.get(rang).getType() == type && this.uniteCombat.contains(this.listeUnitees.get(rang)) == false && this.listeUnitees.get(rang).peutDeplacer())
+		else if(this.listeUnitees.get(rang).getType() == type && this.uniteCombat.contains(this.listeUnitees.get(rang)) == false && this.listeUnitees.size() > 0)
 		{
 			this.uniteCombat.add(this.listeUnitees.get(rang));
 		}
@@ -501,22 +477,6 @@ public class Territoire {
 		}
 	}
 		
-	/**
-	 * Suppprimer une unitee précise d'un territoire pour la deplacer sur un autre
-	 * @param unitee
-	 * @param rang
-	 */
-	public void supprimerUnite(Unitee unitee, int rang)
-	{
-		if(this.listeUnitees.get(rang).equals(unitee))
-		{
-			this.listeUnitees.remove(rang);
-		}
-		else
-		{
-			supprimerUnite(unitee,rang+1);
-		}
-	}
 
 	/**
 	 * Renvoit une unitée qui peut se déplacer
@@ -533,7 +493,7 @@ public class Territoire {
 		else if(this.listeUnitees.get(rang).getType() == type && this.listeUnitees.get(rang).peutDeplacer() && this.peutAttaquerOuDeplacer())
 		{
 			Unitee uniteDeplacement = this.listeUnitees.get(rang);
-			this.supprimerUnite(this.listeUnitees.get(rang), 0);
+			this.listeUnitees.remove(rang);
 			
 			switch(uniteDeplacement.getType())
 			{
@@ -563,6 +523,7 @@ public class Territoire {
 		for(int i = 0;i<this.listeUnitees.size();i++)
 		{
 			this.listeUnitees.get(i).resetDeplacement();
+			this.listeUnitees.get(i).listeTerritoiresParcourus.clear();
 		}
 	}
 
@@ -593,14 +554,17 @@ public class Territoire {
 		
 		if(deplacement.getType() == 0)
 		{
+			this.ajouterSoldats(-1);
 			territoire2.ajouterSoldats(1);
 		}
 		else if(deplacement.getType()  == 1)
 		{
+			this.ajouterCavaliers(-1);
 			territoire2.ajouterCavaliers(1);
 		}
 		else if(deplacement.getType() == 2)
 		{
+			this.ajouterCanons(-1);
 			territoire2.ajouterCanons(1);
 		}
 		
@@ -609,15 +573,28 @@ public class Territoire {
 	
 	
 	//DIVERS
+	
+	public boolean debug()
+	{
+		if(this.nombreCanons + this.nombreCavaliers + this.nombreSoldats != this.listeUnitees.size())
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	
 	/**
 	 * Renvoit l'index du territoire
 	 * @return l'index
 	 */
 	public int getIndexTerritoire()
 	{
-		for(int i = 0; i < risk.listeTerritoires.size();i++)
+		for(int i = 0; i < Jeu.listeTerritoires.size();i++)
 		{
-			if(risk.listeTerritoires.get(i).equals(this))
+			if(Jeu.listeTerritoires.get(i).equals(this))
 			{
 				return i;
 			}
@@ -663,7 +640,7 @@ public class Territoire {
 	{
 		for(int i = 0;i<this.territoiresAdjacents.length;i++)
 		{
-			if(risk.retrouverAvecNom(this.territoiresAdjacents[i]).getProprietaire() != this.getProprietaire())
+			if(Jeu.retrouverAvecNom(this.territoiresAdjacents[i]).getProprietaire() != this.getProprietaire())
 			{
 				return false;
 			}
@@ -714,7 +691,7 @@ public class Territoire {
 	{
 		for(int i = 0; i < this.territoiresAdjacents.length;i++)
 		{
-			if(this.estPlusPuissant(risk.retrouverAvecNom(this.territoiresAdjacents[i])) && risk.retrouverAvecNom(this.territoiresAdjacents[i]).appartientA(this.proprietaire) == false)
+			if(this.estPlusPuissant(Jeu.retrouverAvecNom(this.territoiresAdjacents[i])) && Jeu.retrouverAvecNom(this.territoiresAdjacents[i]).appartientA(this.proprietaire) == false)
 			{
 				return true;
 			}
