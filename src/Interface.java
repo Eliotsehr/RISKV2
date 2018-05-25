@@ -39,8 +39,6 @@ public class Interface {
 	public double[][] cooTerritoiresClassique = {{0.37,0.77},{0.44,0.79},{0.35,0.66},{0.36,0.55},{0.44,0.57},{0.44,0.64},{0.53,0.73},{0.47,0.425},{0.4,0.37},{0.52,0.32}, {0.47,0.26},{0.47,0.15},{0.56,0.15},{0.55,0.49},{0.64,0.48},{0.6,0.62},{0.61,0.73},{0.65,0.81},{0.72,0.44},{0.7,0.55}, {0.73,0.84},{0.72,0.64},{0.82,0.62},{0.8,0.84},{0.72,0.73},{0.04,0.81},{0.15,0.81},{0.1,0.74},{0.18,0.72},{0.3,0.86}, {0.26,0.72},{0.13,0.65},{0.19,0.6},{0.14,0.51},{0.2,0.44},{0.26,0.35},{0.18,0.31},{0.23,0.22},{0.73,0.29},{0.81,0.32},{0.76,0.15},{0.83,0.19}};
 	public double [][] cooTerritoiresGOT = {{0.2,0.84},{0.26,0.86},{0.24,0.79},{0.11,0.77},{0.22,0.74},{0.1,0.7},{0.12,0.64},{0.16,0.67},{0.22,0.56},{0.08,0.56},{0.12,0.53},{0.2,0.47},{0.13,0.47},{0.11,0.39},{0.17,0.41},{0.23,0.38},{0.09,0.32},{0.16,0.31},{0.23,0.27},{0.36,0.57},{0.36,0.47},{0.4,0.51},{0.45,0.48},{0.51,0.48},{0.41,0.38},{0.39,0.29},{0.49,0.41},{0.47,0.31},{0.54,0.35},{0.54,0.26},{0.57,0.22},{0.55,0.13},{0.64,0.33},{0.71,0.28},{0.78,0.32},{0.87,0.38},{0.71,0.18},{0.79,0.24},{0.87,0.29},{0.88,0.22},{0.57,0.54},{0.65,0.49},{0.74,0.49},{0.81,0.58},{0.84,0.75},{0.94,0.57},{0.84,0.5},{0.6,0.4},{0.7,0.4},{0.8,0.42}};
 	
-	
-
 	public Territoire territoire1;
 	public Territoire territoire2;
 	
@@ -48,13 +46,8 @@ public class Interface {
 
 	Jeu risk = Main.risk;
 	
+	ArrayList<Unitee> unitesDeDeplacement = new ArrayList<Unitee>();
 
-	ArrayList<Unitee> deplacement = new ArrayList<Unitee>();
-
-	String douille = new String();
-	
-
-	
 	/**
 	 *
 	 * @param xMax int largeur de la fenetre
@@ -85,7 +78,6 @@ public class Interface {
 		StdDraw.picture(0.5, 0.5, "img/menu.png");
 	}
 	
-	
 	/**
 	 * Affiche le menu de séléction des cartes
 	 */
@@ -95,7 +87,6 @@ public class Interface {
 		
 		StdDraw.picture(0.5, 0.5, "img/cartes.png");
 	}
-
 
 	/**
 	 * Affiche le menu de saisi du nombre de joueurs
@@ -107,7 +98,6 @@ public class Interface {
 		StdDraw.picture(0.5, 0.5, "img/nombreJoueurs.png");
 	}
 
-
 	/**
 	 * Affiche le menu de saisi des noms des joueurs
 	 */
@@ -117,7 +107,6 @@ public class Interface {
 
 		StdDraw.picture(0.5, 0.5,"img/nomJoueurs.png");
 	}
-
 
 	/**
 	 * Affiche le plateau de jeu
@@ -135,10 +124,9 @@ public class Interface {
 			StdDraw.picture(0.5, 0.5, "img/mapGOT.png");
 		}
 	}
-
 	
 	/**
-	 * 
+	 * Sauvegarde en cache l'etat du plateau
 	 */
 	public void savePlateau()
 	{
@@ -150,6 +138,9 @@ public class Interface {
 		risk.cache++;
 	}
 	
+	/**
+	 * Charge la dernière sauvegarde en cache du plateau
+	 */
 	public void loadPlateau()
 	{
 		String nom = "img/cache/plateau"+(risk.cache-1)+".png";
@@ -164,7 +155,6 @@ public class Interface {
 		StdDraw.picture(0.5, 0.1, "img/cadreinfos.png");
 	}
 
-
 	/**
 	 * Affiche le nom et la couleur du joueur dont c'est le tour
 	 * @param tour
@@ -178,7 +168,6 @@ public class Interface {
 		pion(0.075,0.975,tour,0);
 	}
 
-
 	/**
 	 * Interface qui permet de recuperer les soldats, les cavaliers, les canons
 	 */
@@ -188,7 +177,6 @@ public class Interface {
 		StdDraw.text(0.487, 0.729, ""+joueurEnCours.getNombreTroupesDeploiement());
 	}
 
-
 	/**
 	 * Affiche la croix
 	 */
@@ -196,7 +184,6 @@ public class Interface {
 	{
 		StdDraw.picture(0.9, 0.1, "img/croix.png");
 	}
-
 
 	/**
 	 *	Pion normal ou GOT
@@ -291,7 +278,6 @@ public class Interface {
 
 	}
 
-
 	/**
 	 * Affiche des informations en haut de l'ecran
 	 * @param message int  Valeur pour savoir quel type de message afficher
@@ -378,7 +364,6 @@ public class Interface {
 
 	}
 
-
 	/**
 	 * Affiche des informations en bas de l'ecran
 	 * @param joueur Joueur  S'il y a besoin d'afficher des infos sur un joueur
@@ -431,10 +416,9 @@ public class Interface {
 		}
 	}
 
-
 	/**
 	 * Reset l'affichage du plateau de jeu
-	 * @param mode 0: Deploiement // 1: Choix // 2: Croix //3: Mision
+	 * @param mode 0: Deploiement // 1: Choix // 2: Croix //3: Mision //4: Lettre Mission//5: Maj affichage deploiement//6: Maj affichage combat
 	 */
 	public void reset(int mode)
 	{
@@ -485,7 +469,6 @@ public class Interface {
 		}
 	}
 
-
 	/**
 	 * Affiche la couche des pions avec le nombre d'unitees correspondant a chaque pion
 	 */
@@ -511,7 +494,6 @@ public class Interface {
 
 	}
 
-	
 	/**
 	 * Met à jour l'affichage d'un territoire
 	 * @param territoire
@@ -549,7 +531,6 @@ public class Interface {
 		StdDraw.text(0.86, 0.255,"Victoire de "+risk.listeJoueurs.get(tour).getNom());
 	}
 
-	
 	/**
 	 * Infos de deploiement
 	 */
@@ -569,7 +550,6 @@ public class Interface {
 		}
 	}
 
-
 	/**
 	 * Affiche les fenetres de confirmation d'attaque
 	 */
@@ -586,7 +566,6 @@ public class Interface {
 		StdDraw.text(0.9, 0.35, ""+territoire1.getNombreCanons());
 	}
 
-
 	/**
 	 * Affiche la fenetre de depalcement
 	 */
@@ -598,7 +577,6 @@ public class Interface {
 		StdDraw.text(0.63, 0.25, ""+territoire1.getNombreCanons());
 	}
 
-
 	/**
 	 * Affiche la fenetre de mission
 	 * @param index index de la mission
@@ -609,7 +587,6 @@ public class Interface {
 		StdDraw.text(0.5, 0.5, joueurEnCours.getMission().getIntitule());
 	}
 
-
 	/**
 	 * Affiche la lettre contenant la mission
 	 */
@@ -619,8 +596,7 @@ public class Interface {
 	}
 	//AFFICHAGE
 
-
-
+	
 	//COUCHES
 	/**
 	 * Permet au programme de savoir sur quel couche il doit travailler
@@ -666,11 +642,11 @@ public class Interface {
 
 		case 1:
 			
-			risk.continuer = true;
+			risk.saisieTexte = true;
 
 			String nombreJoueur = new String();
 
-			while(risk.continuer)
+			while(risk.saisieTexte)
 			{
 				if(StdDraw.hasNextKeyTyped())
 				{
@@ -678,7 +654,7 @@ public class Interface {
 					double curseur = 0.5;
 					if(touche == '!')
 					{
-						risk.continuer = false;
+						risk.saisieTexte = false;
 					}
 					else if(touche == 'ù')
 					{
@@ -714,20 +690,20 @@ public class Interface {
 
 			for(int i = 1;i<=risk.nombreJoueurs;i++)
 			{
-				risk.continuer = true;
+				risk.saisieTexte = true;
 				String nomJoueur = new String();
 				double curseur = 0.5;
 
 				StdDraw.text(0.4, 0.7, ""+i);
 
-				while(risk.continuer)
+				while(risk.saisieTexte)
 				{
 					if(StdDraw.hasNextKeyTyped())
 					{
 						char touche = StdDraw.nextKeyTyped();
 						if(touche == '!')
 						{
-							risk.continuer = false;
+							risk.saisieTexte = false;
 						}
 						else if(touche == 'ù')
 						{
@@ -766,7 +742,7 @@ public class Interface {
 			risk.attributionMission();
 			
 			joueurEnCours = risk.listeJoueurs.get(risk.tour);
-			joueurEnCours.combienTroupe(risk.debut);
+			joueurEnCours.combienTroupe(risk.debutPartie);
 
 			StdDraw.setCanvasSize(this.xMax, this.yMax);
 			
@@ -974,10 +950,10 @@ public class Interface {
 				risk.defaiteJoueur();
 				risk.finPartie();
 			}
+				
+			IA.deplaceUniteeBloquee(this);
 			
 			savePlateau();
-			
-			IA.deplaceUniteeBloquee();
 			
 			if(Main.jeu)
 			{
@@ -990,7 +966,7 @@ public class Interface {
 				risk.tour(risk.tour);
 				
 				joueurEnCours = risk.listeJoueurs.get(risk.tour);
-				joueurEnCours.combienTroupe(risk.debut);
+				joueurEnCours.combienTroupe(risk.debutPartie);
 				
 				if(joueurEnCours.getNombreTroupesDeploiement() == 0)
 				{
@@ -1004,7 +980,6 @@ public class Interface {
 		}
 	}
 
-	
 	/**
 	 * Hitbox du menu
 	 * @param sourisX valeur en x de la souris
@@ -1041,7 +1016,6 @@ public class Interface {
 		}
 	}
 
-	
 	/**
 	 * Hitbox du choix des cartes
 	 * @param sourisX coordonee en x de la souris
@@ -1074,7 +1048,6 @@ public class Interface {
 		}
 	}
 
-	
 	/**
 	 * Hitbox du panneau de deploiement
 	 * @param sourisX valeur en x de la souris
@@ -1149,7 +1122,6 @@ public class Interface {
 		}
 	}
 
-
 	/**
 	 * Hitbox de l'interface de choix
 	 * @param sourisX valeur en x de la souris
@@ -1201,7 +1173,7 @@ public class Interface {
 			}
 			
 			joueurEnCours = risk.listeJoueurs.get(risk.tour);
-			joueurEnCours.combienTroupe(risk.debut);
+			joueurEnCours.combienTroupe(risk.debutPartie);
 			
 			if(joueurEnCours.getNombreTroupesDeploiement() == 0)
 			{
@@ -1215,7 +1187,6 @@ public class Interface {
 			return true;
 		}
 	}
-
 
 	/**
 	 * Hitbox des territoires
@@ -1632,7 +1603,6 @@ public class Interface {
 		}
 	}
 
-
 	/**
 	 * Hitbox du choix des troupes d'attaque
 	 * @param sourisX
@@ -1645,7 +1615,7 @@ public class Interface {
 		this.sourisX = 0;
 		this.sourisY = 0;
 
-		if(risk.nombreTroupesATT == 0)
+		if(territoire1.getNombreTroupesATT() == 0)
 		{
 			couche = 7;
 			return false;
@@ -1665,7 +1635,7 @@ public class Interface {
 		else if((sourisX > 0.56 && sourisX < 0.67) && (sourisY > 0.32 && sourisY < 0.61) && territoire1.getNombreSoldats() > 0  && territoire1.unitePeutAttaquer(0))//Soldat
 		{
 			territoire1.ajouterUniteCombat(0, 0);
-			risk.nombreTroupesATT--;
+			territoire1.setNombreTroupesATT(territoire1.getNombreTroupesATT() - 1);
 			territoire1.ajouterSoldats(-1);
 
 			infosHaut(11);
@@ -1675,7 +1645,7 @@ public class Interface {
 		else if((sourisX > 0.70 && sourisX < 0.81) && (sourisY > 0.32 && sourisY < 0.61) && territoire1.getNombreCavaliers() > 0  && territoire1.unitePeutAttaquer(1))//Cavalier
 		{
 			territoire1.ajouterUniteCombat(1, 0);
-			risk.nombreTroupesATT--;
+			territoire1.setNombreTroupesATT(territoire1.getNombreTroupesATT() - 1);
 			territoire1.ajouterCavaliers(-1);
 
 			infosHaut(12);
@@ -1685,7 +1655,7 @@ public class Interface {
 		else if((sourisX > 0.83 && sourisX < 0.95) && (sourisY > 0.32 && sourisY < 0.61) && territoire1.getNombreCanons() > 0 && territoire1.unitePeutAttaquer(2))//Canon
 		{
 			territoire1.ajouterUniteCombat(2, 0);
-			risk.nombreTroupesATT--;
+			territoire1.setNombreTroupesATT(territoire1.getNombreTroupesATT() - 1);
 			territoire1.ajouterCanons(-1);
 
 			infosHaut(13);
@@ -1713,7 +1683,6 @@ public class Interface {
 			return true;
 		}
 	}
-
 
 	/**
 	 *
@@ -1777,7 +1746,6 @@ public class Interface {
 		}
 	}
 
-
 	/**
 	 * Hitbox du choix des troupes de deplacement
 	 * @param sourisX
@@ -1791,10 +1759,10 @@ public class Interface {
 		
 		if((sourisX > 0.304 && sourisX < 0.425) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreSoldats() > 0 && territoire1.peutAttaquerOuDeplacer())//Soldat
 		{
-			deplacement.add(territoire1.uniteDeplacement(0, 0));
-			if(deplacement.get(deplacement.size()-1) == null)
+			unitesDeDeplacement.add(territoire1.uniteDeplacement(0, 0));
+			if(unitesDeDeplacement.get(unitesDeDeplacement.size()-1) == null)
 			{
-				deplacement.remove(deplacement.get((deplacement.size()-1)));
+				unitesDeDeplacement.remove(unitesDeDeplacement.get((unitesDeDeplacement.size()-1)));
 				infosBas(10);
 			}
 			else
@@ -1806,10 +1774,10 @@ public class Interface {
 		}
 		else if((sourisX > 0.445 && sourisX < 0.56) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreCavaliers() > 0 && territoire1.peutAttaquerOuDeplacer())//Cavalier
 		{
-			deplacement.add(territoire1.uniteDeplacement(1, 0));
-			if(deplacement.get(deplacement.size()-1) == null)
+			unitesDeDeplacement.add(territoire1.uniteDeplacement(1, 0));
+			if(unitesDeDeplacement.get(unitesDeDeplacement.size()-1) == null)
 			{
-				deplacement.remove(deplacement.get((deplacement.size()-1)));
+				unitesDeDeplacement.remove(unitesDeDeplacement.get((unitesDeDeplacement.size()-1)));
 				infosBas(10);
 			}
 			else
@@ -1819,10 +1787,10 @@ public class Interface {
 		}
 		else if((sourisX > 0.58 && sourisX < 0.69) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreCanons() > 0 && territoire1.peutAttaquerOuDeplacer())//Canon
 		{
-			deplacement.add(territoire1.uniteDeplacement(2, 0));
-			if(deplacement.get(deplacement.size()-1) == null)
+			unitesDeDeplacement.add(territoire1.uniteDeplacement(2, 0));
+			if(unitesDeDeplacement.get(unitesDeDeplacement.size()-1) == null)
 			{
-				deplacement.remove(deplacement.get((deplacement.size()-1)));
+				unitesDeDeplacement.remove(unitesDeDeplacement.get((unitesDeDeplacement.size()-1)));
 				infosBas(10);
 			}
 			else
@@ -1842,9 +1810,9 @@ public class Interface {
 			reset(2);
 			infosBas(0);
 			
-			for(int i = 0; i < deplacement.size(); i++)
+			for(int i = 0; i < unitesDeDeplacement.size(); i++)
 			{
-				switch(deplacement.get(i).getType())
+				switch(unitesDeDeplacement.get(i).getType())
 				{
 				case 0:
 					territoire1.ajouterSoldats(1);
@@ -1858,29 +1826,29 @@ public class Interface {
 				}
 			}
 
-			deplacement.clear();
+			unitesDeDeplacement.clear();
 			
 			return false;
 		}
 		else if((sourisX > 0.51 && sourisX < 0.69) && (sourisY > 0.15 && sourisY < 0.21))//Confirmer
 		{
-			if(deplacement.size() == 0)
+			if(unitesDeDeplacement.size() == 0)
 			{
 				infosBas(10);
 				return false;
 			}
 			else
 			{
-				for(int i = 0;i < deplacement.size(); i ++)
+				for(int i = 0;i < unitesDeDeplacement.size(); i ++)
 				{
-					territoire1.deplacement(territoire2, deplacement.get(i));
+					territoire1.deplacement(territoire2, unitesDeDeplacement.get(i));
 				}
 				reset(6);
 
 				couche = 5;
 				mode = 3;
 
-				deplacement.clear();
+				unitesDeDeplacement.clear();
 				
 				return false;
 			}
@@ -1891,7 +1859,6 @@ public class Interface {
 		}
 		
 	}
-
 
 	/**
 	 * Hitbox confirmation mission
@@ -1914,7 +1881,6 @@ public class Interface {
 			return true;
 		}
 	}
-
 
 	/**
 	 * Hitbox lettre de mission
@@ -1949,7 +1915,6 @@ public class Interface {
 		return StdDraw.mouseX();
 	}
 
-	
 	/**
 	 *
 	 * @return la position en y de la souris
@@ -1959,7 +1924,6 @@ public class Interface {
 		return  StdDraw.mouseY();
 	}
 
-
 	/**
 	 *
 	 * @return true ou false selon s'il y a un clique ou non
@@ -1968,7 +1932,6 @@ public class Interface {
 	{
 		return StdDraw.isMousePressed();
 	}
-
 
 	/**
 	 * Permet d'attendre que le joueur lache le clique
@@ -1981,34 +1944,5 @@ public class Interface {
 		}
 	}
 	//CLIQUE
-
-
-	//Getters Setters
-	public int getxMax() {
-		return xMax;
-	}
-
-	public void setxMax(int xMax) {
-		this.xMax = xMax;
-	}
-
-	public int getyMax() {
-		return yMax;
-	}
-
-	public void setyMax(int yMax) {
-		this.yMax = yMax;
-	}
-
-
-	public int getCouche() {
-		return couche;
-	}
-
-
-	public void setCouche(int couche) {
-		this.couche = couche;
-	}
-
 
 }

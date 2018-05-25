@@ -8,22 +8,17 @@ public class Jeu {
 	
 	public ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
 	public ArrayList<Territoire> listeTerritoires = new ArrayList<Territoire>();
-	
-	
 	public ArrayList<Continent> listeContinents = new ArrayList<Continent>();
 	
 	public int tour = 0;
 	public int map = 0;
-	public boolean ia = false;
 	public int nombreJoueurs;
 	
-	public boolean debut = true;
-	public boolean continuer = false;
+	public boolean ia = false;
+	public boolean debutPartie = true;
+	public boolean saisieTexte = false;
 	
 	public int cache = 0;
-	
-	public int nombreTroupesATT;
-	
 	
 	public ArrayList<Territoire> listeGagnants = new ArrayList<Territoire>();
 	public ArrayList<Joueur> listeElimines = new ArrayList<Joueur>();
@@ -37,8 +32,8 @@ public class Jeu {
 		effacerCache();
 	}
 	
-	//IN
 	
+	//INITIALISATION
 	/**
 	 * Vider le cache du jeu
 	 */
@@ -51,7 +46,6 @@ public class Jeu {
 	    }
 	        
 	}
-	
 	
 	/**
 	 * Initialisation des territories en fonction de la carte selectionee
@@ -372,7 +366,6 @@ public class Jeu {
 		}
 	}
 
-
 	/**
 	 * Distribue les territoires entre les joueurs
 	 */
@@ -407,7 +400,6 @@ public class Jeu {
 			
 	}
 
-	
 	/**
 	 * Attribu un mission à un joueur
 	 */
@@ -430,7 +422,6 @@ public class Jeu {
 		}
 	}
 
-	
 	/**
 	 * Renvoit une mission en fonction de l'index
 	 * @param int index l'index de la mission
@@ -464,8 +455,10 @@ public class Jeu {
 			return null;
 		}
 	}
+	//INITIALISATION
 	
 	
+	//DIVERS
 	/**
 	 * Definit le tour auquel on est
 	 * @param tour
@@ -481,11 +474,10 @@ public class Jeu {
 		
 		if(this.tour == 0)
 		{
-			this.debut = false;
+			this.debutPartie = false;
 		}
 	}
 
-	
 	/**
 	 * Check si un joueur a perdu
 	 */
@@ -503,7 +495,6 @@ public class Jeu {
 		}
 	}
 
-
 	/**
 	 * Permet de savoir si un joueur a gagné
 	 */
@@ -515,7 +506,6 @@ public class Jeu {
 		}
 	}
 
-	
 	/**
 	 * Methodes regroupant tous les types de verifications nescessaires au bon fonctionnement du jeu
 	 * @param joueur Joueur le joueur sur lequel on fait la verification
@@ -538,7 +528,7 @@ public class Jeu {
 				interf.territoire1 = territoire;
 				territoire.deploiement(interf.joueurEnCours);
 
-				if(interf.joueurEnCours.getNombreSoldatsDeploiement() == 0 && interf.joueurEnCours.getNombreCavaliersDeploiement() == 0 && interf.joueurEnCours.getNombreCanonsDeploiement() == 0  && debut)
+				if(interf.joueurEnCours.getNombreSoldatsDeploiement() == 0 && interf.joueurEnCours.getNombreCavaliersDeploiement() == 0 && interf.joueurEnCours.getNombreCanonsDeploiement() == 0  && debutPartie)
 				{
 					interf.reset(5);
 					
@@ -546,12 +536,12 @@ public class Jeu {
 					tour(tour);
 					interf.joueurEnCours = listeJoueurs.get(tour);
 					
-					interf.joueurEnCours.combienTroupe(debut);
+					interf.joueurEnCours.combienTroupe(debutPartie);
 					
 					
 
 
-					if(debut && ia && tour == listeJoueurs.size()-1)
+					if(debutPartie && ia && tour == listeJoueurs.size()-1)
 					{
 						IA ia = (IA) listeJoueurs.get(tour);
 						
@@ -561,14 +551,14 @@ public class Jeu {
 						
 						tour(tour);
 						
-						debut = false;
+						debutPartie = false;
 						interf.joueurEnCours = listeJoueurs.get(tour);
 						
-						interf.joueurEnCours.combienTroupe(debut);
+						interf.joueurEnCours.combienTroupe(debutPartie);
 						interf.couche = 3;
 						interf.reset(0);
 					}
-					else if(debut)
+					else if(debutPartie)
 					{
 						interf.couche = 9;
 						interf.reset(4);
@@ -642,7 +632,7 @@ public class Jeu {
 				interf.couche = 6;
 
 
-				nombreTroupesATT = interf.territoire1.nombreDesATT();
+				interf.territoire1.setNombreTroupesATT(interf.territoire1.nombreDesATT());
 
 				interf.infosHaut(10);
 				interf.confirmationAttaque();
@@ -700,7 +690,6 @@ public class Jeu {
 
 }
 
-	
 	/**
 	 * Reset les déplacements d'un joueur
 	 * @param joueur
@@ -715,7 +704,6 @@ public class Jeu {
 			}
 		}
 	}
-	
 	
 	/**
 	 * Permet de retrouver un territoire via son nom

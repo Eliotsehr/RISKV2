@@ -63,69 +63,37 @@ public class Unitee {
 		return type;
 	}
 
-	public void setType(int type) {
-		this.type = type;
-	}
-
 	public int getpATT() {
 		return pATT;
-	}
-
-	public void setpATT(int pATT) {
-		this.pATT = pATT;
 	}
 
 	public int getpDEF() {
 		return pDEF;
 	}
 
-	public void setpDEF(int pDEF) {
-		this.pDEF = pDEF;
-	}
-
 	public int getMvtTOUR() {
 		return mvtTOUR;
 	}
-
-	public void setMvtTOUR(int mvtTOUR) {
-		this.mvtTOUR = mvtTOUR;
-	}
-
 
 	public int getpMin() {
 		return pMin;
 	}
 
-
-	public void setpMin(int pMin) {
-		this.pMin = pMin;
-	}
-
-
 	public int getpMax() {
 		return pMax;
 	}
-
-
-	public void setpMax(int pMax) {
-		this.pMax = pMax;
-	}
-
 
 	public int getScoreDES() {
 		return scoreDES;
 	}
 
-
 	public void setScoreDES(int scoreDES) {
 		this.scoreDES = scoreDES;
 	}
 
-
 	public int getNombreDeplacement() {
 		return nombreDeplacement;
 	}
-
 
 	public void setNombreDeplacement(int nombreDeplacement) {
 		this.nombreDeplacement = nombreDeplacement;

@@ -3,12 +3,11 @@ import java.util.ArrayList;
 public class Territoire {
 	
 	private String nom;
-	
-	//private int nombreTroupesTotal = 1;
-	
+
 	private int nombreSoldats = 1;
 	private int nombreCavaliers = 0;
 	private int nombreCanons = 0;
+	private int nombreTroupesATT;
 	
 	private Joueur proprietaire;
 	
@@ -49,7 +48,6 @@ public class Territoire {
 		}		
 	}
 
-	
 	/**
 	 * Verifie si au moins une unité peut, en cas de victoire, se déplacer sur le territoire conqui avant de lancer l'attaque
 	 * @return true si elles peuvent, false sinon
@@ -101,7 +99,6 @@ public class Territoire {
 		}
 	}
 	
-	
 	/**
 	 * Permet de vérifier qu'un territoire appartient à un joueur donné
 	 * @param joueur
@@ -118,7 +115,6 @@ public class Territoire {
 			return false;
 		}
 	}
-	
 	
 	/**
 	 * Permet de savoir si deux territoires sont adjacents
@@ -138,35 +134,6 @@ public class Territoire {
 	}
 	//VERIFICATIONS
 	
-	
-	/**
-	 * Remet les troupes sur le territoire après un combat
-	 */
-	public void resetTroupes()
-	{
-		this.nombreSoldats = 0;
-		this.nombreCavaliers = 0;
-		this.nombreCanons = 0;
-		
-		for(int i = 0; i<this.listeUnitees.size();i++)
-		{
-			if(this.listeUnitees.get(i).getType() == 0)
-			{
-				this.nombreSoldats++;
-			}
-			else if(this.listeUnitees.get(i).getType() == 1)
-			{
-				this.nombreCavaliers++;
-			}
-			if(this.listeUnitees.get(i).getType() == 2)
-			{
-				this.nombreCanons++;
-			}
-		}
-	}
-	
-	
-
 	
 	//ATTAQUE
 	/**
@@ -189,7 +156,6 @@ public class Territoire {
 		}
 	}
 
-	
 	/**
 	 * Permet de savoir combien de dés seront utilisés en défense
 	 * @return le nombre de dés utilisés en défense
@@ -205,8 +171,6 @@ public class Territoire {
 			return 2;
 		}
 	}
-	
-	
 	
 	/**
 	 * Lance une attaque
@@ -240,7 +204,6 @@ public class Territoire {
 		this.miseAJourProprietaire(territoireDEF);
 	}
 	
-	
 	/**
 	 * Définit la liste des unités qui vont défendre
 	 * @param nombreDesDEF nombre de des en défense
@@ -273,7 +236,6 @@ public class Territoire {
 
 	}
 
-	
 	/**
 	 * Permet de réaliser n lancement de des
 	 * @param nombreDes int le nombre de des qu'on veut lancer
@@ -288,7 +250,6 @@ public class Territoire {
 			this.uniteCombat.get(i).setScoreDES(random);
 		}
 	}
-	
 	
 	/**
 	 * Tri une liste de dés dans l'ordre décroissant
@@ -312,7 +273,6 @@ public class Territoire {
 		}
 	}
 
-	
 	/**
 	 * Trie la liste des unités d'attaque en cas d'égalité en fonction des priorités
 	 * @param liste
@@ -334,7 +294,6 @@ public class Territoire {
 		}
 	}
 	
-	
 	/**
 	 * Trie la liste des unités d'attaque en cas d'égalité en fonction des priorités
 	 * @param liste
@@ -355,7 +314,6 @@ public class Territoire {
 			}
 		}
 	}
-	
 	
 	/**
 	 * Effectue la comparaison des valeurs des dés
@@ -396,8 +354,6 @@ public class Territoire {
 		risk.listeGagnants = listeGagnants;
 	}
 	
-	
-	
 	/**
 	 * Met à jour l'affichage et le nombre d'unités
 	 * @param Unitee unitee
@@ -425,7 +381,6 @@ public class Territoire {
 		}
 	}
 	
-	
 	/**
 	 * Supprime aléatoirement une unité sur le territoire
 	 * @param int type Type de l'unité qu'on supprime
@@ -442,7 +397,6 @@ public class Territoire {
 			supprimerUniteAleat(type,rang+1);
 		}
 	}
-	
 	
 	/**
 	 * Met à jour le proprietaire d'un territoire
@@ -487,18 +441,6 @@ public class Territoire {
 		}
 	}
 	
-	/*
-	
-	/**
-	 * Permet d'ajouter des troupes sur un territoire
-	 * @param nombreTroupes le nombre de troupes qu'on veut ajouter
-	 
-	public void ajouterTroupe(int nombreTroupes)
-	{
-		this.nombreTroupesTotal = this.nombreTroupesTotal + nombreTroupes;
-	}
-	*/
-	
 	/**
 	 * Permet d'ajouter des soldats sur un territoire
 	 * @param nombreSoldats
@@ -507,7 +449,6 @@ public class Territoire {
 	{
 		this.nombreSoldats = this.nombreSoldats + nombreSoldats;
 	}
-	
 	
 	/**
 	 * Permet d'ajouter des Cavaliers sur un territoire
@@ -518,7 +459,6 @@ public class Territoire {
 		this.nombreCavaliers = this.nombreCavaliers + nombreCavaliers;
 	}
 	
-	
 	/**
 	 * Permet d'ajouter des Canons sur un territoire
 	 * @param nombreCavaliers
@@ -528,7 +468,6 @@ public class Territoire {
 		this.nombreCanons = this.nombreCanons + nombreCanons;
 	}
 	
-	
 	/**
 	 * Ajoute une unite sur un territoire
 	 * @param unite
@@ -537,7 +476,6 @@ public class Territoire {
 	{
 		this.listeUnitees.add(unite);
 	}
-	
 	
 	/**
 	 * Ajoute des unités dans la liste
@@ -563,7 +501,6 @@ public class Territoire {
 		}
 	}
 		
-	
 	/**
 	 * Suppprimer une unitee précise d'un territoire pour la deplacer sur un autre
 	 * @param unitee
@@ -581,7 +518,6 @@ public class Territoire {
 		}
 	}
 
-	
 	/**
 	 * Renvoit une unitée qui peut se déplacer
 	 * @param int type Le type de l'unité
@@ -618,7 +554,6 @@ public class Territoire {
 			return uniteDeplacement(type,rang+1);
 		}
 	}
-	
 
 	/**
 	 * Remet à zéro les déplacement des unités sur un territoire
@@ -631,7 +566,6 @@ public class Territoire {
 		}
 	}
 
-	
 	/**
 	 * Passe le territoire conquis sous le controle du propriétaire du territoire vainqueur
 	 * @param territoireVainqueur territoire de l'attaquant
@@ -646,7 +580,6 @@ public class Territoire {
 		
 		this.proprietaire = territoireVainqueur.proprietaire;
 	}
-	
 	
 	/**
 	 * 
@@ -675,7 +608,57 @@ public class Territoire {
 	//MODIFICATIONS
 	
 	
+	//DIVERS
+	/**
+	 * Renvoit l'index du territoire
+	 * @return l'index
+	 */
+	public int getIndexTerritoire()
+	{
+		for(int i = 0; i < risk.listeTerritoires.size();i++)
+		{
+			if(risk.listeTerritoires.get(i).equals(this))
+			{
+				return i;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Remet les troupes sur le territoire après un combat
+	 */
+	public void resetTroupes()
+	{
+		this.nombreSoldats = 0;
+		this.nombreCavaliers = 0;
+		this.nombreCanons = 0;
+		
+		for(int i = 0; i<this.listeUnitees.size();i++)
+		{
+			if(this.listeUnitees.get(i).getType() == 0)
+			{
+				this.nombreSoldats++;
+			}
+			else if(this.listeUnitees.get(i).getType() == 1)
+			{
+				this.nombreCavaliers++;
+			}
+			if(this.listeUnitees.get(i).getType() == 2)
+			{
+				this.nombreCanons++;
+			}
+		}
+	}
+	//DIVERS
+	
+	
 	//IA
+	/**
+	 * Check si un territoire est entoure ou non
+	 * @return true s'il l'est false sinon
+	 */
 	public boolean estEntoure()
 	{
 		for(int i = 0;i<this.territoiresAdjacents.length;i++)
@@ -688,7 +671,6 @@ public class Territoire {
 		
 		return true;
 	}
-	
 	
 	/**
 	 * Check si le territoire qui veut attaquer est plus puissant que le territoire qui défend
@@ -724,7 +706,6 @@ public class Territoire {
 		}
 	}
 	
-	
 	/**
 	 * Check si le territoire est plus puissant qu'au moins un territoire adjacent
 	 * @return
@@ -741,9 +722,6 @@ public class Territoire {
 		
 		return false;
 	}
-	
-	//IA
-	
 
 	/**
 	 * Check si un territoire appartient a un continent
@@ -762,103 +740,57 @@ public class Territoire {
 		
 		return false;
 	}
-
 	//IA
 
-	
-	
-	public int getIndexTerritoire()
-	{
-		for(int i = 0; i < risk.listeTerritoires.size();i++)
-		{
-			if(risk.listeTerritoires.get(i).equals(this))
-			{
-				return i;
-			}
-		}
-		
-		return -1;
-	}
-	
-	
-	
-	
-	
+
 	//Getters Setters
 	public String getNom() {
 		return nom;
 	}
 
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-
 	public Joueur getProprietaire() {
 		return proprietaire;
 	}
-
 
 	public void setProprietaire(Joueur proprietaire) {
 		this.proprietaire = proprietaire;
 	}
 
-
 	public int getNombreTroupesTotal()
 	{
 		return this.nombreCanons + this.nombreCavaliers + this.nombreSoldats;
 	}
-
-
+	
 	public String[] getTerritoiresAdjacents() {
 		return territoiresAdjacents;
 	}
-
-
-
-	public void setTerritoiresAdjacents(String[] territoiresAdjacents) {
-		this.territoiresAdjacents = territoiresAdjacents;
-	}
-
-
+	
 	public int getNombreSoldats() {
 		return nombreSoldats;
 	}
-
-
-	public void setNombreSoldats(int nombreSoldats) {
-		this.nombreSoldats = nombreSoldats;
-	}
-
 
 	public int getNombreCavaliers() {
 		return nombreCavaliers;
 	}
 
-
-	public void setNombreCavaliers(int nombreCavaliers) {
-		this.nombreCavaliers = nombreCavaliers;
-	}
-
-
 	public int getNombreCanons() {
 		return nombreCanons;
 	}
-
-
-	public void setNombreCanons(int nombreCanons) {
-		this.nombreCanons = nombreCanons;
-	}
-
 
 	public ArrayList<Unitee> getListeUnitees() {
 		return listeUnitees;
 	}
 
-
 	public void setListeUnitees(ArrayList<Unitee> listeUnitees) {
 		this.listeUnitees = listeUnitees;
+	}
+
+	public int getNombreTroupesATT() {
+		return nombreTroupesATT;
+	}
+
+	public void setNombreTroupesATT(int nombreTroupesATT) {
+		this.nombreTroupesATT = nombreTroupesATT;
 	}
 
 }

@@ -4,7 +4,6 @@ public class Des {
 	private int scoreMin;
 	private int scoreMax;
 	
-	
 	/**
 	 * Constructueur de l'objet Des
 	 * @param scoreMin score minimum du de
@@ -15,6 +14,7 @@ public class Des {
 		this.scoreMax = scoreMax;
 	}
 	
+	//DIVERS
 	/**
 	 * Lance un dé
 	 * @return renvoit la valeur du dé
@@ -24,24 +24,6 @@ public class Des {
 		int random = (int) (Math.random() * (this.scoreMax - this.scoreMin)+1 - 0) + this.scoreMin;
 		return random;
 	}
-
+	//DIVERS
 	
-	
-	//Getter Setters
-	public int getScoreMin() {
-		return scoreMin;
-	}
-
-	public void setScoreMin(int scoreMin) {
-		this.scoreMin = scoreMin;
-	}
-
-	public int getScoreMax() {
-		return scoreMax;
-	}
-
-	public void setScoreMax(int scoreMax) {
-		this.scoreMax = scoreMax;
-	}
-
 }

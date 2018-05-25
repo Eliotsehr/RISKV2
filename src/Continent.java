@@ -3,17 +3,17 @@ import java.util.ArrayList;
 
 public class Continent {
 
-	private int continent;
+	public int idContinent;
+	
 	private ArrayList<Territoire> territoiresDuContinent;
 
-	
 /**
  *
  * @param continent numero permettant d'identifier (comme un nom mais plus simple)
  * @param territoiresDuContinent liste des territoires sur le continent
  */
-	public Continent(int continent,ArrayList<Territoire> territoiresDuContinent) {
-		this.continent = continent;
+	public Continent(int idContinent,ArrayList<Territoire> territoiresDuContinent) {
+		this.idContinent = idContinent;
 		this.territoiresDuContinent = territoiresDuContinent;
 	}
 
@@ -44,17 +44,6 @@ public class Continent {
 	//Getters Setters
 	public ArrayList<Territoire> getTerritoiresDuContinent() {
 		return territoiresDuContinent;
-	}
-	public void setTerritoiresDuContinent(ArrayList<Territoire> listeTerritoires) {
-		this.territoiresDuContinent = listeTerritoires;
-	}
-
-	public int getContinent() {
-		return continent;
-	}
-
-	public void setContinent(int continent) {
-		this.continent = continent;
 	}
 
 }

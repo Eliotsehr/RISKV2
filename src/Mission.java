@@ -9,7 +9,7 @@ public class Mission {
 	
 	public Joueur joueurAEliminer;
 	
-	
+
 	/**
 	 * Constructeur de l'objet mission
 	 * @param intitule String explication de la mission
@@ -20,15 +20,7 @@ public class Mission {
 		this.index = index;
 	}
 
-	/**
-	 * Utilisé pour la mission 4
-	 * @param joueur
-	 */
-	public void definirJoueurAEliminer(Joueur joueur)
-	{
-		this.joueurAEliminer = joueur;
-	}
-	
+
 	//VERIFICATIONS
 	/**
 	 * Permet de savoir si un joueur a complété une mission
@@ -171,6 +163,18 @@ public class Mission {
 		
 	}
 	//VERIFICATIONS
+	
+	
+	//DIVERS
+	/**
+	 * Utilisé pour la mission 4
+	 * @param joueur
+	 */
+	public void definirJoueurAEliminer(Joueur joueur)
+	{
+		this.joueurAEliminer = joueur;
+	}
+	//DIVERS
 	
 	
 	//Getter setters

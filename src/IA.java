@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-import edu.princeton.cs.introcs.StdDraw;
 public class IA extends Joueur{
 
 	Jeu risk = Main.risk;
@@ -16,17 +15,8 @@ public class IA extends Joueur{
 		super(nom, numeroDeJoueur);
 	}
 	
-	
-	//deploiement
-	
-	//while(peut attaque)
 
-	//while peut deplacer
-	
-	//fin de tour
-	
-	
-	//Attaque
+	//ATTAQUE
 	/**
 	 * Selectionne un territoire duquel lancer une attaque
 	 * @param rang initialisé à 0
@@ -44,8 +34,7 @@ public class IA extends Joueur{
 			return territoireQuiAttaque(rang);
 		}
 	}
-	
-	
+		
 	/**
 	 * Selectionne un territoire qui va se defendre
 	 * @param rang initialisé à 0
@@ -64,7 +53,6 @@ public class IA extends Joueur{
 		}
 	}
 	
-	
 	/**
 	 * Permet à l'IA de déplacer ses troupes après une victoire
 	 * @param territoire1 territoire duquel on effectue le déplacement
@@ -82,7 +70,6 @@ public class IA extends Joueur{
 			}
 		}
 	}
-	
 	
 	/**
 	 * Choisi par ordre de puissance les unités avec lesquelles l'ia va attaquer
@@ -120,7 +107,6 @@ public class IA extends Joueur{
 			}
 		}
 	}
-	
 	
 	/**
 	 * Permet à l'ia d'échanger ses troupes contre des unités
@@ -167,7 +153,6 @@ public class IA extends Joueur{
 		}
 	}
 	
-	
 	/**
 	 * Permet à l'ia de déployer ses unités
 	 */
@@ -210,7 +195,10 @@ public class IA extends Joueur{
 		interf.savePlateau();
 		this.listeUniteADeployer.clear();
 	}
-	//Divers
+	//ATTAQUE
+	
+	
+	//VERIFICATION
 	/**
 	 * Check si l'IA peut encore attaquer
 	 * @return true si elle peut, false sinon
@@ -227,14 +215,14 @@ public class IA extends Joueur{
 		
 		return false;
 	}
+	//VERIFICATION
 	
 	
-	//Deplacement
-	
+	//DEPLACEMENT
 	/**
 	 * Déplacer les unites bloques entre des territoires controlés par l'IA
 	 */
-	public void deplaceUniteeBloquee()
+	public void deplaceUniteeBloquee(Interface interf)
 	{
 		Unitee uniteQuiSeDeplace = new Unitee(0,0,0,0,0,0);
 		if(uneTroupeEstBloquee())
@@ -281,15 +269,19 @@ public class IA extends Joueur{
 					
 					territoireDepart.deplacement(territoireArrive, uniteQuiSeDeplace);
 					
-					StdDraw.save("plateau.png");
+					interf.territoire1= territoireDepart;
+					interf.territoire2 = territoireArrive;
 					
+					interf.reset(6);
+					
+					interf.savePlateau();
 				}
 			}
 		}
 		
 		if(uneTroupeEstBloquee())
 		{
-			deplaceUniteeBloquee();
+			deplaceUniteeBloquee(interf);
 		}
 		else
 		{
@@ -297,7 +289,6 @@ public class IA extends Joueur{
 		}
 		
 	}
-	
 	
 	/**
 	 * Check si une troupe est bloquée
@@ -315,5 +306,6 @@ public class IA extends Joueur{
 		
 		return false;
 	}
-
+	//DEPLACEMENT
+	
 }

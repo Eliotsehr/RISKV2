@@ -19,17 +19,11 @@ public class Joueur {
 	private int nombreCanonsDeploiement;
 	
 	public ArrayList<Territoire> listeTerritoiresControles = new ArrayList<Territoire>();
-	
-
-	
 
 	/**
 	 * Constructeur de l'objet joueur 
 	 * @param String nom Le nom du joueur
-	 * @param int nombreDeTerritoires Le nombre de territoires controlés par le joueur
 	 * @param int numeroDeJoueur L'index du joueur
-	 * @param int nombreTerritoiresCaptures Le nombre de territoires capturés par le joueur au tour précédent
-	 * @param Mission mission La mission à effectuer par le joueur
 	 */
  	public Joueur(String nom,int numeroDeJoueur) {
 		this.nom = nom;
@@ -53,7 +47,6 @@ public class Joueur {
 			return false;
 		}
 	}
-	
 	
 	/**
 	 * Met fin à la partie si un joueur a terminé sa mission
@@ -79,7 +72,6 @@ public class Joueur {
 		this.nombreDeTerritoires = this.nombreDeTerritoires + nombreTerritoire;
 	}
 	
-	
 	/**
 	 * Ajouter un territoire au nombre total de territoires capturé par le joueur ce tour ci
 	 */
@@ -88,7 +80,6 @@ public class Joueur {
 		this.nombreTerritoiresCaptures++;
 	}
 	
-	
 	/**
 	 * Remet à zero le nombre de territoires capturés au début du tour
 	 */
@@ -96,7 +87,6 @@ public class Joueur {
 	{
 		this.nombreTerritoiresCaptures = 0;
 	}
-	
 	
 	/**
 	 * Attribue au joueur un mission
@@ -107,7 +97,6 @@ public class Joueur {
 		this.mission = mission;
 	}
 	
-	
 	/**
 	 * Ajouter un territoire de la liste des territoires controler par le joueur
 	 * @param territoire le territoire qu'on veut ajouter
@@ -116,7 +105,6 @@ public class Joueur {
 	{
 		this.listeTerritoiresControles.add(territoire);
 	}
-	
 	
 	/**
 	 * Supprimer un territoire de la liste des territoires controler par le joueur
@@ -167,7 +155,6 @@ public class Joueur {
 		}
 	}
 	
-	
 	/**
 	 * Donne un bonus de troupe en cas de controle d'un continent
 	 * @param joueur le joueur auquel on donne le bonus
@@ -212,7 +199,6 @@ public class Joueur {
 		return bonus;
 	}
 
-
 	/**
 	 * Bonus des territoires capturés au tour précédent
 	 * @param Joueur joueur
@@ -237,99 +223,57 @@ public class Joueur {
 		return nom;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-
-
 	public int getNumeroDeJoueur() {
 		return numeroDeJoueur;
 	}
 
-
-
-	public void setNumeroDeJoueur(int numeroDeJoueur) {
-		this.numeroDeJoueur = numeroDeJoueur;
-	}
-	
 	public int getNombreDeTerritoires()
 	{
 		return this.nombreDeTerritoires;
 	}
 	
-	public void setNombreDeTerritoires(int nombreDeTerritoires)
-	{
-		this.nombreDeTerritoires = nombreDeTerritoires;
-	}
-
-
 	public int getNombreTerritoiresCaptures() {
 		return nombreTerritoiresCaptures;
 	}
-
-
-	public void setNombreTerritoiresCaptures(int nombreTerritoiresCaptures) {
-		this.nombreTerritoiresCaptures = nombreTerritoiresCaptures;
-	}
-
 
 	public Mission getMission() {
 		return mission;
 	}
 
-
-	public void setMission(Mission mission) {
-		this.mission = mission;
-	}
-
-
 	public int getNombreTroupesDeploiement() {
 		return nombreTroupesDeploiement;
 	}
-
 
 	public void setNombreTroupesDeploiement(int nombreTroupesDeploiement) {
 		this.nombreTroupesDeploiement = nombreTroupesDeploiement;
 	}
 
-
 	public int getNombreSoldatsDeploiement() {
 		return nombreSoldatsDeploiement;
 	}
-
 
 	public void setNombreSoldatsDeploiement(int nombreSoldatsDeploiement) {
 		this.nombreSoldatsDeploiement = nombreSoldatsDeploiement;
 	}
 
-
 	public int getNombreCavaliersDeploiement() {
 		return nombreCavaliersDeploiement;
 	}
-
 
 	public void setNombreCavaliersDeploiement(int nombreCavaliersDeploiement) {
 		this.nombreCavaliersDeploiement = nombreCavaliersDeploiement;
 	}
 
-
 	public int getNombreCanonsDeploiement() {
 		return nombreCanonsDeploiement;
 	}
-
 
 	public void setNombreCanonsDeploiement(int nombreCanonsDeploiement) {
 		this.nombreCanonsDeploiement = nombreCanonsDeploiement;
 	}
 
-
 	public ArrayList<Territoire> getListeTerritoiresControles() {
 		return listeTerritoiresControles;
 	}
 
-
-	public void setListeTerritoiresControles(ArrayList<Territoire> listeTerritoiresControles) {
-		this.listeTerritoiresControles = listeTerritoiresControles;
-	}
 }
