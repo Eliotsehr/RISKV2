@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 public class Main {
 
 	static Interface interf;
@@ -10,7 +8,7 @@ public class Main {
 	
 	static boolean jeu = true;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args){
 		risk = new Jeu();
 		
 		interf = new Interface(1080,720,0);
