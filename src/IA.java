@@ -144,7 +144,7 @@ public class IA extends Joueur{
 	/**
 	 * Permet à l'ia de déployer ses unités
 	 */
-	public void deploiement(Interface interf)
+	public void deploiement(Affichage interf)
 	{
 		
 		for(int i = 0; i < this.listeTerritoiresControles.size();i++)
@@ -210,7 +210,7 @@ public class IA extends Joueur{
 	/**
 	 * Déplacer les unites bloques entre des territoires controlés par l'IA
 	 */
-	public void deplaceUniteeBloquee(Interface interf)
+	public void deplaceUniteeBloquee(Affichage interf)
 	{
 		Unitee uniteQuiSeDeplace = new Unitee(0,0,0,0,0,0);
 		if(uneTroupeEstBloquee())

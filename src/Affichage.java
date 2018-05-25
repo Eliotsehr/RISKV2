@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 import edu.princeton.cs.introcs.StdDraw;
 
-public class Interface {
+public class Affichage {
 
 	private int xMax;
 	private int yMax;
@@ -52,7 +52,7 @@ public class Interface {
 	 * @param yMax int hauteur de la fenetre
 	 * @param couche int couche sur laquelle on travail
 	 */
-	public Interface(int xMax,int yMax, int couche) {
+	public Affichage(int xMax,int yMax, int couche) {
 		this.xMax = xMax;
 		this.yMax = yMax;
 		this.couche = couche;
@@ -795,8 +795,10 @@ public class Interface {
 					}
 				}
 
-				//Jeu.listeJoueurs.add(new Joueur(nomJoueur,i-1));
-				Jeu.listeJoueurs.add(new IA(nomJoueur,i-1));
+				Jeu.listeJoueurs.add(new Joueur(nomJoueur,i-1));
+				
+				
+				//Jeu.listeJoueurs.add(new IA(nomJoueur,i-1));
 				ecranNomJoueurs();
 			}
 			
@@ -806,7 +808,7 @@ public class Interface {
 				Jeu.listeJoueurs.add(new IA("Patricia", Jeu.listeJoueurs.size()));
 			}*/
 
-			this.couche= 12;//Mission
+			this.couche= 9;//Mission
 
 			Jeu.creerTerritoires();
 			Jeu.attributionTerritoire();
@@ -820,19 +822,7 @@ public class Interface {
 			couchePlateau();
 			couchePions();
 			
-			for(int i = 0;i < Jeu.listeJoueurs.size(); i++)
-			{
-				IA ia = (IA) Jeu.listeJoueurs.get(i);
-				
-				ia.setNombreTroupesDeploiement(30);
-				
-				ia.echange();
-				
-				ia.deploiement(this);
-			}
-			
-			Jeu.debutPartie = false;
-			
+
 			savePlateau();
 			//reset(4);//Mission lettre
 			joueurEnCours = Jeu.listeJoueurs.get(Jeu.tour);
@@ -1008,23 +998,13 @@ public class Interface {
 				
 				IA.choixUnitesAttaque(territoire1);
 				
-				if(territoire1.debug() == false)
-				{
-					System.out.println(territoire1.getNom() + ": Soldats > "+territoire1.getNombreSoldats()+" Cavaliers > "+territoire1.getNombreCavaliers()+" Canons > "+territoire1.getNombreCanons());
-					System.out.println(territoire1.listeUnitees.size());
-				}
-				if(territoire2.debug() == false)
-				{
-					System.out.println(territoire2.getNom() + ": Soldats > "+territoire2.getNombreSoldats()+" Cavaliers > "+territoire2.getNombreCavaliers()+" Canons > "+territoire2.getNombreCanons());
-					System.out.println(territoire2.listeUnitees.size());
-				}
-				
+
 				territoire1.attaque(territoire2);
 				
 				infosHaut(1);
 				infosBas(-1);
 
-				StdDraw.pause(100);//On attend un petit peu avant d'afficher le resultat du combat
+				StdDraw.pause(2000);//On attend un petit peu avant d'afficher le resultat du combat
 				
 				infosHaut(1);
 
@@ -1036,7 +1016,7 @@ public class Interface {
 				}
 
 				
-				StdDraw.pause(1);
+				StdDraw.pause(2000);
 				
 				territoire1.uniteCombat.clear();
 				territoire2.uniteCombat.clear();
@@ -1093,10 +1073,6 @@ public class Interface {
 		if((sourisX > 0.18 && sourisX < 0.82) && (sourisY > 0.51 && sourisY < 0.59))//Jeu multi hurisk
 		{
 			couche = 1;//Nombres joueurs
-			
-			//
-			Jeu.ia = true;
-
 			ecranNombreJoueurs();
 			return false;
 		}

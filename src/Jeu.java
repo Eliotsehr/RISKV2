@@ -531,7 +531,7 @@ public class Jeu {
 	 * @param mode indice de la verification qu'on veut faire
 	 * @return true ou false selon ce qu'on verifie, il n'y a pas de sortie "type"
 	 */
-	public static boolean verifications(Interface interf, Territoire territoire, int mode)
+	public static boolean verifications(Affichage interf, Territoire territoire, int mode)
 	{
 		//Ces deux lignes sont pour corriger le bug du StdDraw.isMousePressed()
 		interf.sourisX = 0;

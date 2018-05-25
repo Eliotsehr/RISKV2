@@ -1,6 +1,6 @@
 public class Main {
 
-	static Interface interf;
+	static Affichage interf;
 
 	static boolean jeu = true;
 
@@ -8,7 +8,7 @@ public class Main {
 		
 		Jeu.effacerCache();
 		
-		interf = new Interface(1080,720,0);
+		interf = new Affichage(1080,720,0);
 		interf.ecranMenu();
 		
 		while(jeu)

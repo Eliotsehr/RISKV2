@@ -573,19 +573,6 @@ public class Territoire {
 	
 	
 	//DIVERS
-	
-	public boolean debug()
-	{
-		if(this.nombreCanons + this.nombreCavaliers + this.nombreSoldats != this.listeUnitees.size())
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
-	}
-	
 	/**
 	 * Renvoit l'index du territoire
 	 * @return l'index
