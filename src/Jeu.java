@@ -6,22 +6,61 @@ import edu.princeton.cs.introcs.StdDraw;
 
 public class Jeu {
 	
-	public static ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
-	public static ArrayList<Territoire> listeTerritoires = new ArrayList<Territoire>();
-	public static ArrayList<Continent> listeContinents = new ArrayList<Continent>();
 	
-	public static int tour = 0;
-	public static int map = 0;
-	public static int nombreJoueurs;
+	/*Couches
+	 * 0 - Menu
+	 * 1 - Nombre Joueurs
+	 * 2 - Noms Joueurs
+	 * 3 - Deploiement
+	 * 4 - Choix
+	 * 5 - Modes
+	 * 6 - Choix troupes
+	 * 7 - Confirmation attaque
+	 * 8 - Deplacement
+	 * 9 - Lettre de mission
+	 * 10 - Mission
+	 * 11 - Cartes
+	 * 12 - IA
+	*/
+	public int couche = 0;
+
+	/*Modes
+	 * 0 - Deploiement
+	 * 1 - Mode choix du territoire pour attaquer
+	 * 2 - Mode choix du territoire a attaquer
+	 * 3 - Mode deplacement choix du territoire de depart
+	 * 4 - Mode deplacement choix du territoire d'arrive
+	 */
+	public int mode = 0;
+
+	public double sourisX;
+	public double sourisY;
 	
-	public static boolean ia = false;
-	public static boolean debutPartie = true;
-	public static boolean saisieTexte = false;
+	public ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
+	public ArrayList<Territoire> listeTerritoires = new ArrayList<Territoire>();
+	public ArrayList<Continent> listeContinents = new ArrayList<Continent>();
 	
-	public static int cache = 0;
+	public int tour = 0;
+	public int map = 0;
+	public int nombreJoueurs;
 	
-	public static ArrayList<Territoire> listeGagnants = new ArrayList<Territoire>();
-	public static ArrayList<Joueur> listeElimines = new ArrayList<Joueur>();
+	public boolean ia = false;
+	public boolean debutPartie = true;
+	public boolean saisieTexte = false;
+	
+	public Joueur joueurEnCours;
+	
+	public ArrayList<Unitee> unitesDeDeplacement = new ArrayList<Unitee>();
+
+	
+	public int cache = 0;
+	
+	public ArrayList<Territoire> listeGagnants = new ArrayList<Territoire>();
+	public ArrayList<Joueur> listeElimines = new ArrayList<Joueur>();
+	
+	public Territoire territoire1;
+	public Territoire territoire2;
+	
 	
 	
 	/**
@@ -37,7 +76,7 @@ public class Jeu {
 	/**
 	 * Vider le cache du jeu
 	 */
-	public static void effacerCache()
+	public void effacerCache()
 	{
 		for(File file: new java.io.File("C:\\Users\\user\\git\\RISKV2\\img\\cache").listFiles()) 
 	    if (!file.isDirectory()) 
@@ -50,7 +89,7 @@ public class Jeu {
 	/**
 	 * Initialisation des territories en fonction de la carte selectionee
 	 */
-	public static void creerTerritoires()
+	public void creerTerritoires()
 	{
 		if(map == 0)
 		{
@@ -369,7 +408,7 @@ public class Jeu {
 	/**
 	 * Distribue les territoires entre les joueurs
 	 */
-	public static void attributionTerritoire()
+	public void attributionTerritoire()
 	{
 		//Cette partie permet de créer une liste mélangée des territoires
 		ArrayList<Integer> listeRandomTerritoires = new ArrayList<Integer>();
@@ -403,7 +442,7 @@ public class Jeu {
 	/**
 	 * Attribu un mission à un joueur
 	 */
-	public static void attributionMission()
+	public void attributionMission()
 	{
 		//Cette partie permet de créer une liste mélangée des territoires
 		ArrayList<Integer> listeRandomMissions = new ArrayList<Integer>();
@@ -427,7 +466,7 @@ public class Jeu {
 	 * @param int index l'index de la mission
 	 * @return la mission
 	 */
-	public static Mission mission(int index)
+	public Mission mission(int index)
 	{
 		switch(index)
 		{
@@ -458,12 +497,1365 @@ public class Jeu {
 	//INITIALISATION
 	
 	
+	//COUCHES AFFICHAGE
+	//COUCHES
+	/**
+	 * Permet au programme de savoir sur quel couche il doit travailler
+	 * @param couche
+	 * 0: Menu
+	 * 1: Nombre de joueurs
+	 * 2: Noms des joueurs
+	 * 3: Deploiment
+	 * 4: Choix d'action
+	 * 5: Attaque/deplacement
+	 * 6: Choix troupes
+	 * 7: Confirmation attaque
+	 * 8: Deplacement
+	 * 9: Lettre de mission
+	 * 10: Mission
+	 * 11: Choix cartes
+	 * 12: IA
+	 */
+	public void cliqueCouche(int couche)
+	{
+		sourisX = 0;
+		sourisY = 0;
+
+		switch(couche)
+		{
+
+		case 0:
+
+			while(cliqueMenu(sourisX, sourisY))
+			{
+				if(clique())
+				{
+					sourisX = sourisX();
+					sourisY = sourisY();
+
+					attendre();
+				}
+				
+				//System.out.println("x: "+sourisX()+" y: "+sourisY());
+			}
+
+			break;
+
+		case 1:
+			
+			saisieTexte = true;
+
+			String nombreJoueur = new String();
+
+			while(saisieTexte)
+			{
+				if(StdDraw.hasNextKeyTyped())
+				{
+					char touche = StdDraw.nextKeyTyped();
+					double curseur = 0.5;
+					if(touche == '!')
+					{
+						saisieTexte = false;
+					}
+					else if(touche == 'ù')
+					{
+						nombreJoueur = nombreJoueur.substring(0, nombreJoueur.length()-1);
+
+						StdDraw.setPenColor(StdDraw.WHITE);
+						StdDraw.filledRectangle(curseur, 0.45, 0.03, 0.03);
+						curseur = curseur - 0.02;
+						StdDraw.setPenColor(StdDraw.BLACK);
+					}
+					else
+					{
+						nombreJoueur = nombreJoueur +  touche;
+
+						StdDraw.text(curseur, 0.45, ""+touche);
+						curseur = curseur +0.02;
+					}
+				}
+			}
+			
+			nombreJoueurs = Integer.parseInt(nombreJoueur);
+			
+			if((nombreJoueurs > 6 || nombreJoueurs < 2) && ia == false)
+			{
+				nombreJoueurs = 2;
+			}
+			this.couche = 2;//Nom joueurs
+			Main.affichage.ecranNomJoueurs();
+
+			break;
+
+		case 2:
+
+			for(int i = 1;i<=nombreJoueurs;i++)
+			{
+				saisieTexte = true;
+				String nomJoueur = new String();
+				double curseur = 0.3;
+
+				StdDraw.text(0.4, 0.7, ""+i);
+
+				while(saisieTexte)
+				{
+					if(StdDraw.hasNextKeyTyped())
+					{
+						char touche = StdDraw.nextKeyTyped();
+						if(touche == '!')
+						{
+							saisieTexte = false;
+						}
+						else if(touche == 'ù')
+						{
+							nomJoueur = nomJoueur.substring(0, nomJoueur.length()-1);
+
+							StdDraw.setPenColor(StdDraw.WHITE);
+							StdDraw.filledRectangle(curseur, 0.45, 0.03, 0.03);
+							curseur = curseur - 0.02;
+							StdDraw.setPenColor(StdDraw.BLACK);
+						}
+						else
+						{
+							nomJoueur = nomJoueur +  touche;
+
+							StdDraw.text(curseur, 0.45, ""+touche);
+							curseur = curseur +0.02;
+						}
+					}
+				}
+
+				listeJoueurs.add(new Joueur(nomJoueur,i-1));
+				
+				
+				//listeJoueurs.add(new IA(nomJoueur,i-1));
+				Main.affichage.ecranNomJoueurs();
+			}
+			
+			/*if(ia)
+			{
+				nombreJoueurs++;
+				listeJoueurs.add(new IA("Patricia", listeJoueurs.size()));
+			}*/
+
+			this.couche= 9;//Mission
+
+			creerTerritoires();
+			attributionTerritoire();
+			attributionMission();
+			
+			joueurEnCours = listeJoueurs.get(tour);
+			joueurEnCours.combienTroupe(debutPartie);
+
+			StdDraw.setCanvasSize(Main.affichage.xMax, Main.affichage.yMax);
+			
+			Main.affichage.couchePlateau();
+			Main.affichage.couchePions();
+			
+
+			Main.affichage.savePlateau();
+			//reset(4);//Mission lettre
+			joueurEnCours = listeJoueurs.get(tour);
+			joueurEnCours.combienTroupe(debutPartie);
+
+
+			break;
+
+		case 3:
+
+			while(cliqueDeploiement(sourisX,sourisY))
+			{
+				if(clique())
+				{
+					sourisX = this.sourisX();
+					sourisY = this.sourisY();
+
+					attendre();
+				}
+				
+			}
+
+			break;
+
+		case 4:
+
+			while(cliqueChoix(sourisX, sourisY))
+			{
+				if(clique())
+				{
+					sourisX = sourisX();
+					sourisY = sourisY();
+
+					attendre();
+				}
+			}
+
+			break;
+
+		case 5:
+
+			while(cliqueTerritoires(sourisX, sourisY,mode))
+			{
+				if(clique())
+				{
+					sourisX = sourisX();
+					sourisY = sourisY();
+
+					attendre();
+				}
+				//System.out.println("x: "+sourisX()+" y: "+sourisY());
+			}
+
+
+
+			break;
+
+		case 6:
+
+			while(cliqueChoixTroupes(sourisX,sourisY))
+			{
+				if(clique())
+				{
+					sourisX = sourisX();
+					sourisY = sourisY();
+
+					attendre();
+				}
+			}
+
+
+			break;
+
+		case 7:
+
+			while(cliqueConfirmationAttaque(sourisX,sourisY))
+			{
+				if(clique())
+				{
+					sourisX = sourisX();
+					sourisY = sourisY();
+
+					attendre();
+				}
+				//System.out.println("x: "+sourisX()+" y: "+sourisY());
+			}
+
+			break;
+
+		case 8:
+
+			while(cliqueDeplacement(sourisX,sourisY))
+			{
+				if(clique())
+				{
+					sourisX = sourisX();
+					sourisY = sourisY();
+
+					attendre();
+				}
+				//System.out.println("x: "+sourisX()+" y: "+sourisY());
+			}
+
+			break;
+
+		case 9:
+			
+			while(cliqueMissionLettre(sourisX,sourisY))
+			{
+				if(clique())
+				{
+					sourisX = sourisX();
+					sourisY = sourisY();
+
+					attendre();
+				}
+				//System.out.println("x: "+sourisX()+" y: "+sourisY());
+			}
+
+			break;
+
+		case 10:
+
+			while(cliqueMission(sourisX,sourisY))
+			{
+				if(clique())
+				{
+					sourisX = sourisX();
+					sourisY = sourisY();
+
+					attendre();
+				}
+
+				//System.out.println("x: "+sourisX()+" y: "+sourisY());
+			}
+			
+			break;
+			
+		case 11:
+			
+			while(cliqueCarte(sourisX,sourisY))
+			{
+				if(clique())
+				{
+					sourisX = sourisX();
+					sourisY = sourisY();
+
+					attendre();
+				}
+				//System.out.println("x: "+sourisX()+" y: "+sourisY());
+			}
+			
+			break;
+			
+		case 12:
+			
+			//IA IA = (IA) listeJoueurs.get(listeJoueurs.size()-1);
+			IA IA = (IA) joueurEnCours;
+			
+			IA.echange();
+			
+			IA.deploiement(Main.affichage);
+
+			while(IA.peutAttaquerOuDeplacer() && Main.jeu)
+			{
+
+				territoire1 = IA.territoireQuiAttaque(0);
+				territoire2 = IA.territoireQuiDefend(territoire1, 0);
+				
+				IA.choixUnitesAttaque(territoire1);
+				
+
+				territoire1.attaque(territoire2);
+				
+				Main.affichage.infosHaut(1);
+				Main.affichage.infosBas(-1);
+
+				StdDraw.pause(2000);//On attend un petit peu avant d'afficher le resultat du combat
+				
+				Main.affichage.infosHaut(1);
+
+				if(territoire2.estConquis())
+				{
+					IA.ajouterTerritoireCapture();
+					IA.deplacement(territoire1, territoire2);
+				}
+				
+				StdDraw.pause(2000);
+				
+				territoire1.uniteCombat.clear();
+				territoire2.uniteCombat.clear();
+
+				territoire1.resetTroupes();
+				
+				Main.affichage.maj(territoire1);
+				Main.affichage.maj(territoire2);
+				
+				defaiteJoueur();
+				finPartie();
+			}
+				
+			IA.deplaceUniteeBloquee(Main.affichage);
+			
+			if(Main.jeu)
+			{
+				
+				this.couche = 3;//Deploiement
+				mode = 0;//Deploiement
+				
+				//this.couche = 12;//Deploiement
+				//mode = 0;//Deploiement
+
+				joueurEnCours.missionComplete();
+				resetDeplacement(joueurEnCours);
+				tourSuivant();
+				
+				joueurEnCours = listeJoueurs.get(tour);
+				joueurEnCours.combienTroupe(debutPartie);
+				
+				if(joueurEnCours.getNombreTroupesDeploiement() == 0)
+				{
+					joueurEnCours.setNombreTroupesDeploiement(1);
+				}
+				joueurEnCours.resetTerritoireCapture();
+				
+				Main.affichage.reset(0);//Deploiement
+			}
+			
+		}
+	}
+
+	/**
+	 * Hitbox du menu
+	 * @param sourisX valeur en x de la souris
+	 * @param sourisY valeur en y de la souris
+	 * @return false si on a clique sur un element pertinent de la fenetre du menu true sinon
+	 */
+	public boolean cliqueMenu(double sourisX, double sourisY)
+	{
+		if((sourisX > 0.18 && sourisX < 0.82) && (sourisY > 0.51 && sourisY < 0.59))//Jeu multi hurisk
+		{
+			couche = 1;//Nombres joueurs
+			Main.affichage.ecranNombreJoueurs();
+			return false;
+		}
+		else if((sourisX > 0.18 && sourisX < 0.82) && (sourisY > 0.39 && sourisY < 0.46))//Cartes
+		{
+			couche = 11;//Cartes
+			
+			Main.affichage.ecranMap();
+			return false;
+		}
+		else if((sourisX > 0.18 && sourisX < 0.82) && (sourisY > 0.24 && sourisY < 0.31))//IA
+		{
+			couche = 1;//Nombre joueurs
+			ia = true;
+			
+			Main.affichage.ecranNombreJoueurs();
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	/**
+	 * Hitbox du choix des cartes
+	 * @param sourisX coordonee en x de la souris
+	 * @param sourisY coordonee en y de la souris
+	 * @return
+	 */
+	public boolean cliqueCarte(double sourisX, double sourisY)
+	{
+		if((sourisX > 0.53 && sourisX < 0.79) && (sourisY > 0.48 && sourisY < 0.64))//Map classique
+		{
+			couche = 0;//Menu
+			
+			map = 0;
+			
+			Main.affichage.ecranMenu();
+			return false;
+		}
+		else if((sourisX > 0.53 && sourisX < 0.79) && (sourisY > 0.17 && sourisY < 0.33))//Map GOT
+		{
+			couche = 0;//Menu
+			
+			map = 1;
+			
+			Main.affichage.ecranMenu();
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	/**
+	 * Hitbox du panneau de deploiement
+	 * @param sourisX valeur en x de la souris
+	 * @param sourisY valeur en y de la souris
+	 * @return false si on a clique sur un element pertinent de la fenetre de l'interface true sinon
+	 */
+	public boolean cliqueDeploiement(double sourisX,double sourisY)
+	{
+		this.sourisX = 0;
+		this.sourisY = 0;
+		
+		//System.out.println(joueurEnCours.nombreTroupesDeploiement);
+
+		if(joueurEnCours.getNombreTroupesDeploiement()== 0)
+		{
+			mode = 0;//Deploiement
+			couche = 5;//Modes
+
+			Main.affichage.loadPlateau();
+			
+			Main.affichage.infosDeploiement();
+
+			return false;
+		}
+		if((sourisX > 0.304 && sourisX < 0.425) && (sourisY > 0.227 && sourisY < 0.523))//Soldat
+		{
+			joueurEnCours.setNombreTroupesDeploiement(joueurEnCours.getNombreTroupesDeploiement() - 1);
+			joueurEnCours.setNombreSoldatsDeploiement(joueurEnCours.getNombreSoldatsDeploiement() + 1);
+
+			Main.affichage.coucheDeploiement();
+
+			return false;
+		}
+		else if((sourisX > 0.445 && sourisX < 0.56) && (sourisY > 0.227 && sourisY < 0.523))//Cavalier
+		{
+			if(joueurEnCours.getNombreTroupesDeploiement() > 2)
+			{
+				joueurEnCours.setNombreTroupesDeploiement(joueurEnCours.getNombreTroupesDeploiement() - 3);
+				joueurEnCours.setNombreCavaliersDeploiement(joueurEnCours.getNombreCavaliersDeploiement() + 1);
+
+				Main.affichage.coucheDeploiement();
+
+				return false;
+			}
+			else
+			{
+				Main.affichage.infosBas(8);
+				return true;
+			}
+		}
+		else if((sourisX > 0.58 && sourisX < 0.69) && (sourisY > 0.227 && sourisY < 0.523))//Canon
+		{
+
+			if(joueurEnCours.getNombreTroupesDeploiement() > 6)
+			{
+				joueurEnCours.setNombreTroupesDeploiement(joueurEnCours.getNombreTroupesDeploiement() - 7);
+				joueurEnCours.setNombreCanonsDeploiement(joueurEnCours.getNombreCanonsDeploiement() + 1);
+
+				Main.affichage.coucheDeploiement();
+
+				return false;
+			}
+			else
+			{
+				Main.affichage.infosBas(8);
+				return true;
+			}
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	/**
+	 * Hitbox de l'interface de choix
+	 * @param sourisX valeur en x de la souris
+	 * @param sourisY valeur en y de la souris
+	 * @return false si on a clique sur un element pertinent de la fenetre de l'interface true sinon
+	 */
+	public boolean cliqueChoix(double sourisX, double sourisY)
+	{
+		if((sourisX > 0.22 && sourisX < 0.35) && (sourisY > 0.06 && sourisY < 0.11))//Attaquer
+		{
+			mode = 1;//Attaque 1
+			couche = 5;//Modes
+
+			Main.affichage.reset(2);//Croix
+			Main.affichage.infosBas(0);
+
+			return false;
+		}
+		else if((sourisX > 0.44 && sourisX < 0.57) && (sourisY > 0.06 && sourisY < 0.11))//Deplacer
+		{
+			mode = 3;//Deplacement 1
+			couche = 5;//Modes
+
+			Main.affichage.reset(2);//Croix
+			Main.affichage.infosBas(0);
+
+			return false;
+		}
+		else if((sourisX > 0.65 && sourisX < 0.80) && (sourisY > 0.06 && sourisY < 0.11))//Fin de tour
+		{
+			
+			joueurEnCours.missionComplete();
+			resetDeplacement(joueurEnCours);
+			defaiteJoueur();
+			finPartie();
+			tourSuivant();
+			joueurEnCours = listeJoueurs.get(tour);
+			joueurEnCours.combienTroupe(debutPartie);
+			
+			if(joueurEnCours.getNombreTroupesDeploiement() == 0)
+			{
+				joueurEnCours.setNombreTroupesDeploiement(1);
+			}
+			joueurEnCours.resetTerritoireCapture();
+			
+			
+			if(ia && tour == listeJoueurs.size()-1)
+			{
+				couche = 12;//IA
+				Main.affichage.loadPlateau();
+			}
+			else
+			{
+				couche = 3;//Deploiement
+				mode = 0;//Deploiement
+				Main.affichage.reset(0);//Choix
+
+			}
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	/**
+	 * Hitbox des territoires
+	 * @param sourisX valeur en x de la souris
+	 * @param sourisY valeur en y de la souris
+	 * @param mode Mode de verification pour savoir ce qu'il faut verifier (ex: est-ce que le territoire appartient au joueur)
+	 * @return false si on a clique sur un element pertinent de la fenetre de l'interface qui rempli les conditions du mode, true sinon
+	 */
+	public boolean cliqueTerritoires(double sourisX, double sourisY, int mode)
+	{
+		if(map == 0)
+		{
+			if((sourisX > 0.35 && sourisX < 0.39) && (sourisY > 0.76 && sourisY < 0.78))//Island
+			{
+				return verifications(Main.affichage,listeTerritoires.get(0),mode);
+			}
+			else if((sourisX > 0.4 && sourisX < 0.47) && (sourisY > 0.72 && sourisY < 0.85))//Scandinavie
+			{
+				return verifications(Main.affichage,listeTerritoires.get(1),mode);
+			}
+			else if((sourisX > 0.3 && sourisX < 0.38) && (sourisY > 0.65 && sourisY < 0.68))//Grande-Bretagne
+			{
+				return verifications(Main.affichage,listeTerritoires.get(2),mode);
+			}
+			else if((sourisX > 0.34 && sourisX < 0.40) && (sourisY > 0.48 && sourisY < 0.61))//Europe de l'Ouest
+			{
+				return verifications(Main.affichage,listeTerritoires.get(3),mode);
+			}
+			else if((sourisX > 0.41 && sourisX < 0.47) && (sourisY > 0.55 && sourisY < 0.59))//Europe du Sud
+			{
+				return verifications(Main.affichage,listeTerritoires.get(4),mode);
+			}
+			else if((sourisX > 0.41 && sourisX < 0.46) && (sourisY > 0.62 && sourisY < 0.66))//Europe du Nord
+			{
+				return verifications(Main.affichage,listeTerritoires.get(5),mode);
+			}
+			else if((sourisX > 0.49 && sourisX < 0.55) && (sourisY > 0.72 && sourisY < 0.74))//Ukraine
+			{
+				return verifications(Main.affichage,listeTerritoires.get(6),mode);
+			}
+			else if((sourisX > 0.45 && sourisX < 0.49) && (sourisY > 0.41 && sourisY < 0.44))//Egypte
+			{
+				return verifications(Main.affichage,listeTerritoires.get(7),mode);
+			}
+			else if((sourisX > 0.36 && sourisX < 0.45) && (sourisY > 0.36 && sourisY < 0.38))//Afrique du Nord
+			{
+				return verifications(Main.affichage,listeTerritoires.get(8),mode);
+			}
+			else if((sourisX > 0.49 && sourisX < 0.54) && (sourisY > 0.30 && sourisY < 0.34))//Afrique de l'Est
+			{
+				return verifications(Main.affichage,listeTerritoires.get(9),mode);
+			}
+			else if((sourisX > 0.44 && sourisX < 0.49) && (sourisY > 0.255 && sourisY < 0.28))//Congo
+			{
+				return verifications(Main.affichage,listeTerritoires.get(10),mode);
+			}
+			else if((sourisX > 0.45 && sourisX < 0.49) && (sourisY > 0.13 && sourisY < 0.17))//Afrique du Sud
+			{
+				return verifications(Main.affichage,listeTerritoires.get(11),mode);
+			}
+			else if((sourisX > 0.54 && sourisX < 0.59) && (sourisY > 0.09 && sourisY < 0.2))//Madagascar
+			{
+				return verifications(Main.affichage,listeTerritoires.get(12),mode);
+			}
+			else if((sourisX > 0.51 && sourisX < 0.58) && (sourisY > 0.48 && sourisY < 0.51))//Moyen Orient
+			{
+				return verifications(Main.affichage,listeTerritoires.get(13),mode);
+			}
+			else if((sourisX > 0.62 && sourisX < 0.66) && (sourisY > 0.47 && sourisY < 0.49))//Inde
+			{
+				return verifications(Main.affichage,listeTerritoires.get(14),mode);
+			}
+			else if((sourisX > 0.56 && sourisX < 0.63) && (sourisY > 0.61 && sourisY < 0.63))//Afganistan
+			{
+				return verifications(Main.affichage,listeTerritoires.get(15),mode);
+			}
+			else if((sourisX > 0.59 && sourisX < 0.62) && (sourisY > 0.72 && sourisY < 0.75))//Oural
+			{
+				return verifications(Main.affichage,listeTerritoires.get(16),mode);
+			}
+			else if((sourisX > 0.63 && sourisX < 0.68) && (sourisY > 0.80 && sourisY < 0.82))//Siberie
+			{
+				return verifications(Main.affichage,listeTerritoires.get(17),mode);
+			}
+			else if((sourisX > 0.69 && sourisX < 0.73) && (sourisY > 0.43 && sourisY < 0.45))//Siam
+			{
+				return verifications(Main.affichage,listeTerritoires.get(18),mode);
+			}
+			else if((sourisX > 0.67 && sourisX < 0.72) && (sourisY > 0.54 && sourisY < 0.56))//Chine
+			{
+				return verifications(Main.affichage,listeTerritoires.get(19),mode);
+			}
+			else if((sourisX > 0.70 && sourisX < 0.75) && (sourisY > 0.836 && sourisY < 0.859))//Yakouti
+			{
+				return verifications(Main.affichage,listeTerritoires.get(20),mode);
+			}
+			else if((sourisX > 0.69 && sourisX < 0.75) && (sourisY > 0.63 && sourisY < 0.65))//Mongolie
+			{
+				return verifications(Main.affichage,listeTerritoires.get(21),mode);
+			}
+			else if((sourisX > 0.8 && sourisX < 0.84) && (sourisY > 0.61 && sourisY < 0.64))//Japon
+			{
+				return verifications(Main.affichage,listeTerritoires.get(22),mode);
+			}
+			else if((sourisX > 0.77 && sourisX < 0.83) && (sourisY > 0.83 && sourisY < 0.86))//Kamachatka
+			{
+				return verifications(Main.affichage,listeTerritoires.get(23),mode);
+			}
+			else if((sourisX > 0.69 && sourisX < 0.74) && (sourisY > 0.72 && sourisY < 0.74))//Irkutsk
+			{
+				return verifications(Main.affichage,listeTerritoires.get(24),mode);
+			}
+			else if((sourisX > 0.025 && sourisX < 0.07) && (sourisY > 0.8 && sourisY < 0.82))//Alaska
+			{
+				return verifications(Main.affichage,listeTerritoires.get(25),mode);
+			}
+			else if((sourisX > 0.07 && sourisX < 0.2) && (sourisY > 0.8 && sourisY < 0.83))//Territoires du Nord
+			{
+				return verifications(Main.affichage,listeTerritoires.get(26),mode);
+			}
+			else if((sourisX > 0.1 && sourisX < 0.15) && (sourisY > 0.73 && sourisY < 0.75))//Alberta
+			{
+				return verifications(Main.affichage,listeTerritoires.get(27),mode);
+			}
+			else if((sourisX > 0.15 && sourisX < 0.20) && (sourisY > 0.71 && sourisY < 0.73))//Ontario
+			{
+				return verifications(Main.affichage,listeTerritoires.get(28),mode);
+			}
+			else if((sourisX > 0.26 && sourisX < 0.33) && (sourisY > 0.85 && sourisY < 0.88))//Groenland
+			{
+				return verifications(Main.affichage,listeTerritoires.get(29),mode);
+			}
+			else if((sourisX > 0.22 && sourisX < 0.26) && (sourisY > 0.71 && sourisY < 0.73))//Quebec
+			{
+				return verifications(Main.affichage,listeTerritoires.get(30),mode);
+			}
+			else if((sourisX > 0.09 && sourisX < 0.16) && (sourisY > 0.63 && sourisY < 0.67))//Etats de l'Ouest
+			{
+				return verifications(Main.affichage,listeTerritoires.get(31),mode);
+			}
+			else if((sourisX > 0.15 && sourisX < 0.22) && (sourisY > 0.58 && sourisY < 0.62))//Etats de l'Est
+			{
+				return verifications(Main.affichage,listeTerritoires.get(32),mode);
+			}
+			else if((sourisX > 0.11 && sourisX < 0.17) && (sourisY > 0.45 && sourisY < 0.57))//Amerique Centrale
+			{
+				return verifications(Main.affichage,listeTerritoires.get(33),mode);
+			}
+			else if((sourisX > 0.16 && sourisX < 0.23) && (sourisY > 0.42 && sourisY < 0.45))//Venezuela
+			{
+				return verifications(Main.affichage,listeTerritoires.get(34),mode);
+			}
+			else if((sourisX > 0.23 && sourisX < 0.29) && (sourisY > 0.34 && sourisY < 0.37))//Bresil
+			{
+				return verifications(Main.affichage,listeTerritoires.get(35),mode);
+			}
+			else if((sourisX > 0.2 && sourisX < 0.23) && (sourisY > 0.30 && sourisY < 0.32))//Perou
+			{
+				return verifications(Main.affichage,listeTerritoires.get(36),mode);
+			}
+			else if((sourisX > 0.19 && sourisX < 0.25) && (sourisY > 0.21 && sourisY < 0.23))//Argentine
+			{
+				return verifications(Main.affichage,listeTerritoires.get(37),mode);
+			}
+			else if((sourisX > 0.68 && sourisX < 0.77) && (sourisY > 0.26 && sourisY < 0.32))//Indonesie
+			{
+				return verifications(Main.affichage,listeTerritoires.get(38),mode);
+			}
+			else if((sourisX > 0.78 && sourisX < 0.83) && (sourisY > 0.30 && sourisY < 0.35))//Nouvelle Guinnee
+			{
+				return verifications(Main.affichage,listeTerritoires.get(39),mode);
+			}
+			else if((sourisX > 0.73 && sourisX < 0.81) && (sourisY > 0.13 && sourisY < 0.18))//Australie de l'Ouest
+			{
+				return verifications(Main.affichage,listeTerritoires.get(40),mode);
+			}
+			else if((sourisX > 0.79 && sourisX < 0.86) && (sourisY > 0.17 && sourisY < 0.21))//Australie de l'Est
+			{
+				return verifications(Main.affichage,listeTerritoires.get(41),mode);
+			}
+			else if((sourisX > 0.89 && sourisX < 0.94) && (sourisY > 0.03 && sourisY < 0.15))//Annuler
+			{
+				Main.affichage.savePlateau();
+				
+				Main.affichage.reset(1);//Choix
+
+				couche = 4;//Choix
+
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		else if(map == 1)
+		{
+			if((sourisX > 0.18 && sourisX < 0.21) && (sourisY > 0.83 && sourisY < 0.85))//The Wall
+			{
+				return verifications(Main.affichage,listeTerritoires.get(0),mode);
+			}
+			else if((sourisX > 0.25 && sourisX < 0.28) && (sourisY > 0.83 && sourisY < 0.88))//Skagos
+			{
+				return verifications(Main.affichage,listeTerritoires.get(1),mode);
+			}
+			else if((sourisX > 0.2 && sourisX < 0.28) && (sourisY > 0.77 && sourisY < 0.81))//The Grev Cliffs
+			{
+				return verifications(Main.affichage,listeTerritoires.get(2),mode);
+			}
+			else if((sourisX > 0.08 && sourisX < 0.15) && (sourisY > 0.74 && sourisY < 0.79))//Wolfswood
+			{
+				return verifications(Main.affichage,listeTerritoires.get(3),mode);
+			}
+			else if((sourisX > 0.17 && sourisX < 0.23) && (sourisY > 0.71 && sourisY < 0.76))//Winterfell
+			{
+				return verifications(Main.affichage,listeTerritoires.get(4),mode);
+			}
+			else if((sourisX > 0.06 && sourisX < 0.13) && (sourisY > 0.67 && sourisY < 0.73))//The Rills
+			{
+				return verifications(Main.affichage,listeTerritoires.get(5),mode);
+			}
+			else if((sourisX > 0.09 && sourisX < 0.15) && (sourisY > 0.61 && sourisY < 0.65))//The Flint Cliff
+			{
+				return verifications(Main.affichage,listeTerritoires.get(6),mode);
+			}
+			else if((sourisX > 0.15 && sourisX < 0.18) && (sourisY > 0.66 && sourisY < 0.69))//The Neck
+			{
+				return verifications(Main.affichage,listeTerritoires.get(7),mode);
+			}
+			else if((sourisX > 0.19 && sourisX < 0.25) && (sourisY > 0.51 && sourisY < 0.60))//The Vale
+			{
+				return verifications(Main.affichage,listeTerritoires.get(8),mode);
+			}
+			else if((sourisX > 0.06 && sourisX < 0.1) && (sourisY > 0.54 && sourisY < 0.58))//Jron Islands
+			{
+				return verifications(Main.affichage,listeTerritoires.get(9),mode);
+			}
+			else if((sourisX > 0.1 && sourisX < 0.15) && (sourisY > 0.52 && sourisY < 0.55))//Riverlands
+			{
+				return verifications(Main.affichage,listeTerritoires.get(10),mode);
+			}
+			else if((sourisX > 0.17 && sourisX < 0.24) && (sourisY > 0.45 && sourisY < 0.50))//Crownlands
+			{
+				return verifications(Main.affichage,listeTerritoires.get(11),mode);
+			}
+			else if((sourisX > 0.08 && sourisX < 0.16) && (sourisY > 0.44 && sourisY < 0.5))//Westerlands
+			{
+				return verifications(Main.affichage,listeTerritoires.get(12),mode);
+			}
+			else if((sourisX > 0.08 && sourisX < 0.14) && (sourisY > 0.38 && sourisY < 0.41))//Shield Lands
+			{
+				return verifications(Main.affichage,listeTerritoires.get(13),mode);
+			}
+			else if((sourisX > 0.15 && sourisX < 0.2) && (sourisY > 0.39 && sourisY < 0.44))//The Reach
+			{
+				return verifications(Main.affichage,listeTerritoires.get(14),mode);
+			}
+			else if((sourisX > 0.2 && sourisX < 0.25) && (sourisY > 0.36 && sourisY < 0.41))//Stromlands
+			{
+				return verifications(Main.affichage,listeTerritoires.get(15),mode);
+			}
+			else if((sourisX > 0.06 && sourisX < 0.12) && (sourisY > 0.29 && sourisY < 0.35))//Whispering Sounds
+			{
+				return verifications(Main.affichage,listeTerritoires.get(16),mode);
+			}
+			else if((sourisX > 0.14 && sourisX < 0.18) && (sourisY > 0.3 && sourisY < 0.33))//Red Mountains
+			{
+				return verifications(Main.affichage,listeTerritoires.get(17),mode);
+			}
+			else if((sourisX > 0.18 && sourisX < 0.28) && (sourisY > 0.25 && sourisY < 0.29))//Dorne
+			{
+				return verifications(Main.affichage,listeTerritoires.get(18),mode);
+			}
+			else if((sourisX > 0.34 && sourisX < 0.38) && (sourisY > 0.54 && sourisY < 0.6))//Braavosian Coastland
+			{
+				return verifications(Main.affichage,listeTerritoires.get(19),mode);
+			}
+			else if((sourisX > 0.33 && sourisX < 0.38) && (sourisY > 0.45 && sourisY < 0.49))//Andalos
+			{
+				return verifications(Main.affichage,listeTerritoires.get(20),mode);
+			}
+			else if((sourisX > 0.38 && sourisX < 0.42) && (sourisY > 0.48 && sourisY < 0.54))//Fills Of Norvos
+			{
+				return verifications(Main.affichage,listeTerritoires.get(21),mode);
+			}
+			else if((sourisX > 0.43 && sourisX < 0.46) && (sourisY > 0.43 && sourisY < 0.52))//Qhoyne Lands
+			{
+				return verifications(Main.affichage,listeTerritoires.get(22),mode);
+			}
+			else if((sourisX > 0.48 && sourisX < 0.54) && (sourisY > 0.46 && sourisY < 0.50))//Forrest Of Dohor
+			{
+				return verifications(Main.affichage,listeTerritoires.get(23),mode);
+			}
+			else if((sourisX > 0.38 && sourisX < 0.44) && (sourisY > 0.36 && sourisY < 0.41))//The Golden Fields
+			{
+				return verifications(Main.affichage,listeTerritoires.get(24),mode);
+			}
+			else if((sourisX > 0.34 && sourisX < 0.43) && (sourisY > 0.28 && sourisY < 0.32))//The Disputed Lands
+			{
+				return verifications(Main.affichage,listeTerritoires.get(25),mode);
+			}
+			else if((sourisX > 0.46 && sourisX < 0.52) && (sourisY > 0.38 && sourisY < 0.44))//Rhoynian Veld
+			{
+				return verifications(Main.affichage,listeTerritoires.get(26),mode);
+			}
+			else if((sourisX > 0.45 && sourisX < 0.50) && (sourisY > 0.29 && sourisY < 0.33))//Sar Mell
+			{
+				return verifications(Main.affichage,listeTerritoires.get(27),mode);
+			}
+			else if((sourisX > 0.51 && sourisX < 0.57) && (sourisY > 0.33 && sourisY < 0.37))//Western Waste
+			{
+				return verifications(Main.affichage,listeTerritoires.get(28),mode);
+			}
+			else if((sourisX > 0.53 && sourisX < 0.56) && (sourisY > 0.21 && sourisY < 0.31))//Sea Of Sight
+			{
+				return verifications(Main.affichage,listeTerritoires.get(29),mode);
+			}
+			else if((sourisX > 0.56 && sourisX < 0.59) && (sourisY > 0.19 && sourisY < 0.25))//Elyria
+			{
+				return verifications(Main.affichage,listeTerritoires.get(30),mode);
+			}
+			else if((sourisX > 0.53 && sourisX < 0.57) && (sourisY > 0.1 && sourisY < 0.17))//Valyria
+			{
+				return verifications(Main.affichage,listeTerritoires.get(31),mode);
+			}
+			else if((sourisX > 0.61 && sourisX < 0.69) && (sourisY > 0.32 && sourisY < 0.35))//Painted Mountains
+			{
+				return verifications(Main.affichage,listeTerritoires.get(32),mode);
+			}
+			else if((sourisX > 0.69 && sourisX < 0.73) && (sourisY > 0.26 && sourisY < 0.30))//Slaver's Bay
+			{
+				return verifications(Main.affichage,listeTerritoires.get(33),mode);
+			}
+			else if((sourisX > 0.74 && sourisX < 0.81) && (sourisY > 0.30 && sourisY < 0.34))//Lhazar
+			{
+				return verifications(Main.affichage,listeTerritoires.get(34),mode);
+			}
+			else if((sourisX > 0.83 && sourisX < 0.90) && (sourisY > 0.36 && sourisY < 0.4))//Samyrian Fills
+			{
+				return verifications(Main.affichage,listeTerritoires.get(35),mode);
+			}
+			else if((sourisX > 0.68 && sourisX < 0.75) && (sourisY > 0.16 && sourisY < 0.21))//Ghiscar
+			{
+				return verifications(Main.affichage,listeTerritoires.get(36),mode);
+			}
+			else if((sourisX > 0.75 && sourisX < 0.83) && (sourisY > 0.21 && sourisY < 0.27))//Red Waste
+			{
+				return verifications(Main.affichage,listeTerritoires.get(37),mode);
+			}
+			else if((sourisX > 0.84 && sourisX < 0.9) && (sourisY > 0.27 && sourisY < 0.32))//Bayasabhad
+			{
+				return verifications(Main.affichage,listeTerritoires.get(38),mode);
+			}
+			else if((sourisX > 0.84 && sourisX < 0.91) && (sourisY > 0.19 && sourisY < 0.25))//Qarth
+			{
+				return verifications(Main.affichage,listeTerritoires.get(39),mode);
+			}
+			else if((sourisX > 0.55 && sourisX < 0.61) && (sourisY > 0.5 && sourisY < 0.59))//Sarnor
+			{
+				return verifications(Main.affichage,listeTerritoires.get(40),mode);
+			}
+			else if((sourisX > 0.62 && sourisX < 0.69) && (sourisY > 0.46 && sourisY < 0.55))//Abandoned Lands
+			{
+				return verifications(Main.affichage,listeTerritoires.get(41),mode);
+			}
+			else if((sourisX > 0.70 && sourisX < 0.78) && (sourisY > 0.45 && sourisY < 0.53))//Kingdoms Of The Jfeqevron
+			{
+				return verifications(Main.affichage,listeTerritoires.get(42),mode);
+			}
+			else if((sourisX > 0.75 && sourisX < 0.87) && (sourisY > 0.54 && sourisY < 0.61))//The Footprint
+			{
+				return verifications(Main.affichage,listeTerritoires.get(43),mode);
+			}
+			else if((sourisX > 0.79 && sourisX < 0.87) && (sourisY > 0.70 && sourisY < 0.80))//Jbben
+			{
+				return verifications(Main.affichage,listeTerritoires.get(44),mode);
+			}
+			else if((sourisX > 0.89 && sourisX < 0.96) && (sourisY > 0.49 && sourisY < 0.61))//Realms Of Jhogrvin
+			{
+				return verifications(Main.affichage,listeTerritoires.get(45),mode);
+			}
+			else if((sourisX > 0.8 && sourisX < 0.87) && (sourisY > 0.48 && sourisY < 0.52))//Vaes Dothrak
+			{
+				return verifications(Main.affichage,listeTerritoires.get(46),mode);
+			}
+			else if((sourisX > 0.57 && sourisX < 0.64) && (sourisY > 0.37 && sourisY < 0.44))//Parched Fields
+			{
+				return verifications(Main.affichage,listeTerritoires.get(47),mode);
+			}
+			else if((sourisX > 0.66 && sourisX < 0.75) && (sourisY > 0.36 && sourisY < 0.41))//Western Grass Sea
+			{
+				return verifications(Main.affichage,listeTerritoires.get(48),mode);
+			}
+			else if((sourisX > 0.76 && sourisX < 0.84) && (sourisY > 0.40 && sourisY < 0.44))//Easter Grass Sea
+			{
+				return verifications(Main.affichage,listeTerritoires.get(49),mode);
+			}
+			else if((sourisX > 0.89 && sourisX < 0.94) && (sourisY > 0.03 && sourisY < 0.15))//Annuler
+			{
+				Main.affichage.reset(1);//Choix
+
+				couche = 4;//Choix
+
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	/**
+	 * Hitbox du choix des troupes d'attaque
+	 * @param sourisX
+	 * @param sourisY
+	 * @return
+	 */
+	public boolean cliqueChoixTroupes(double sourisX, double sourisY)
+	{
+
+		this.sourisX = 0;
+		this.sourisY = 0;
+
+		if(territoire1.getNombreTroupesATT() == 0)
+		{
+			couche = 7;
+			return false;
+		}
+
+		if((sourisX > 0.03 && sourisX < 0.23) && (sourisY > 0.19 && sourisY < 0.25))//Anuler
+		{
+			mode = 1;//Attaque etape 1
+			couche = 5;//Choix territoire
+			territoire1.resetTroupes();
+
+			Main.affichage.reset(2);
+			Main.affichage.infosBas(0);
+
+			return false;
+		}
+		else if((sourisX > 0.56 && sourisX < 0.67) && (sourisY > 0.32 && sourisY < 0.61) && territoire1.getNombreSoldats() > 0  && territoire1.unitePeutAttaquer(0))//Soldat
+		{
+			territoire1.ajouterUniteCombat(0, 0);
+			territoire1.ajouterSoldats(-1);
+			territoire1.setNombreTroupesATT(territoire1.getNombreTroupesATT() - 1);
+			Main.affichage.infosHaut(11);
+
+			return false;
+		}
+		else if((sourisX > 0.70 && sourisX < 0.81) && (sourisY > 0.32 && sourisY < 0.61) && territoire1.getNombreCavaliers() > 0  && territoire1.unitePeutAttaquer(1))//Cavalier
+		{
+			territoire1.ajouterUniteCombat(1, 0);
+			territoire1.ajouterCavaliers(-1);
+			territoire1.setNombreTroupesATT(territoire1.getNombreTroupesATT() - 1);
+
+			Main.affichage.infosHaut(12);
+
+			return false;
+		}
+		else if((sourisX > 0.83 && sourisX < 0.95) && (sourisY > 0.32 && sourisY < 0.61) && territoire1.getNombreCanons() > 0 && territoire1.unitePeutAttaquer(2))//Canon
+		{
+			territoire1.ajouterUniteCombat(2, 0);
+			territoire1.ajouterCanons(-1);
+			territoire1.setNombreTroupesATT(territoire1.getNombreTroupesATT() - 1);
+
+			Main.affichage.infosHaut(13);
+
+			return false;
+		}
+
+		else if((sourisX > 0.24 && sourisX < 0.44) && (sourisY > 0.19 && sourisY < 0.25))//Confirmer
+		{
+			if(territoire1.uniteCombat.size() == 0)
+			{
+				Main.affichage.infosBas(9);
+				return true;
+			}
+			else
+			{
+
+				couche = 7;
+				return false;
+			}
+		}
+
+		else
+		{
+			return true;
+		}
+	}
+
+	/**
+	 *
+	 * Hit box fenetres confirmation d'attaque
+	 * @param sourisX valeur en x de la souris
+	 * @param sourisY valeur en y de la souris
+	 * @return true si on a clique sur un des deux boutons false sinon
+	 */
+	public boolean cliqueConfirmationAttaque(double sourisX, double sourisY)
+	{
+		if((sourisX > 0.03 && sourisX < 0.23) && (sourisY > 0.19 && sourisY < 0.25))//Anuler
+		{
+			mode = 1;//Attaque etape 1
+			couche = 5;//Choix territoire
+			territoire1.resetTroupes();
+
+			Main.affichage.reset(2);
+			Main.affichage.infosBas(0);
+
+			return false;
+		}
+		else if((sourisX > 0.24 && sourisX < 0.44) && (sourisY > 0.19 && sourisY < 0.25))//Confirmer
+		{
+			mode = 1;//Attaque etape 1
+			couche = 5;//Choix territoire
+
+			territoire1.attaque(territoire2);
+
+			Main.affichage.infosHaut(1);
+			Main.affichage.infosBas(-1);
+
+			StdDraw.pause(2000);//On attend un petit peu avant d'afficher le resultat du combat
+
+			Main.affichage.infosHaut(3);
+
+			StdDraw.pause(3000);
+
+			territoire1.uniteCombat.clear();
+			territoire2.uniteCombat.clear();
+
+			territoire1.resetTroupes();
+			
+			Main.affichage.reset(6);
+			
+			Main.affichage.savePlateau();
+
+			Main.affichage.infosHaut(2);
+			Main.affichage.infosBas(0);
+
+			if(territoire2.estConquis())
+			{
+				Main.affichage.coucheDeplacement();
+				joueurEnCours.ajouterTerritoireCapture();
+				couche = 8;
+			}
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	/**
+	 * Hitbox du choix des troupes de deplacement
+	 * @param sourisX
+	 * @param sourisY
+	 * @return
+	 */
+	public boolean cliqueDeplacement(double sourisX,double sourisY)
+	{
+		this.sourisX = 0;
+		this.sourisY = 0;
+		
+		if((sourisX > 0.304 && sourisX < 0.425) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreSoldats() > 0 && territoire1.peutAttaquerOuDeplacer())//Soldat
+		{
+			unitesDeDeplacement.add(territoire1.uniteDeplacement(0, 0));
+			if(unitesDeDeplacement.get(unitesDeDeplacement.size()-1) == null)
+			{
+				unitesDeDeplacement.remove(unitesDeDeplacement.get((unitesDeDeplacement.size()-1)));
+				Main.affichage.infosBas(10);
+			}
+			else
+			{
+				Main.affichage.infosHaut(11);
+			}
+		
+			
+		}
+		else if((sourisX > 0.445 && sourisX < 0.56) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreCavaliers() > 0 && territoire1.peutAttaquerOuDeplacer())//Cavalier
+		{
+			unitesDeDeplacement.add(territoire1.uniteDeplacement(1, 0));
+			if(unitesDeDeplacement.get(unitesDeDeplacement.size()-1) == null)
+			{
+				unitesDeDeplacement.remove(unitesDeDeplacement.get((unitesDeDeplacement.size()-1)));
+				Main.affichage.infosBas(10);
+			}
+			else
+			{
+				Main.affichage.infosHaut(12);
+			}
+		}
+		else if((sourisX > 0.58 && sourisX < 0.69) && (sourisY > 0.227 && sourisY < 0.523) && territoire1.getNombreCanons() > 0 && territoire1.peutAttaquerOuDeplacer())//Canon
+		{
+			unitesDeDeplacement.add(territoire1.uniteDeplacement(2, 0));
+			if(unitesDeDeplacement.get(unitesDeDeplacement.size()-1) == null)
+			{
+				unitesDeDeplacement.remove(unitesDeDeplacement.get((unitesDeDeplacement.size()-1)));
+				Main.affichage.infosBas(10);
+			}
+			else
+			{
+				Main.affichage.infosHaut(13);
+			}
+			
+		}
+		
+		
+		if((sourisX > 0.30 && sourisX < 0.49) && (sourisY > 0.15 && sourisY < 0.21))//Anuler
+		{
+
+			couche = 5;
+			mode = 3;
+
+			Main.affichage.reset(2);
+			Main.affichage.infosBas(0);
+			
+			for(int i = 0; i < unitesDeDeplacement.size(); i++)
+			{
+				switch(unitesDeDeplacement.get(i).getType())
+				{
+				case 0:
+					territoire1.ajouterSoldats(1);
+					break;
+				case 1:
+					territoire1.ajouterCavaliers(1);
+					break;
+				case 2:
+					territoire1.ajouterCanons(1);
+					break;
+				}
+			}
+
+			unitesDeDeplacement.clear();
+			
+			return false;
+		}
+		else if((sourisX > 0.51 && sourisX < 0.69) && (sourisY > 0.15 && sourisY < 0.21))//Confirmer
+		{
+			if(unitesDeDeplacement.size() == 0)
+			{
+				Main.affichage.infosBas(10);
+				return false;
+			}
+			else
+			{
+				for(int i = 0;i < unitesDeDeplacement.size(); i ++)
+				{
+					territoire1.deplacement(territoire2, unitesDeDeplacement.get(i));
+				}
+				Main.affichage.reset(6);
+
+				couche = 5;
+				mode = 3;
+
+				unitesDeDeplacement.clear();
+				
+				return false;
+			}
+		}
+		else
+		{
+			return true;
+		}
+		
+	}
+
+	/**
+	 * Hitbox confirmation mission
+	 * @param sourisX
+	 * @param sourisY
+	 * @return
+	 */
+	public boolean cliqueMission(double sourisX, double sourisY)
+	{
+		if((sourisX > 0.41 && sourisX < 0.59) && (sourisY > 0.19 && sourisY < 0.24))
+		{
+			mode = 0;
+			couche = 3;
+
+			Main.affichage.reset(0);
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	/**
+	 * Hitbox lettre de mission
+	 * @param sourisX
+	 * @param sourisY
+	 * @return
+	 */
+	public boolean cliqueMissionLettre(double sourisX, double sourisY)
+	{
+		if((sourisX > 0.3 && sourisX < 0.66) && (sourisY > 0.27 && sourisY < 0.68))
+		{
+			couche = 10;
+
+			Main.affichage.reset(3);//Mission intitule
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	//COUCHES
+
+
+	
+	//CLIQUE
+	/**
+	 *
+	 * @return la position en x de la souris
+	 */
+	public double sourisX()
+	{
+		return StdDraw.mouseX();
+	}
+
+	/**
+	 *
+	 * @return la position en y de la souris
+	 */
+	public double sourisY()
+	{
+		return  StdDraw.mouseY();
+	}
+
+	/**
+	 *
+	 * @return true ou false selon s'il y a un clique ou non
+	 */
+	public boolean clique()
+	{
+		return StdDraw.isMousePressed();
+	}
+
+	/**
+	 * Permet d'attendre que le joueur lache le clique
+	 */
+	public void attendre()
+	{
+		while(clique())
+		{
+
+		}
+	}
+	//CLIQUE
+	
+	
+	
 	//DIVERS
 	/**
 	 * Definit le tour auquel on est
 	 * @param tour
 	 */
-	public static void tourSuivant()
+	public void tourSuivant()
 	{
 		tour++;
 		
@@ -492,7 +1884,7 @@ public class Jeu {
 	/**
 	 * Check si un joueur a perdu
 	 */
-	public static void defaiteJoueur()
+	public void defaiteJoueur()
 	{
 		for(int i = 0; i < listeJoueurs.size();i++)
 		{
@@ -516,7 +1908,7 @@ public class Jeu {
 	/**
 	 * Permet de savoir si un joueur a gagné
 	 */
-	public static void finPartie()
+	public void finPartie()
 	{
 		if(listeElimines.size() == listeJoueurs.size()-1)
 		{
@@ -531,30 +1923,30 @@ public class Jeu {
 	 * @param mode indice de la verification qu'on veut faire
 	 * @return true ou false selon ce qu'on verifie, il n'y a pas de sortie "type"
 	 */
-	public static boolean verifications(Affichage interf, Territoire territoire, int mode)
+	public boolean verifications(Affichage interf, Territoire territoire, int mode)
 	{
 		//Ces deux lignes sont pour corriger le bug du StdDraw.isMousePressed()
-		interf.sourisX = 0;
-		interf.sourisY = 0;
+		sourisX = 0;
+		sourisY = 0;
 
 		switch(mode)
 		{
 		case 0:	//Deploiment
 
-			if(territoire.appartientA(interf.joueurEnCours) && (interf.joueurEnCours.getNombreSoldatsDeploiement() > 0 || interf.joueurEnCours.getNombreCavaliersDeploiement() > 0 || interf.joueurEnCours.getNombreCanonsDeploiement() > 0 ))
+			if(territoire.appartientA(this.joueurEnCours) && (this.joueurEnCours.getNombreSoldatsDeploiement() > 0 || this.joueurEnCours.getNombreCavaliersDeploiement() > 0 || this.joueurEnCours.getNombreCanonsDeploiement() > 0 ))
 			{
-				interf.territoire1 = territoire;
-				territoire.deploiement(interf.joueurEnCours);
+				this.territoire1 = territoire;
+				territoire.deploiement(this.joueurEnCours);
 
-				if(interf.joueurEnCours.getNombreSoldatsDeploiement() == 0 && interf.joueurEnCours.getNombreCavaliersDeploiement() == 0 && interf.joueurEnCours.getNombreCanonsDeploiement() == 0  && debutPartie)
+				if(this.joueurEnCours.getNombreSoldatsDeploiement() == 0 && this.joueurEnCours.getNombreCavaliersDeploiement() == 0 && this.joueurEnCours.getNombreCanonsDeploiement() == 0  && debutPartie)
 				{
-					interf.reset(5);
+					Main.affichage.reset(5);
 					
-					interf.savePlateau();
+					Main.affichage.savePlateau();
 					tourSuivant();
-					interf.joueurEnCours = listeJoueurs.get(tour);
+					this.joueurEnCours = listeJoueurs.get(tour);
 					
-					interf.joueurEnCours.combienTroupe(debutPartie);
+					this.joueurEnCours.combienTroupe(debutPartie);
 					
 					
 
@@ -565,72 +1957,72 @@ public class Jeu {
 						
 						ia.echange();
 						
-						ia.deploiement(interf);
+						ia.deploiement(Main.affichage);
 						
 						tourSuivant();
 						
 						debutPartie = false;
-						interf.joueurEnCours = listeJoueurs.get(tour);
+						this.joueurEnCours = listeJoueurs.get(tour);
 						
-						interf.joueurEnCours.combienTroupe(debutPartie);
-						interf.couche = 3;
-						interf.reset(0);
+						this.joueurEnCours.combienTroupe(debutPartie);
+						this.couche = 3;
+						Main.affichage.reset(0);
 					}
 					else if(debutPartie)
 					{
-						interf.couche = 9;
-						interf.reset(4);
+						this.couche = 9;
+						Main.affichage.reset(4);
 					}
 					else if(tour == listeJoueurs.size()-1)
 					{
-						interf.couche = 12;
-						interf.reset(-1);
+						this.couche = 12;
+						Main.affichage.reset(-1);
 					}
 					else
 					{
-						interf.couche = 3;//Deploiement
-						interf.mode = 0;
-						interf.reset(0);
+						this.couche = 3;//Deploiement
+						this.mode = 0;
+						Main.affichage.reset(0);
 					}
 
 					
 					
 					return false;
 				}
-				else if( interf.joueurEnCours.getNombreSoldatsDeploiement() == 0 && interf.joueurEnCours.getNombreCavaliersDeploiement() == 0 && interf.joueurEnCours.getNombreCanonsDeploiement() == 0 )
+				else if( this.joueurEnCours.getNombreSoldatsDeploiement() == 0 && this.joueurEnCours.getNombreCavaliersDeploiement() == 0 && this.joueurEnCours.getNombreCanonsDeploiement() == 0 )
 				{
-					interf.reset(5);
+					Main.affichage.reset(5);
 					
-					interf.savePlateau();
+					Main.affichage.savePlateau();
 					
-					interf.couche = 4;//Choix
+					this.couche = 4;//Choix
 
-					interf.reset(1);//Choix
+					Main.affichage.reset(1);//Choix
 
 					return false;
 				}
 				else
 				{
-					interf.reset(5);
+					Main.affichage.reset(5);
 				}
 
-				interf.infosDeploiement();
+				Main.affichage.infosDeploiement();
 
 				return false;
 			}
 			else
 			{
-				interf.infosBas(6);
+				Main.affichage.infosBas(6);
 				return true;
 			}
 
 
 		case 1://Selection du territoire duquel le joueur attaque
 
-			if(territoire.appartientA(interf.joueurEnCours) && territoire.peutAttaquerOuDeplacer())
+			if(territoire.appartientA(this.joueurEnCours) && territoire.peutAttaquerOuDeplacer())
 			{
-				interf.territoire1 = territoire;
-				interf.mode = 2;//Attaque etape 2
+				territoire1 = territoire;
+				this.mode = 2;//Attaque etape 2
 
 				interf.infosHaut(0);
 				interf.infosBas(1);
@@ -644,20 +2036,20 @@ public class Jeu {
 
 		case 2://Selection du territoire qu'il attaque
 
-			if(territoire.appartientA(interf.joueurEnCours) == false && territoire.estAdjacentA(interf.territoire1))
+			if(territoire.appartientA(joueurEnCours) == false && territoire.estAdjacentA(territoire1))
 			{
-				interf.territoire2 = territoire;
-				interf.couche = 6;
+				territoire2 = territoire;
+				couche = 6;
 
 
-				interf.territoire1.setNombreTroupesATT(interf.territoire1.nombreDesATT());
+				territoire1.setNombreTroupesATT(territoire1.nombreDesATT());
 
 				interf.infosHaut(10);
 				interf.confirmationAttaque();
 
 				return false;
 			}
-			else if(territoire.estAdjacentA(interf.territoire1) != true)
+			else if(territoire.estAdjacentA(territoire1) != true)
 			{
 				interf.infosBas(4);
 				return true;
@@ -670,10 +2062,10 @@ public class Jeu {
 
 		case 3://Selection du territoire duquel le joueur fait le deplacement
 
-			if(territoire.appartientA(interf.joueurEnCours) && territoire.peutAttaquerOuDeplacer())
+			if(territoire.appartientA(joueurEnCours) && territoire.peutAttaquerOuDeplacer())
 			{
-				interf.territoire1 = territoire;
-				interf.mode = 4;//Deplacement etape 2
+				territoire1 = territoire;
+				this.mode = 4;//Deplacement etape 2
 
 				interf.infosHaut(0);
 				interf.infosBas(0);
@@ -687,10 +2079,10 @@ public class Jeu {
 
 		case 4://Selection du territoire sur lequel on fait le deplacement
 
-			if(territoire.appartientA(interf.joueurEnCours) && territoire.estAdjacentA(interf.territoire1))
+			if(territoire.appartientA(joueurEnCours) && territoire.estAdjacentA(territoire1))
 			{
-				interf.territoire2 = territoire;
-				interf.couche = 8;
+				territoire2 = territoire;
+				couche = 8;
 				
 
 				interf.coucheDeplacement();
@@ -709,10 +2101,10 @@ public class Jeu {
 }
 
 	/**
-	 * Reset les déplacements d'un joueur
+	 * Main.affichage.reset les déplacements d'un joueur
 	 * @param joueur
 	 */
-	public static void resetDeplacement(Joueur joueur)
+	public void resetDeplacement(Joueur joueur)
 	{
 		for(int i = 0;i<listeTerritoires.size();i++)
 		{
@@ -728,7 +2120,7 @@ public class Jeu {
 	 * @param nom le nom du territoire
 	 * @return le territoire
 	 */
-	public static Territoire retrouverAvecNom(String nom)
+	public Territoire retrouverAvecNom(String nom)
 	{
 		for(int i = 0;i < listeTerritoires.size();i++)
 		{

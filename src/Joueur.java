@@ -126,19 +126,19 @@ public class Joueur {
 	{
 		if(debut)//Debut de partie
 		{
-			if(Jeu.listeJoueurs.size() == 2)
+			if(Main.risk.listeJoueurs.size() == 2)
 			{
 				this.setNombreTroupesDeploiement(19);
 			}
-			else if(Jeu.listeJoueurs.size() == 3)
+			else if(Main.risk.listeJoueurs.size() == 3)
 			{
 				this.setNombreTroupesDeploiement(21);
 			}
-			else if(Jeu.listeJoueurs.size() == 4)
+			else if(Main.risk.listeJoueurs.size() == 4)
 			{
 				this.setNombreTroupesDeploiement(20);
 			}
-			else if(Jeu.listeJoueurs.size() == 5)
+			else if(Main.risk.listeJoueurs.size() == 5)
 			{
 				this.setNombreTroupesDeploiement(17);
 			}
@@ -162,9 +162,9 @@ public class Joueur {
 	{
 		int bonus = 0;
 		
-		for(int i = 0; i < Jeu.listeContinents.size();i++)
+		for(int i = 0; i < Main.risk.listeContinents.size();i++)
 		{
-			if(Jeu.listeContinents.get(i).estControlePar(this, 0))
+			if(Main.risk.listeContinents.get(i).estControlePar(this, 0))
 			{
 				if(i == 0)
 				{

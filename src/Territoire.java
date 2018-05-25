@@ -349,8 +349,9 @@ public class Territoire {
 			}
 		}
 		
-		Jeu.listeGagnants = listeGagnants;
+		Main.risk.listeGagnants = listeGagnants;
 	}
+
 	
 	/**
 	 * Met à jour l'affichage et le nombre d'unités
@@ -579,9 +580,9 @@ public class Territoire {
 	 */
 	public int getIndexTerritoire()
 	{
-		for(int i = 0; i < Jeu.listeTerritoires.size();i++)
+		for(int i = 0; i < Main.risk.listeTerritoires.size();i++)
 		{
-			if(Jeu.listeTerritoires.get(i).equals(this))
+			if(Main.risk.listeTerritoires.get(i).equals(this))
 			{
 				return i;
 			}
@@ -627,7 +628,7 @@ public class Territoire {
 	{
 		for(int i = 0;i<this.territoiresAdjacents.length;i++)
 		{
-			if(Jeu.retrouverAvecNom(this.territoiresAdjacents[i]).getProprietaire() != this.getProprietaire())
+			if(Main.risk.retrouverAvecNom(this.territoiresAdjacents[i]).getProprietaire() != this.getProprietaire())
 			{
 				return false;
 			}
@@ -678,7 +679,7 @@ public class Territoire {
 	{
 		for(int i = 0; i < this.territoiresAdjacents.length;i++)
 		{
-			if(this.estPlusPuissant(Jeu.retrouverAvecNom(this.territoiresAdjacents[i])) && Jeu.retrouverAvecNom(this.territoiresAdjacents[i]).appartientA(this.proprietaire) == false)
+			if(this.estPlusPuissant(Main.risk.retrouverAvecNom(this.territoiresAdjacents[i])) && Main.risk.retrouverAvecNom(this.territoiresAdjacents[i]).appartientA(this.proprietaire) == false)
 			{
 				return true;
 			}

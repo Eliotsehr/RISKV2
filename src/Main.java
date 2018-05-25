@@ -1,23 +1,25 @@
 public class Main {
 
-	static Affichage interf;
+	static Affichage affichage;
 
 	static boolean jeu = true;
+	
+	static Jeu risk = new Jeu();
 
 	public static void main(String[] args){
 		
-		Jeu.effacerCache();
+		risk.effacerCache();
 		
-		interf = new Affichage(1080,720,0);
-		interf.ecranMenu();
+		affichage = new Affichage(1080,720,0);
+		affichage.ecranMenu();
 		
 		while(jeu)
 		{
-			interf.cliqueCouche(interf.couche);
+			risk.cliqueCouche(risk.couche);
 		}
 
-		Jeu.effacerCache();
+		risk.effacerCache();
 		
-		interf.coucheVictoire();
+		affichage.coucheVictoire();
 	}
 }

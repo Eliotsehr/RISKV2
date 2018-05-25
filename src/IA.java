@@ -40,9 +40,9 @@ public class IA extends Joueur{
 	 */
 	public Territoire territoireQuiDefend(Territoire territoire,int rang)
 	{
-		if(Jeu.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).appartientA(this) == false && Jeu.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).estPlusPuissant(territoire) == false)
+		if(Main.risk.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).appartientA(this) == false && Main.risk.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).estPlusPuissant(territoire) == false)
 		{
-			return Jeu.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]);
+			return Main.risk.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]);
 		}
 		else
 		{
@@ -169,7 +169,7 @@ public class IA extends Joueur{
 				
 				this.listeUniteADeployer.remove(listeUniteADeployer.get(0));
 				
-				interf.territoire1 = this.listeTerritoiresControles.get(i);
+				Main.risk.territoire1 = this.listeTerritoiresControles.get(i);
 				interf.reset(5);
 			}
 		}
@@ -241,7 +241,7 @@ public class IA extends Joueur{
 
 					for(int j = 0; j < this.listeTerritoiresControles.get(i).getTerritoiresAdjacents().length;j++)
 					{
-						Territoire territoireAdjacent = (Jeu.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]));
+						Territoire territoireAdjacent = (Main.risk.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]));
 						if(territoireAdjacent.estEntoure() == false && uniteQuiSeDeplace.listeTerritoiresParcourus.contains(territoireAdjacent) == false && territoireAdjacent.appartientA(this))
 						{
 							territoireArrive = territoireAdjacent;
@@ -252,7 +252,7 @@ public class IA extends Joueur{
 					{
 						for(int j = 0; j < this.listeTerritoiresControles.get(i).getTerritoiresAdjacents().length;j++)
 						{
-							Territoire territoireAdjacent = (Jeu.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]));
+							Territoire territoireAdjacent = (Main.risk.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]));
 							if(uniteQuiSeDeplace.listeTerritoiresParcourus.contains(territoireAdjacent) == false && territoireAdjacent.appartientA(this))
 							{
 								territoireArrive = territoireAdjacent;
@@ -264,7 +264,7 @@ public class IA extends Joueur{
 					{
 						for(int j = 0; j < this.listeTerritoiresControles.get(i).getTerritoiresAdjacents().length;j++)
 						{
-							Territoire territoireAdjacent = (Jeu.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]));
+							Territoire territoireAdjacent = (Main.risk.retrouverAvecNom(this.listeTerritoiresControles.get(i).getTerritoiresAdjacents()[j]));
 							if(territoireAdjacent.appartientA(this))
 							{
 								territoireArrive = territoireAdjacent;
@@ -306,11 +306,11 @@ public class IA extends Joueur{
 						break;
 					}
 					
-					interf.territoire1= territoireDepart;
-					interf.territoire2 = territoireArrive;
+					Main.risk.territoire1= territoireDepart;
+					Main.risk.territoire2 = territoireArrive;
 					
-					interf.maj(interf.territoire1);
-					interf.maj(interf.territoire2);
+					interf.maj(Main.risk.territoire1);
+					interf.maj(Main.risk.territoire2);
 				}
 			}
 		}
