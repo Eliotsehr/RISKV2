@@ -64,7 +64,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="Unitee" project="RiskGit" file="/RiskGit/src/Unitee.java" binary="false" 
+  <class id="8" language="java" name="Unite" project="RiskGit" file="/RiskGit/src/Unite.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1441" y="1187"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -73,66 +73,64 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="9">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <association id="10">    
-    <bendpoint x="908" y="635"/>    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="11" name="listeGagnants">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="12" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="13">    
+  <association id="9">    
     <bendpoint x="1269" y="1193"/>    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="14" name="listeUnitees">        
+      <attribute id="10" name="listeUnitees">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="15" minimum="0" maximum="2147483647">        
+      <multiplicity id="11" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="16">    
-    <bendpoint x="793" y="626"/>    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="17" name="proprietaire">        
+  <generalization id="12">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <association id="13">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="14" name="joueurAEliminer">        
         <position height="0" width="0" x="36" y="-4"/>      
       </attribute>      
-      <multiplicity id="18" minimum="0" maximum="1">        
+      <multiplicity id="15" minimum="0" maximum="1">        
         <position height="0" width="0" x="36" y="-4"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="19">    
-    <bendpoint x="343" y="528"/>    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="20" name="mission">        
+  <association id="16">    
+    <bendpoint x="908" y="635"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="17" name="listeGagnants">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="21" minimum="0" maximum="1">        
+      <multiplicity id="18" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="19">    
+    <bendpoint x="793" y="626"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="20" name="proprietaire">        
+        <position height="0" width="0" x="36" y="-4"/>      
+      </attribute>      
+      <multiplicity id="21" minimum="0" maximum="1">        
+        <position height="0" width="0" x="36" y="-4"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="22">    
-    <bendpoint x="1178" y="639"/>    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="23" name="listeTerritoires">        
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="23" name="listeTerritoiresControles">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="24" minimum="0" maximum="2147483647">        
@@ -143,42 +141,42 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="25">    
-    <bendpoint x="1314" y="277"/>    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="26" name="listeContinents">        
+    <bendpoint x="1298" y="747"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="26" name="territoiresDuContinent">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="27" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="28">    
-    <bendpoint x="838" y="423"/>    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="29" name="listeJoueurs">        
-        <position height="0" width="0" x="36" y="-4"/>      
-      </attribute>      
-      <multiplicity id="30" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="36" y="-4"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="31">    
     <bendpoint x="1306" y="1109"/>    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="32" name="uniteCombat">        
+      <attribute id="29" name="uniteCombat">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="33" minimum="0" maximum="2147483647">        
+      <multiplicity id="30" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="31">    
+    <bendpoint x="343" y="528"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="32" name="mission">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="33" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="34">    
@@ -195,11 +193,12 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="37">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="38" name="joueurAEliminer">        
+    <bendpoint x="838" y="423"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="38" name="listeJoueurs">        
         <position height="0" width="0" x="36" y="-4"/>      
       </attribute>      
-      <multiplicity id="39" minimum="0" maximum="1">        
+      <multiplicity id="39" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="36" y="-4"/>      
       </multiplicity>    
     </end>    
@@ -207,21 +206,22 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="40">    
-    <bendpoint x="1298" y="747"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="41" name="territoiresDuContinent">        
+    <bendpoint x="1314" y="277"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="41" name="listeContinents">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="42" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="43">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="44" name="listeTerritoiresControles">        
+    <bendpoint x="1178" y="639"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="44" name="listeTerritoires">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="45" minimum="0" maximum="2147483647">        

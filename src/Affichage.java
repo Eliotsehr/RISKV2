@@ -28,7 +28,7 @@ public class Affichage {
 	/**
 	 * Affiche le menu de demarage
 	 */
-	public void ecranMenu()
+	public void afficherEcranMenu()
 	{
 		StdDraw.clear();
 
@@ -40,7 +40,7 @@ public class Affichage {
 	/**
 	 * Affiche le menu de séléction des cartes
 	 */
-	public void ecranMap()
+	public void afficherEcranChoixMap()
 	{
 		StdDraw.clear();
 		
@@ -50,7 +50,7 @@ public class Affichage {
 	/**
 	 * Affiche le menu de saisi du nombre de joueurs
 	 */
-	public void ecranNombreJoueurs()
+	public void afficherEcranChoixNombreJoueurs()
 	{
 		StdDraw.clear();
 
@@ -60,7 +60,7 @@ public class Affichage {
 	/**
 	 * Affiche le menu de saisi des noms des joueurs
 	 */
-	public void ecranNomJoueurs()
+	public void afficherEcranSaisieNomJoueurs()
 	{
 		StdDraw.clear();
 
@@ -70,7 +70,7 @@ public class Affichage {
 	/**
 	 * Affiche le plateau de jeu
 	 */
-	public void couchePlateau()
+	public void afficherPlateau()
 	{
 		StdDraw.clear();
 
@@ -85,32 +85,9 @@ public class Affichage {
 	}
 	
 	/**
-	 * Sauvegarde en cache l'etat du plateau
-	 */
-	public void savePlateau()
-	{
-		infosHaut(-1);
-		infosBas(-1);
-		coucheTour(Main.risk.tour);
-		String nom = "img/cache/plateau"+Main.risk.cache+".png";
-		StdDraw.save(nom);
-		Main.risk.cache++;
-	}
-	
-	/**
-	 * Charge la dernière sauvegarde en cache du plateau
-	 */
-	public void loadPlateau()
-	{
-		String nom = "img/cache/plateau"+(Main.risk.cache-1)+".png";
-		StdDraw.picture(0.5, 0.5, nom);
-		coucheTour(Main.risk.tour);
-	}
-
-	/**
  	* Affiche l'interface de choix pour le joueur
  	*/
-	public void coucheChoix()
+	public void afficherCadreChoix()
 	{
 		StdDraw.picture(0.5, 0.1, "img/cadreinfos.png");
 	}
@@ -119,16 +96,30 @@ public class Affichage {
 	 * Affiche le nom et la couleur du joueur dont c'est le tour
 	 * @param tour
 	 */
-	public void coucheTour(int tour)
+	public void afficherCouleurJoueurEnCours(int tour)
 	{
 		StdDraw.setPenColor(StdDraw.WHITE);
 		StdDraw.filledRectangle(0, 1, 0.1, 0.055);//Tour
 		StdDraw.setPenColor(StdDraw.BLACK);
-		pionTour(0.075,0.975,tour);
+		couleurJoueurEnCours(0.075,0.975,tour);
 	}
 	
-	
-	public void pionTour(double posX, double posY, int couleur)
+	/**
+	 * Interface qui permet de recuperer les soldats, les cavaliers, les canons
+	 */
+	public void afficherCadreChoixTroupesDeploiement()
+	{
+		StdDraw.picture(0.5, 0.5, "img/cadreChoixTroupes.png");
+		StdDraw.text(0.487, 0.729, ""+Main.risk.joueurEnCours.getNombreTroupesDeploiement());
+	}
+
+	/**
+	 * Couleur du joueur dont c'est le tour
+	 * @param posX
+	 * @param posY
+	 * @param couleur
+	 */
+	public void couleurJoueurEnCours(double posX, double posY, int couleur)
 	{
 		if(couleur == 0)
 		{
@@ -202,18 +193,9 @@ public class Affichage {
 	}
 
 	/**
-	 * Interface qui permet de recuperer les soldats, les cavaliers, les canons
-	 */
-	public void coucheDeploiement()
-	{
-		StdDraw.picture(0.5, 0.5, "img/cadreChoixTroupes.png");
-		StdDraw.text(0.487, 0.729, ""+Main.risk.joueurEnCours.getNombreTroupesDeploiement());
-	}
-
-	/**
 	 * Affiche la croix
 	 */
-	public void croix()
+	public void afficherCroix()
 	{
 		StdDraw.picture(0.9, 0.1, "img/croix.png");
 	}
@@ -231,7 +213,7 @@ public class Affichage {
 	 * 5. vert
 	 * 6. gris
 	 */
-	public void jeton(double posX, double posY, int couleur,int indexTerritoire)
+	public void couleurJeton(double posX, double posY, int couleur,int indexTerritoire)
 	{
 		if(couleur == 0)
 		{
@@ -315,7 +297,7 @@ public class Affichage {
 	 * Affiche des informations en haut de l'ecran
 	 * @param message int  Valeur pour savoir quel type de message afficher
 	 */
-	public void infosHaut(int message)
+	public void afficherInfosHaut(int message)
 	{
 		StdDraw.setPenColor(StdDraw.WHITE);
 		StdDraw.filledRectangle(0.5, 1, 0.3, 0.05);
@@ -403,7 +385,7 @@ public class Affichage {
 	 * @param territoire Territoire  S'il y a besoin d'afficher des infos sur un territoire
 	 * @param message int  Valeur pour savoir quel type de message afficher
 	 */
-	public void infosBas(int message)
+	public void afficherInfosBas(int message)
 	{
 		StdDraw.setPenColor(StdDraw.WHITE);
 		StdDraw.filledRectangle(0.5, 0, 0.5, 0.05);
@@ -453,59 +435,57 @@ public class Affichage {
 	 * Reset l'affichage du plateau de Main.risk
 	 * @param mode 0: Deploiement // 1: Choix // 2: Croix //3: Mision //4: Lettre Mission//5: Maj affichage deploiement//6: Maj affichage combat
 	 */
-	public void reset(int mode)
+	public void resetAffichage(int mode)
 	{
-		
 		switch(mode)
 		{
 		case 0:
 		{
-			coucheDeploiement();
+			afficherCadreChoixTroupesDeploiement();
 			break;
 		}
 		case  1:
 		{
-			loadPlateau();
-			coucheChoix();
+			Main.risk.chargerPlateauEnCache();
+			afficherCadreChoix();
 			break;
 		}
 		case  2:
 		{
-			loadPlateau();
-			croix();
+			Main.risk.chargerPlateauEnCache();
+			afficherCroix();
 			break;
 		}
 		case  3:
 		{
-			coucheMission(Main.risk.joueurEnCours.getMission().getIndex());
+			afficherCadreMission(Main.risk.joueurEnCours.getMission().getIndex());
 			break;
 		}
 		case  4:
 		{
-			coucheMissionLettre();
+			afficherCadreLettreMission();
 			break;
 		}
 		case  5:
 		{
-			maj(Main.risk.territoire1);
+			majAffichageTerritoire(Main.risk.territoire1);
 			break;
 		}
 		case  6:
 		{
-			loadPlateau();
-			maj(Main.risk.territoire1);
-			maj(Main.risk.territoire2);
-			croix();
+			Main.risk.chargerPlateauEnCache();
+			majAffichageTerritoire(Main.risk.territoire1);
+			majAffichageTerritoire(Main.risk.territoire2);
+			afficherCroix();
 			break;
-		}
-			
+		}	
 		}
 	}
 
 	/**
 	 * Affiche la couche des pions avec le nombre d'unitees correspondant a chaque pion
 	 */
-	public void couchePions()
+	public void afficherJetons()
 	{
 		
 		if(Main.risk.map == 0)
@@ -513,7 +493,7 @@ public class Affichage {
 			
 			for(int i = 0; i < cooTerritoiresClassique.length;i++)
 			{
-				jeton(cooTerritoiresClassique[i][0], cooTerritoiresClassique[i][1],Main.risk.listeTerritoires.get(i).getProprietaire().getNumeroDeJoueur(),i);
+				couleurJeton(cooTerritoiresClassique[i][0], cooTerritoiresClassique[i][1],Main.risk.listeTerritoires.get(i).getProprietaire().getNumeroDeJoueur(),i);
 			}
 
 		}
@@ -521,7 +501,7 @@ public class Affichage {
 		{
 			for(int i = 0; i < cooTerritoiresGOT.length;i++)
 			{
-				jeton(cooTerritoiresGOT[i][0], cooTerritoiresGOT[i][1],Main.risk.listeTerritoires.get(i).getProprietaire().getNumeroDeJoueur(),i);
+				couleurJeton(cooTerritoiresGOT[i][0], cooTerritoiresGOT[i][1],Main.risk.listeTerritoires.get(i).getProprietaire().getNumeroDeJoueur(),i);
 			}
 		}
 
@@ -531,20 +511,20 @@ public class Affichage {
 	 * Met à jour l'affichage d'un territoire
 	 * @param territoire
 	 */
-	public void maj(Territoire territoire)
+	public void majAffichageTerritoire(Territoire territoire)
 	{
 		int index = territoire.getIndexTerritoire();
 		
 		String nom = "img/mask/"+index+".png";
 		
 		StdDraw.picture(0.5, 0.5, nom);
-		jeton(cooTerritoiresClassique[index][0], cooTerritoiresClassique[index][1],territoire.getProprietaire().getNumeroDeJoueur(),index);
+		couleurJeton(cooTerritoiresClassique[index][0], cooTerritoiresClassique[index][1],territoire.getProprietaire().getNumeroDeJoueur(),index);
 	}
 
 	/**
 	 * Ecran de victoire
 	 */
-	public void coucheVictoire()
+	public void afficherEcranVictoire()
 	{
 		StdDraw.clear();
 
@@ -566,26 +546,26 @@ public class Affichage {
 	/**
 	 * Infos de deploiement
 	 */
-	public void infosDeploiement()
+	public void afficherInfosDeploiement()
 	{
 		if(Main.risk.joueurEnCours.getNombreCanonsDeploiement() > 0)
 		{
-			infosHaut(7);
+			afficherInfosHaut(7);
 		}
 		else if(Main.risk.joueurEnCours.getNombreCavaliersDeploiement() > 0)
 		{
-			infosHaut(8);
+			afficherInfosHaut(8);
 		}
 		else if(Main.risk.joueurEnCours.getNombreSoldatsDeploiement() > 0)
 		{
-			infosHaut(9);
+			afficherInfosHaut(9);
 		}
 	}
 
 	/**
 	 * Affiche les fenetres de confirmation d'attaque
 	 */
-	public void confirmationAttaque()
+	public void affichrNombreTroupesTerritoire()
 	{
 		StdDraw.picture(0.24, 0.5, "img/troupesDefense.png");
 		StdDraw.text(0.1, 0.35, ""+Main.risk.territoire2.getNombreSoldats());
@@ -601,7 +581,7 @@ public class Affichage {
 	/**
 	 * Affiche la fenetre de depalcement
 	 */
-	public void coucheDeplacement()
+	public void afficherCadreDeplacement()
 	{
 		StdDraw.picture(0.5, 0.5, "img/troupesDeplacement.png");
 		StdDraw.text(0.37, 0.25, ""+Main.risk.territoire1.getNombreSoldats());
@@ -613,7 +593,7 @@ public class Affichage {
 	 * Affiche la fenetre de mission
 	 * @param index index de la mission
 	 */
-	public void coucheMission(int index)
+	public void afficherCadreMission(int index)
 	{
 		StdDraw.picture(0.5, 0.5, "img/mission.png");
 		StdDraw.text(0.5, 0.5, Main.risk.joueurEnCours.getMission().getIntitule());
@@ -622,7 +602,7 @@ public class Affichage {
 	/**
 	 * Affiche la lettre contenant la mission
 	 */
-	public void coucheMissionLettre()
+	public void afficherCadreLettreMission()
 	{
 		StdDraw.picture(0.5, 0.5, "img/lettreMission.png");
 	}

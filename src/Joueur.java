@@ -50,7 +50,7 @@ public class Joueur {
 	 * Met fin à la partie si un joueur a terminé sa mission
 	 * @param Joueur joueur
 	 */
-	public void missionComplete()
+	public void aComplteSaMission()
 	{
 		if(this.mission.estComplete(this))
 		{
@@ -122,7 +122,7 @@ public class Joueur {
 	 * @param type type d'apport, 0 début de partie 1 jeu
 	 * @return nombre de troupes
 	 */
-	public void combienTroupe(boolean debut)
+	public void calculerNombreTroupesDeploiement(boolean debut)
 	{
 		if(debut)//Debut de partie
 		{
@@ -149,7 +149,7 @@ public class Joueur {
 		}
 		else
 		{
-			this.setNombreTroupesDeploiement((int) (Math.floor(this.nombreDeTerritoires/3) + this.bonusContinent() + this.bonusCapture()));
+			this.setNombreTroupesDeploiement((int) (Math.floor(this.nombreDeTerritoires/3) + this.calculerBonusContinent() + this.calculerBonusCapture()));
 		}
 	}
 	
@@ -158,7 +158,7 @@ public class Joueur {
 	 * @param joueur le joueur auquel on donne le bonus
 	 * @return le bonus (int)
 	 */
-	public int bonusContinent()
+	public int calculerBonusContinent()
 	{
 		int bonus = 0;
 		
@@ -202,7 +202,7 @@ public class Joueur {
 	 * @param Joueur joueur
 	 * @return le bonus
 	 */
-	public int bonusCapture()
+	public int calculerBonusCapture()
 	{
 		int bonus = 0;
 		

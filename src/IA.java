@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class IA extends Joueur{
 
-	private ArrayList<Unitee> listeUniteADeployer = new ArrayList<Unitee>();
+	private ArrayList<Unite> listeUniteADeployer = new ArrayList<Unite>();
 	
 	/**
 	 * Constructeur d'un objet IA
@@ -20,7 +20,7 @@ public class IA extends Joueur{
 	 * @param rang initialisé à 0
 	 * @return le territoire qui attaque
 	 */
-	public Territoire territoireQuiAttaque(int rang)
+	public Territoire choisirTerritoireQuiAttaque(int rang)
 	{
 		if(this.listeTerritoiresControles.get(rang).peutAttaquerOuDeplacer() && this.listeTerritoiresControles.get(rang).estEntoure() == false && this.listeTerritoiresControles.get(rang).estPlusPuissantQueAdjacent())
 		{
@@ -29,7 +29,7 @@ public class IA extends Joueur{
 		else
 		{
 			rang++;
-			return territoireQuiAttaque(rang);
+			return choisirTerritoireQuiAttaque(rang);
 		}
 	}
 		
@@ -38,7 +38,7 @@ public class IA extends Joueur{
 	 * @param rang initialisé à 0
 	 * @return le territoire qui defend
 	 */
-	public Territoire territoireQuiDefend(Territoire territoire,int rang)
+	public Territoire choisirTerritoireQuiDefend(Territoire territoire,int rang)
 	{
 		if(Main.risk.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).appartientA(this) == false && Main.risk.retrouverAvecNom(territoire.getTerritoiresAdjacents()[rang]).estPlusPuissant(territoire) == false)
 		{
@@ -47,7 +47,7 @@ public class IA extends Joueur{
 		else
 		{
 			rang++;
-			return territoireQuiDefend(territoire,rang);
+			return choisirTerritoireQuiDefend(territoire,rang);
 		}
 	}
 	
@@ -56,13 +56,13 @@ public class IA extends Joueur{
 	 * @param territoire1 territoire duquel on effectue le déplacement
 	 * @param territoire2 territoire sur lequel on effectue le déplacement
 	 */
-	public void deplacement(Territoire territoire1, Territoire territoire2)
+	public void deplacer(Territoire territoire1, Territoire territoire2)
 	{
 		for(int i = 0;i < territoire1.getListeUnitees().size();i++)
 		{
 			if(territoire1.getListeUnitees().get(i).peutDeplacer())
 			{
-				Unitee uniteADeplacer = territoire1.getListeUnitees().get(i);
+				Unite uniteADeplacer = territoire1.getListeUnitees().get(i);
 				territoire1.getListeUnitees().remove(i);
 				territoire1.deplacement(territoire2, uniteADeplacer);
 			}
@@ -74,9 +74,9 @@ public class IA extends Joueur{
 	 * Choisi par ordre de puissance les unités avec lesquelles l'ia va attaquer
 	 * @param territoire le territoire sur les quels sont les unités
 	 */
-	public void choixUnitesAttaque(Territoire territoire)
+	public void choisirUnitesCombat(Territoire territoire)
 	{
-		Unitee uniteATT = new Unitee(0,0,0,0,0,0);
+		Unite uniteATT = new Unite(0,0,0,0,0,0);
 		int type = 0;
 		for(int i = 0;i < territoire.getListeUnitees().size()-1 && i < 3;i++)
 		{
@@ -89,7 +89,7 @@ public class IA extends Joueur{
 				}
 			}
 			
-			uniteATT = new Unitee(0,0,0,0,0,0);
+			uniteATT = new Unite(0,0,0,0,0,0);
 			territoire.ajouterUniteCombat(type, 0);
 			
 
@@ -99,7 +99,7 @@ public class IA extends Joueur{
 	/**
 	 * Permet à l'ia d'échanger ses troupes contre des unités
 	 */
-	public void echange()
+	public void echangerTroupes()
 	{
 		int troupes = this.getNombreTroupesDeploiement();
 		int nombreCanons = 0;
@@ -129,22 +129,22 @@ public class IA extends Joueur{
 
 		for(int i = 0; i < nombreCanons;i++)
 		{
-			this.listeUniteADeployer.add(new Unitee(2,4,9,3,2,1));
+			this.listeUniteADeployer.add(new Unite(2,4,9,3,2,1));
 		}
 		for(int i = 0; i < nombreCavaliers;i++)
 		{
-			this.listeUniteADeployer.add(new Unitee(1,2,7,1,3,3));
+			this.listeUniteADeployer.add(new Unite(1,2,7,1,3,3));
 		}
 		for(int i = 0; i < nombreSoldats;i++)
 		{
-			this.listeUniteADeployer.add(new Unitee(0,1,6,2,1,2));
+			this.listeUniteADeployer.add(new Unite(0,1,6,2,1,2));
 		}
 	}
 	
 	/**
 	 * Permet à l'ia de déployer ses unités
 	 */
-	public void deploiement(Affichage interf)
+	public void deployer(Affichage interf)
 	{
 		
 		for(int i = 0; i < this.listeTerritoiresControles.size();i++)
@@ -170,17 +170,17 @@ public class IA extends Joueur{
 				this.listeUniteADeployer.remove(listeUniteADeployer.get(0));
 				
 				Main.risk.territoire1 = this.listeTerritoiresControles.get(i);
-				interf.reset(5);
+				interf.resetAffichage(5);
 			}
 		}
 		
 
 		if(this.listeUniteADeployer.size() > 0)
 		{
-			deploiement(interf);
+			deployer(interf);
 		}
 		
-		interf.savePlateau();
+		Main.risk.sauvegarderPlateauEnCache();
 		this.listeUniteADeployer.clear();
 	}
 	//ATTAQUE
@@ -210,9 +210,9 @@ public class IA extends Joueur{
 	/**
 	 * Déplacer les unites bloques entre des territoires controlés par l'IA
 	 */
-	public void deplaceUniteeBloquee(Affichage interf)
+	public void deplacerUniteBloquee(Affichage interf)
 	{
-		Unitee uniteQuiSeDeplace = new Unitee(0,0,0,0,0,0);
+		Unite uniteQuiSeDeplace = new Unite(0,0,0,0,0,0);
 		if(uneTroupeEstBloquee())
 		{
 			for(int i = 0; i < this.listeTerritoiresControles.size();i++)
@@ -309,20 +309,20 @@ public class IA extends Joueur{
 					Main.risk.territoire1= territoireDepart;
 					Main.risk.territoire2 = territoireArrive;
 					
-					interf.maj(Main.risk.territoire1);
-					interf.maj(Main.risk.territoire2);
+					interf.majAffichageTerritoire(Main.risk.territoire1);
+					interf.majAffichageTerritoire(Main.risk.territoire2);
 				}
 			}
 		}
 		
 		if(uneTroupeEstBloquee())
 		{
-			deplaceUniteeBloquee(interf);
+			deplacerUniteBloquee(interf);
 		}
 		else
 		{
 			uniteQuiSeDeplace.listeTerritoiresParcourus.clear();
-			interf.savePlateau();
+			Main.risk.sauvegarderPlateauEnCache();
 		}
 		
 	}

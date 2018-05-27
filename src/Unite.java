@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Unitee {
+public class Unite {
 	
 	private int type;
 	private int pMin;
@@ -14,7 +14,7 @@ public class Unitee {
 	public ArrayList<Territoire> listeTerritoiresParcourus = new ArrayList<Territoire>();
 	
 	/**
-	 * Contructeur de l'objet unité
+//	 * Contructeur de l'objet unité
 	 * @param type index du type d'unité 
 	 * @param pMin puissance d'attaque minimale de la troupe
 	 * @param pMax puissance d'attaque maximale de la troupe
@@ -22,7 +22,7 @@ public class Unitee {
 	 * @param pDEF priorité de défense de la troupe
 	 * @param mvtTOUR nombre de déplacement maximal que peut faire une troupe
 	 */
-	public Unitee(int type,int pMin,int pMax,int pATT, int pDEF,int mvtTOUR) {
+	public Unite(int type,int pMin,int pMax,int pATT, int pDEF,int mvtTOUR) {
 		this.type = type;
 		this.pMin = pMin;
 		this.pMax = pMax;

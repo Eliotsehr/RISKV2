@@ -11,7 +11,7 @@ public class Main {
 		risk.effacerCache();
 		
 		affichage = new Affichage(1080,720,0);
-		affichage.ecranMenu();
+		affichage.afficherEcranMenu();
 		
 		while(jeu)
 		{
@@ -20,6 +20,6 @@ public class Main {
 
 		risk.effacerCache();
 		
-		affichage.coucheVictoire();
+		affichage.afficherEcranVictoire();
 	}
 }
