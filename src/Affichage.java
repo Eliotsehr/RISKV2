@@ -8,6 +8,10 @@ public class Affichage {
 	public double[][] cooTerritoiresClassique = {{0.37,0.77},{0.44,0.79},{0.35,0.66},{0.36,0.55},{0.44,0.57},{0.44,0.64},{0.53,0.73},{0.47,0.425},{0.4,0.37},{0.52,0.32}, {0.47,0.26},{0.47,0.15},{0.56,0.15},{0.55,0.49},{0.64,0.48},{0.6,0.62},{0.61,0.73},{0.65,0.81},{0.72,0.44},{0.7,0.55}, {0.73,0.84},{0.72,0.64},{0.82,0.62},{0.8,0.84},{0.72,0.73},{0.04,0.81},{0.15,0.81},{0.1,0.74},{0.18,0.72},{0.3,0.86}, {0.26,0.72},{0.13,0.65},{0.19,0.6},{0.14,0.51},{0.2,0.44},{0.26,0.35},{0.18,0.31},{0.23,0.22},{0.73,0.29},{0.81,0.32},{0.76,0.15},{0.83,0.19}};
 	public double [][] cooTerritoiresGOT = {{0.2,0.84},{0.26,0.86},{0.24,0.79},{0.11,0.77},{0.22,0.74},{0.1,0.7},{0.12,0.64},{0.16,0.67},{0.22,0.56},{0.08,0.56},{0.12,0.53},{0.2,0.47},{0.13,0.47},{0.11,0.39},{0.17,0.41},{0.23,0.38},{0.09,0.32},{0.16,0.31},{0.23,0.27},{0.36,0.57},{0.36,0.47},{0.4,0.51},{0.45,0.48},{0.51,0.48},{0.41,0.38},{0.39,0.29},{0.49,0.41},{0.47,0.31},{0.54,0.35},{0.54,0.26},{0.57,0.22},{0.55,0.13},{0.64,0.33},{0.71,0.28},{0.78,0.32},{0.87,0.38},{0.71,0.18},{0.79,0.24},{0.87,0.29},{0.88,0.22},{0.57,0.54},{0.65,0.49},{0.74,0.49},{0.81,0.58},{0.84,0.75},{0.94,0.57},{0.84,0.5},{0.6,0.4},{0.7,0.4},{0.8,0.42}};
 	
+	public int affichageSelectionSoldat = 0;
+	public int affichageSelectionCavalier = 0;
+	public int affichageSelectionCanon = 0;
+	
 	/**
 	 *
 	 * @param xMax int largeur de la fenetre
@@ -483,6 +487,16 @@ public class Affichage {
 	}
 
 	/**
+	 * Reset les variables d'affichage des troupes
+	 */
+	public void resetAffichageTroupesSelectionees()
+	{
+		this.affichageSelectionCanon = 0;
+		this.affichageSelectionCavalier = 0;
+		this.affichageSelectionSoldat = 0;
+	}
+	
+	/**
 	 * Affiche la couche des pions avec le nombre d'unitees correspondant a chaque pion
 	 */
 	public void afficherJetons()
@@ -576,6 +590,10 @@ public class Affichage {
 		StdDraw.text(0.62, 0.35, ""+Main.risk.territoire1.getNombreSoldats());
 		StdDraw.text(0.76, 0.35, ""+Main.risk.territoire1.getNombreCavaliers());
 		StdDraw.text(0.9, 0.35, ""+Main.risk.territoire1.getNombreCanons());
+		
+		StdDraw.text(0.64, 0.27, ""+this.affichageSelectionSoldat);
+		StdDraw.text(0.78, 0.27, ""+this.affichageSelectionCavalier);
+		StdDraw.text(0.92, 0.27, ""+this.affichageSelectionCanon);
 	}
 
 	/**

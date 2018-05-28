@@ -598,6 +598,8 @@ public class Territoire {
 		this.nombreCavaliers = 0;
 		this.nombreCanons = 0;
 		
+		this.uniteCombat.clear();
+		
 		for(int i = 0; i<this.listeUnitees.size();i++)
 		{
 			if(this.listeUnitees.get(i).getType() == 0)
