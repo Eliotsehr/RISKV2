@@ -650,7 +650,7 @@ public class Jeu {
 			
 
 			sauvegarderPlateauEnCache();
-			//reset(4);//Mission lettre
+			Main.affichage.resetAffichage(4);//Mission lettre
 			joueurEnCours = listeJoueurs.get(tour);
 			joueurEnCours.calculerNombreTroupesDeploiement(debutPartie);
 
@@ -1102,7 +1102,7 @@ public class Jeu {
 	{
 		if(map == 0)
 		{
-			if((sourisX > 0.35 && sourisX < 0.39) && (sourisY > 0.76 && sourisY < 0.78))//Island
+			if((sourisX > 0.34 && sourisX < 0.40) && (sourisY > 0.74 && sourisY < 0.79))//Island
 			{
 				return verifier(Main.affichage,listeTerritoires.get(0),mode);
 			}

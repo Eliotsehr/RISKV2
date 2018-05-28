@@ -168,7 +168,7 @@ public class Joueur {
 			{
 				if(i == 0)
 				{
-					bonus = bonus + 4;
+					bonus = bonus + 3;
 				}
 				else if(i == 1)
 				{
