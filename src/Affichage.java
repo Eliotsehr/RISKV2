@@ -603,9 +603,9 @@ public class Affichage {
 	{
 		StdDraw.picture(0.5, 0.5, "img/troupesDeplacement.png");
 		
-		StdDraw.text(0.37, 0.35, ""+this.affichageSelectionSoldat);
-		StdDraw.text(0.5, 0.35, ""+this.affichageSelectionCavalier);
-		StdDraw.text(0.63, 0.35, ""+this.affichageSelectionCanon);
+		StdDraw.text(0.36, 0.59, ""+this.affichageSelectionSoldat);
+		StdDraw.text(0.5, 0.59, ""+this.affichageSelectionCavalier);
+		StdDraw.text(0.63, 0.59, ""+this.affichageSelectionCanon);
 		
 		StdDraw.text(0.37, 0.25, ""+Main.risk.territoire1.getNombreSoldats());
 		StdDraw.text(0.5, 0.25, ""+Main.risk.territoire1.getNombreCavaliers());

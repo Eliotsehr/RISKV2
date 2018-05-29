@@ -188,7 +188,7 @@ public class Territoire {
 		
 		//On tri le lancer par ordre décroissant
 		this.trierDes();
-		territoireDEF.lancerDes();
+		territoireDEF.trierDes();
 		
 		//On check si on doit gérer les priorités
 		this.trierParPrioriteATT();

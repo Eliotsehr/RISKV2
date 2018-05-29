@@ -32,8 +32,8 @@ public class Jeu {
 	 */
 	public int mode = 0;
 
-	public double sourisX;
-	public double sourisY;
+	public double sourisX;//Coordonnee en X de la souris lors d'un clique
+	public double sourisY;//Coordonnee en Y de la souris lors d'un clique
 	
 	public ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
 	public ArrayList<Territoire> listeTerritoires = new ArrayList<Territoire>();
@@ -48,15 +48,15 @@ public class Jeu {
 	public boolean debutPartie = true;
 	public boolean saisieTexte = false;
 	
-	public Joueur joueurEnCours;
+	public Joueur joueurEnCours;//Joueur dont c'est le tour
 	
-	public ArrayList<Unite> unitesDeDeplacement = new ArrayList<Unite>();
+	public ArrayList<Unite> unitesDeDeplacement = new ArrayList<Unite>();//Liste contenant les unités qui vont être déplacées lors d'un déplacement
 	
-	public ArrayList<Territoire> listeGagnants = new ArrayList<Territoire>();
-	public ArrayList<Joueur> listeElimines = new ArrayList<Joueur>();
+	public ArrayList<Territoire> listeGagnants = new ArrayList<Territoire>();//Liste contenant les territoires ayant remporté un combat
+	public ArrayList<Joueur> listeElimines = new ArrayList<Joueur>();//Liste des joueurs ayant été éliminés
 	
-	public Territoire territoire1;
-	public Territoire territoire2;
+	public Territoire territoire1;//Variable pour alleger les lignes de code, elle contient le "territoire de depart" (pour une attaque ou un déplacement)
+	public Territoire territoire2;//Idem mais pour le territoire d'arrivé
 	
 	
 	
@@ -1690,32 +1690,40 @@ public class Jeu {
 		if((sourisX > 0.30 && sourisX < 0.49) && (sourisY > 0.15 && sourisY < 0.21))//Anuler
 		{
 
-			couche = 5;
-			mode = 3;
-
-			Main.affichage.resetAffichage(2);
-			Main.affichage.afficherInfosBas(0);
-			
-			for(int i = 0; i < unitesDeDeplacement.size(); i++)
+			if(territoire2.listeUnitees.size() == 0)
 			{
-				switch(unitesDeDeplacement.get(i).getType())
-				{
-				case 0:
-					territoire1.ajouterSoldats(1);
-					break;
-				case 1:
-					territoire1.ajouterCavaliers(1);
-					break;
-				case 2:
-					territoire1.ajouterCanons(1);
-					break;
-				}
+				return true;
 			}
+			else
+			{
+				couche = 5;
+				mode = 3;
 
-			Main.affichage.resetAffichageTroupesSelectionees();
-			unitesDeDeplacement.clear();
-			
-			return false;
+				Main.affichage.resetAffichage(2);
+				Main.affichage.afficherInfosBas(0);
+				
+				for(int i = 0; i < unitesDeDeplacement.size(); i++)
+				{
+					territoire1.ajouterUniteTerritoire(unitesDeDeplacement.get(i));
+					switch(unitesDeDeplacement.get(i).getType())
+					{
+					case 0:
+						territoire1.ajouterSoldats(1);
+						break;
+					case 1:
+						territoire1.ajouterCavaliers(1);
+						break;
+					case 2:
+						territoire1.ajouterCanons(1);
+						break;
+					}
+				}
+
+				Main.affichage.resetAffichageTroupesSelectionees();
+				unitesDeDeplacement.clear();
+				
+				return false;
+			}
 		}
 		else if((sourisX > 0.51 && sourisX < 0.69) && (sourisY > 0.15 && sourisY < 0.21))//Confirmer
 		{
@@ -2093,7 +2101,8 @@ public class Jeu {
 				territoire2 = territoire;
 				couche = 8;
 				
-
+				this.sauvegarderPlateauEnCache();
+				
 				interf.afficherCadreDeplacement();
 				return false;
 			}
