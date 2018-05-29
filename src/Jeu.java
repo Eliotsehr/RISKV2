@@ -75,7 +75,7 @@ public class Jeu {
 	 */
 	public void effacerCache()
 	{
-		for(File file: new java.io.File("C:\\Users\\user\\git\\RISKV2\\img\\cache").listFiles()) 
+		for(File file: new java.io.File("img\\cache").listFiles()) 
 	    if (!file.isDirectory()) 
 	    {
 	    	file.delete();
@@ -1646,6 +1646,8 @@ public class Jeu {
 			}
 			else
 			{
+				Main.affichage.affichageSelectionSoldat++;
+				Main.affichage.afficherCadreDeplacement();
 				Main.affichage.afficherInfosHaut(11);
 			}
 		
@@ -1661,6 +1663,8 @@ public class Jeu {
 			}
 			else
 			{
+				Main.affichage.affichageSelectionCavalier++;
+				Main.affichage.afficherCadreDeplacement();
 				Main.affichage.afficherInfosHaut(12);
 			}
 		}
@@ -1674,7 +1678,10 @@ public class Jeu {
 			}
 			else
 			{
+				Main.affichage.affichageSelectionCanon++;
+				Main.affichage.afficherCadreDeplacement();
 				Main.affichage.afficherInfosHaut(13);
+				
 			}
 			
 		}
@@ -1705,6 +1712,7 @@ public class Jeu {
 				}
 			}
 
+			Main.affichage.resetAffichageTroupesSelectionees();
 			unitesDeDeplacement.clear();
 			
 			return false;
@@ -1727,6 +1735,7 @@ public class Jeu {
 				couche = 5;
 				mode = 3;
 
+				Main.affichage.resetAffichageTroupesSelectionees();
 				unitesDeDeplacement.clear();
 				
 				return false;

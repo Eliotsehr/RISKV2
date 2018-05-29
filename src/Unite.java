@@ -8,6 +8,7 @@ public class Unite {
 	private int pATT;
 	private int pDEF;
 	private int mvtTOUR;
+	
 	private int scoreDES;//Score des dés de l'unité lors d'un combat
 	private int nombreDeplacement;//Nombre de déplacement de l'unité lors du tour en cours
 	

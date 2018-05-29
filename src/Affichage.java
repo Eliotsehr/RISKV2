@@ -602,6 +602,11 @@ public class Affichage {
 	public void afficherCadreDeplacement()
 	{
 		StdDraw.picture(0.5, 0.5, "img/troupesDeplacement.png");
+		
+		StdDraw.text(0.37, 0.35, ""+this.affichageSelectionSoldat);
+		StdDraw.text(0.5, 0.35, ""+this.affichageSelectionCavalier);
+		StdDraw.text(0.63, 0.35, ""+this.affichageSelectionCanon);
+		
 		StdDraw.text(0.37, 0.25, ""+Main.risk.territoire1.getNombreSoldats());
 		StdDraw.text(0.5, 0.25, ""+Main.risk.territoire1.getNombreCavaliers());
 		StdDraw.text(0.63, 0.25, ""+Main.risk.territoire1.getNombreCanons());
