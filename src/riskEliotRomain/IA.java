@@ -1,3 +1,4 @@
+package riskEliotRomain;
 import java.util.ArrayList;
 
 public class IA extends Joueur{

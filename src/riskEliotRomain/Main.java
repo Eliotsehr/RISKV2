@@ -1,3 +1,4 @@
+package riskEliotRomain;
 public class Main {
 
 	static Affichage affichage;
