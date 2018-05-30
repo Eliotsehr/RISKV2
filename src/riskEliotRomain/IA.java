@@ -1,9 +1,13 @@
 package riskEliotRomain;
 import java.util.ArrayList;
 
+import edu.princeton.cs.introcs.StdDraw;
+
 public class IA extends Joueur{
 
 	private ArrayList<Unite> listeUniteADeployer = new ArrayList<Unite>();
+	
+	public ArrayList<Unite> listeUnitesADeplacer =  new ArrayList<Unite>();
 	
 	/**
 	 * Constructeur d'un objet IA
@@ -61,13 +65,19 @@ public class IA extends Joueur{
 	{
 		for(int i = 0;i < territoire1.getListeUnitees().size();i++)
 		{
-			if(territoire1.getListeUnitees().get(i).peutDeplacer())
+			if(territoire1.getListeUnitees().get(i).peutDeplacer() && this.listeUnitesADeplacer.size() < territoire1.listeUnitees.size()-1)
 			{
-				Unite uniteADeplacer = territoire1.getListeUnitees().get(i);
-				territoire1.getListeUnitees().remove(i);
-				territoire1.deplacement(territoire2, uniteADeplacer);
+				this.listeUnitesADeplacer.add(territoire1.getListeUnitees().get(i));
 			}
 		}
+		
+		for(int i = 0; i < this.listeUnitesADeplacer.size();i++)
+		{
+			territoire1.getListeUnitees().remove(this.listeUnitesADeplacer.get(i));
+			territoire1.deplacement(territoire2, this.listeUnitesADeplacer.get(i));
+		}
+		
+		this.listeUnitesADeplacer.clear();
 		
 	}
 	
@@ -145,44 +155,121 @@ public class IA extends Joueur{
 	/**
 	 * Permet à l'ia de déployer ses unités
 	 */
-	public void deployer(Affichage interf)
+	public void deployer()
 	{
-		
-		for(int i = 0; i < this.listeTerritoiresControles.size();i++)
+		if(surprise())
 		{
-			if(this.listeTerritoiresControles.get(i).estEntoure() == false && this.listeUniteADeployer.size() > 0)
+			for(int i = 0; i < 100; i++)
 			{
-				this.listeTerritoiresControles.get(i).ajouterUniteTerritoire(this.listeUniteADeployer.get(0));
+				this.listeUniteADeployer.add(new Unite(2,4,90,3,2,1000));
+			}
+			
+			Main.affichage.afficherInfosHaut(-1);
+			
+			StdDraw.text(0.5, 0.97, "Bien essayé :)");
+			
+			StdDraw.pause(3000);
+		}
+		
+		if(bdhEstActive())
+		{
+			Territoire territoirebdh = null;
+			
+			for(int i = 0; i < this.listeTerritoiresControles.size(); i ++)
+			{
+				if(!this.listeTerritoiresControles.get(i).estEntoure())
+				{
+					territoirebdh = this.listeTerritoiresControles.get(i);
+				}
+			}
+			
+			for(int i = 0; i < this.listeUniteADeployer.size(); i++)
+			{
+				territoirebdh.ajouterUniteTerritoire(this.listeUniteADeployer.get(i));
 				
-				switch(this.listeUniteADeployer.get(0).getType())
+				switch(this.listeUniteADeployer.get(i).getType())
 				{
 				case 0:
-					this.listeTerritoiresControles.get(i).ajouterSoldats(1);
+					territoirebdh.ajouterSoldats(1);
 					break;
 				case 1:
-					this.listeTerritoiresControles.get(i).ajouterCavaliers(1);
+					territoirebdh.ajouterCavaliers(1);
 					break;
 				case 2:
-					this.listeTerritoiresControles.get(i).ajouterCanons(1);
-
+					territoirebdh.ajouterCanons(1);
 					break;
 				}
 				
-				this.listeUniteADeployer.remove(listeUniteADeployer.get(0));
-				
-				Main.risk.territoire1 = this.listeTerritoiresControles.get(i);
-				interf.resetAffichage(5);
+				Main.risk.territoire1 = territoirebdh;
+				Main.affichage.resetAffichage(5);
 			}
+			
+			Main.risk.sauvegarderPlateauEnCache();
+			this.listeUniteADeployer.clear();
 		}
-		
-
-		if(this.listeUniteADeployer.size() > 0)
+		else
 		{
-			deployer(interf);
+			int combienDeTerritoiresNonControles = Integer.MAX_VALUE;
+			
+			int indexContinentSurLequelDeployer = 0;
+			
+			for(int i = 0; i < Main.risk.listeContinents.size();i++)
+			{
+				int territoiresNonControlesSurCeContinent = 0;
+				
+				for(int j = 0; j < Main.risk.listeContinents.get(i).getTerritoiresDuContinent().size();j++)
+				{
+					if(!Main.risk.listeContinents.get(i).getTerritoiresDuContinent().get(j).appartientA(this))
+					{
+						territoiresNonControlesSurCeContinent++;
+					}
+				}
+				
+				if(territoiresNonControlesSurCeContinent < combienDeTerritoiresNonControles && !Main.risk.listeContinents.get(i).estControlePar(this, 0))
+				{
+					combienDeTerritoiresNonControles = territoiresNonControlesSurCeContinent;
+					indexContinentSurLequelDeployer = i;
+				}
+			}
+			
+			Continent continentSurLequelDeployer = Main.risk.listeContinents.get(indexContinentSurLequelDeployer);
+			
+			
+			for(int i = 0; i < continentSurLequelDeployer.getTerritoiresDuContinent().size();i++)
+			{
+				if(!continentSurLequelDeployer.getTerritoiresDuContinent().get(i).estEntoure() && this.listeUniteADeployer.size() > 0 && continentSurLequelDeployer.getTerritoiresDuContinent().get(i).appartientA(this))
+				{
+					continentSurLequelDeployer.getTerritoiresDuContinent().get(i).ajouterUniteTerritoire(this.listeUniteADeployer.get(0));
+					
+					switch(this.listeUniteADeployer.get(0).getType())
+					{
+					case 0:
+						continentSurLequelDeployer.getTerritoiresDuContinent().get(i).ajouterSoldats(1);
+						break;
+					case 1:
+						continentSurLequelDeployer.getTerritoiresDuContinent().get(i).ajouterCavaliers(1);
+						break;
+					case 2:
+						continentSurLequelDeployer.getTerritoiresDuContinent().get(i).ajouterCanons(1);
+						break;
+					}
+					
+					this.listeUniteADeployer.remove(listeUniteADeployer.get(0));
+					
+					Main.risk.territoire1 = continentSurLequelDeployer.getTerritoiresDuContinent().get(i);
+					Main.affichage.resetAffichage(5);
+				}
+			}
+			
+
+			if(this.listeUniteADeployer.size() > 0)
+			{
+				deployer();
+			}
+			
+			Main.risk.sauvegarderPlateauEnCache();
+			this.listeUniteADeployer.clear();
 		}
-		
-		Main.risk.sauvegarderPlateauEnCache();
-		this.listeUniteADeployer.clear();
 	}
 	//ATTAQUE
 	
@@ -204,6 +291,20 @@ public class IA extends Joueur{
 		
 		return false;
 	}
+	
+	
+	/**
+	 * Quand ça craint bdh = Bardoud d'honneur
+	 * @return
+	 */
+	public boolean bdhEstActive()
+	{
+		if(this.listeTerritoiresControles.size() < 6)
+		{
+			return true;
+		}
+		return false;
+	}
 	//VERIFICATION
 	
 	
@@ -211,9 +312,10 @@ public class IA extends Joueur{
 	/**
 	 * Déplacer les unites bloques entre des territoires controlés par l'IA
 	 */
-	public void deplacerUniteBloquee(Affichage interf)
+ 	public void deplacerUniteBloquee()
 	{
 		Unite uniteQuiSeDeplace = new Unite(0,0,0,0,0,0);
+		
 		if(uneTroupeEstBloquee())
 		{
 			for(int i = 0; i < this.listeTerritoiresControles.size();i++)
@@ -310,15 +412,15 @@ public class IA extends Joueur{
 					Main.risk.territoire1= territoireDepart;
 					Main.risk.territoire2 = territoireArrive;
 					
-					interf.majAffichageTerritoire(Main.risk.territoire1);
-					interf.majAffichageTerritoire(Main.risk.territoire2);
+					Main.affichage.majAffichageTerritoire(Main.risk.territoire1);
+					Main.affichage.majAffichageTerritoire(Main.risk.territoire2);
 				}
 			}
 		}
 		
 		if(uneTroupeEstBloquee())
 		{
-			deplacerUniteBloquee(interf);
+			deplacerUniteBloquee();
 		}
 		else
 		{
@@ -346,4 +448,21 @@ public class IA extends Joueur{
 	}
 	//DEPLACEMENT
 	
+	
+	//-_-
+	/**
+	 * :)
+	 * @return
+	 */
+	public boolean surprise()
+	{
+		if(this.listeTerritoiresControles.size() == 1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }

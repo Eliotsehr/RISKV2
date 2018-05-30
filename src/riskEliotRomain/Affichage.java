@@ -481,7 +481,6 @@ public class Affichage {
 			Main.risk.chargerPlateauEnCache();
 			majAffichageTerritoire(Main.risk.territoire1);
 			majAffichageTerritoire(Main.risk.territoire2);
-			afficherCroix();
 			break;
 		}	
 		}

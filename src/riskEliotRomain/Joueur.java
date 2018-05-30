@@ -150,7 +150,10 @@ public class Joueur {
 		}
 		else
 		{
+
 			this.setNombreTroupesDeploiement((int) (Math.floor(this.nombreDeTerritoires/3) + this.calculerBonusContinent() + this.calculerBonusCapture()));
+			
+			
 		}
 	}
 	

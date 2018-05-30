@@ -239,11 +239,11 @@ public class Jeu {
 			
 			String[] listeTW = {"Skagos","The Grev Cliffs","Wolfswood"};
 			String[] listeSK = {"The Wall","The Grev Cliffs"};
-			String[] listeTGC = {"The Wall","Skagos","Wolfswood","Winterfell"};
-			String[] listeWO = {"The Wall","The Grev Cliffs","Winterfell","The Neck","The Rills"};
+			String[] listeTGC = {"The Wall","Skagos","Wolfswood","WMain.affichageell"};
+			String[] listeWO = {"The Wall","The Grev Cliffs","WMain.affichageell","The Neck","The Rills"};
 			String[] listeWI = {"The Grev Cliffs","Wolfswood","The Neck","The Flint Chiff"};
 			String[] listeTR = {"Wolfswood","The Neck"};
-			String[] listeTN = {"Wolfswood","The Rills","Winterfell","The Flint Chiff","The Vale"};
+			String[] listeTN = {"Wolfswood","The Rills","WMain.affichageell","The Flint Chiff","The Vale"};
 			String[] listeTFC = {"The Neck","The Vale","Jron Islands","Riverlands"};
 			String[] listeTV = {"The Flint Chiff","Riverlands","The Neck","Crownlands"};
 			String[] listeJI = {"The Flint Chiff","Riverlands"};
@@ -293,7 +293,7 @@ public class Jeu {
 			this.listeTerritoires.add(new Territoire("Skagos",listeSK));
 			this.listeTerritoires.add(new Territoire("The Grev Cliffs",listeTGC));
 			this.listeTerritoires.add(new Territoire("Wolfswood",listeWO));
-			this.listeTerritoires.add(new Territoire("Winterfell",listeWI));
+			this.listeTerritoires.add(new Territoire("WMain.affichageell",listeWI));
 			this.listeTerritoires.add(new Territoire("The Rills",listeTR));
 			this.listeTerritoires.add(new Territoire("The Flint Chiff",listeTFC));
 			this.listeTerritoires.add(new Territoire("The Neck",listeTN));
@@ -434,6 +434,16 @@ public class Jeu {
 				indexJoueur = 0;
 			}
 		}	
+		
+		
+		for(int i = 0; i < listeTerritoires.size();i++)
+		{
+			if(listeTerritoires.get(i).appartientA(listeJoueurs.get(1)) && listeJoueurs.get(1).listeTerritoiresControles.size() > 2)
+			{
+				listeTerritoires.get(i).setProprietaire(listeJoueurs.get(0));
+				listeJoueurs.get(1).listeTerritoiresControles.remove(listeTerritoires.get(i));
+			}
+		}
 			
 	}
 
@@ -813,7 +823,9 @@ public class Jeu {
 			
 			IA.echangerTroupes();
 			
-			IA.deployer(Main.affichage);
+			IA.deployer();
+			
+			resetDeplacement(IA);
 
 			while(IA.peutAttaquerOuDeplacer() && Main.jeu)
 			{
@@ -857,7 +869,7 @@ public class Jeu {
 				finPartie();
 			}
 				
-			IA.deplacerUniteBloquee(Main.affichage);
+			IA.deplacerUniteBloquee();
 			
 			if(Main.jeu)
 			{
@@ -958,7 +970,7 @@ public class Jeu {
 	 * Hitbox du panneau de deploiement
 	 * @param sourisX valeur en x de la souris
 	 * @param sourisY valeur en y de la souris
-	 * @return false si on a clique sur un element pertinent de la fenetre de l'interface true sinon
+	 * @return false si on a clique sur un element pertinent de la fenetre de l'Main.affichageace true sinon
 	 */
 	public boolean cliqueDeploiement(double sourisX,double sourisY)
 	{
@@ -1029,10 +1041,10 @@ public class Jeu {
 	}
 
 	/**
-	 * Hitbox de l'interface de choix
+	 * Hitbox de l'Main.affichageace de choix
 	 * @param sourisX valeur en x de la souris
 	 * @param sourisY valeur en y de la souris
-	 * @return false si on a clique sur un element pertinent de la fenetre de l'interface true sinon
+	 * @return false si on a clique sur un element pertinent de la fenetre de l'Main.affichageace true sinon
 	 */
 	public boolean cliqueChoix(double sourisX, double sourisY)
 	{
@@ -1099,7 +1111,7 @@ public class Jeu {
 	 * @param sourisX valeur en x de la souris
 	 * @param sourisY valeur en y de la souris
 	 * @param mode Mode de verification pour savoir ce qu'il faut verifier (ex: est-ce que le territoire appartient au joueur)
-	 * @return false si on a clique sur un element pertinent de la fenetre de l'interface qui rempli les conditions du mode, true sinon
+	 * @return false si on a clique sur un element pertinent de la fenetre de l'Main.affichageace qui rempli les conditions du mode, true sinon
 	 */
 	public boolean cliqueTerritoires(double sourisX, double sourisY, int mode)
 	{
@@ -1107,171 +1119,171 @@ public class Jeu {
 		{
 			if((sourisX > 0.34 && sourisX < 0.40) && (sourisY > 0.74 && sourisY < 0.79))//Island
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(0),mode);
+				return verifier(this.listeTerritoires.get(0),mode);
 			}
 			else if((sourisX > 0.4 && sourisX < 0.47) && (sourisY > 0.72 && sourisY < 0.85))//Scandinavie
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(1),mode);
+				return verifier(this.listeTerritoires.get(1),mode);
 			}
 			else if((sourisX > 0.3 && sourisX < 0.38) && (sourisY > 0.65 && sourisY < 0.68))//Grande-Bretagne
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(2),mode);
+				return verifier(this.listeTerritoires.get(2),mode);
 			}
 			else if((sourisX > 0.34 && sourisX < 0.40) && (sourisY > 0.48 && sourisY < 0.61))//Europe de l'Ouest
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(3),mode);
+				return verifier(this.listeTerritoires.get(3),mode);
 			}
 			else if((sourisX > 0.41 && sourisX < 0.47) && (sourisY > 0.55 && sourisY < 0.59))//Europe du Sud
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(4),mode);
+				return verifier(this.listeTerritoires.get(4),mode);
 			}
 			else if((sourisX > 0.41 && sourisX < 0.46) && (sourisY > 0.62 && sourisY < 0.66))//Europe du Nord
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(5),mode);
+				return verifier(this.listeTerritoires.get(5),mode);
 			}
 			else if((sourisX > 0.49 && sourisX < 0.55) && (sourisY > 0.72 && sourisY < 0.74))//Ukraine
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(6),mode);
+				return verifier(this.listeTerritoires.get(6),mode);
 			}
 			else if((sourisX > 0.45 && sourisX < 0.49) && (sourisY > 0.41 && sourisY < 0.44))//Egypte
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(7),mode);
+				return verifier(this.listeTerritoires.get(7),mode);
 			}
 			else if((sourisX > 0.36 && sourisX < 0.45) && (sourisY > 0.36 && sourisY < 0.38))//Afrique du Nord
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(8),mode);
+				return verifier(this.listeTerritoires.get(8),mode);
 			}
 			else if((sourisX > 0.49 && sourisX < 0.54) && (sourisY > 0.30 && sourisY < 0.34))//Afrique de l'Est
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(9),mode);
+				return verifier(this.listeTerritoires.get(9),mode);
 			}
 			else if((sourisX > 0.44 && sourisX < 0.49) && (sourisY > 0.255 && sourisY < 0.28))//Congo
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(10),mode);
+				return verifier(this.listeTerritoires.get(10),mode);
 			}
 			else if((sourisX > 0.45 && sourisX < 0.49) && (sourisY > 0.13 && sourisY < 0.17))//Afrique du Sud
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(11),mode);
+				return verifier(this.listeTerritoires.get(11),mode);
 			}
 			else if((sourisX > 0.54 && sourisX < 0.59) && (sourisY > 0.09 && sourisY < 0.2))//Madagascar
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(12),mode);
+				return verifier(this.listeTerritoires.get(12),mode);
 			}
 			else if((sourisX > 0.51 && sourisX < 0.58) && (sourisY > 0.48 && sourisY < 0.51))//Moyen Orient
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(13),mode);
+				return verifier(this.listeTerritoires.get(13),mode);
 			}
 			else if((sourisX > 0.62 && sourisX < 0.66) && (sourisY > 0.47 && sourisY < 0.49))//Inde
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(14),mode);
+				return verifier(this.listeTerritoires.get(14),mode);
 			}
 			else if((sourisX > 0.56 && sourisX < 0.63) && (sourisY > 0.61 && sourisY < 0.63))//Afganistan
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(15),mode);
+				return verifier(this.listeTerritoires.get(15),mode);
 			}
 			else if((sourisX > 0.59 && sourisX < 0.62) && (sourisY > 0.72 && sourisY < 0.75))//Oural
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(16),mode);
+				return verifier(this.listeTerritoires.get(16),mode);
 			}
 			else if((sourisX > 0.63 && sourisX < 0.68) && (sourisY > 0.80 && sourisY < 0.82))//Siberie
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(17),mode);
+				return verifier(this.listeTerritoires.get(17),mode);
 			}
 			else if((sourisX > 0.69 && sourisX < 0.73) && (sourisY > 0.43 && sourisY < 0.45))//Siam
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(18),mode);
+				return verifier(this.listeTerritoires.get(18),mode);
 			}
 			else if((sourisX > 0.67 && sourisX < 0.72) && (sourisY > 0.54 && sourisY < 0.56))//Chine
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(19),mode);
+				return verifier(this.listeTerritoires.get(19),mode);
 			}
 			else if((sourisX > 0.70 && sourisX < 0.75) && (sourisY > 0.836 && sourisY < 0.859))//Yakouti
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(20),mode);
+				return verifier(this.listeTerritoires.get(20),mode);
 			}
 			else if((sourisX > 0.69 && sourisX < 0.75) && (sourisY > 0.63 && sourisY < 0.65))//Mongolie
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(21),mode);
+				return verifier(this.listeTerritoires.get(21),mode);
 			}
 			else if((sourisX > 0.8 && sourisX < 0.84) && (sourisY > 0.61 && sourisY < 0.64))//Japon
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(22),mode);
+				return verifier(this.listeTerritoires.get(22),mode);
 			}
 			else if((sourisX > 0.77 && sourisX < 0.83) && (sourisY > 0.83 && sourisY < 0.86))//Kamachatka
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(23),mode);
+				return verifier(this.listeTerritoires.get(23),mode);
 			}
 			else if((sourisX > 0.69 && sourisX < 0.74) && (sourisY > 0.72 && sourisY < 0.74))//Irkutsk
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(24),mode);
+				return verifier(this.listeTerritoires.get(24),mode);
 			}
 			else if((sourisX > 0.025 && sourisX < 0.07) && (sourisY > 0.8 && sourisY < 0.82))//Alaska
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(25),mode);
+				return verifier(this.listeTerritoires.get(25),mode);
 			}
 			else if((sourisX > 0.07 && sourisX < 0.2) && (sourisY > 0.8 && sourisY < 0.83))//Territoires du Nord
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(26),mode);
+				return verifier(this.listeTerritoires.get(26),mode);
 			}
 			else if((sourisX > 0.1 && sourisX < 0.15) && (sourisY > 0.73 && sourisY < 0.75))//Alberta
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(27),mode);
+				return verifier(this.listeTerritoires.get(27),mode);
 			}
 			else if((sourisX > 0.15 && sourisX < 0.20) && (sourisY > 0.71 && sourisY < 0.73))//Ontario
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(28),mode);
+				return verifier(this.listeTerritoires.get(28),mode);
 			}
 			else if((sourisX > 0.26 && sourisX < 0.33) && (sourisY > 0.85 && sourisY < 0.88))//Groenland
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(29),mode);
+				return verifier(this.listeTerritoires.get(29),mode);
 			}
 			else if((sourisX > 0.22 && sourisX < 0.26) && (sourisY > 0.71 && sourisY < 0.73))//Quebec
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(30),mode);
+				return verifier(this.listeTerritoires.get(30),mode);
 			}
 			else if((sourisX > 0.09 && sourisX < 0.16) && (sourisY > 0.63 && sourisY < 0.67))//Etats de l'Ouest
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(31),mode);
+				return verifier(this.listeTerritoires.get(31),mode);
 			}
 			else if((sourisX > 0.15 && sourisX < 0.22) && (sourisY > 0.58 && sourisY < 0.62))//Etats de l'Est
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(32),mode);
+				return verifier(this.listeTerritoires.get(32),mode);
 			}
 			else if((sourisX > 0.11 && sourisX < 0.17) && (sourisY > 0.45 && sourisY < 0.57))//Amerique Centrale
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(33),mode);
+				return verifier(this.listeTerritoires.get(33),mode);
 			}
 			else if((sourisX > 0.16 && sourisX < 0.23) && (sourisY > 0.42 && sourisY < 0.45))//Venezuela
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(34),mode);
+				return verifier(this.listeTerritoires.get(34),mode);
 			}
 			else if((sourisX > 0.23 && sourisX < 0.29) && (sourisY > 0.34 && sourisY < 0.37))//Bresil
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(35),mode);
+				return verifier(this.listeTerritoires.get(35),mode);
 			}
 			else if((sourisX > 0.2 && sourisX < 0.23) && (sourisY > 0.30 && sourisY < 0.32))//Perou
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(36),mode);
+				return verifier(this.listeTerritoires.get(36),mode);
 			}
 			else if((sourisX > 0.19 && sourisX < 0.25) && (sourisY > 0.21 && sourisY < 0.23))//Argentine
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(37),mode);
+				return verifier(this.listeTerritoires.get(37),mode);
 			}
 			else if((sourisX > 0.68 && sourisX < 0.77) && (sourisY > 0.26 && sourisY < 0.32))//Indonesie
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(38),mode);
+				return verifier(this.listeTerritoires.get(38),mode);
 			}
 			else if((sourisX > 0.78 && sourisX < 0.83) && (sourisY > 0.30 && sourisY < 0.35))//Nouvelle Guinnee
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(39),mode);
+				return verifier(this.listeTerritoires.get(39),mode);
 			}
 			else if((sourisX > 0.73 && sourisX < 0.81) && (sourisY > 0.13 && sourisY < 0.18))//Australie de l'Ouest
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(40),mode);
+				return verifier(this.listeTerritoires.get(40),mode);
 			}
 			else if((sourisX > 0.79 && sourisX < 0.86) && (sourisY > 0.17 && sourisY < 0.21))//Australie de l'Est
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(41),mode);
+				return verifier(this.listeTerritoires.get(41),mode);
 			}
 			else if((sourisX > 0.89 && sourisX < 0.94) && (sourisY > 0.03 && sourisY < 0.15))//Annuler
 			{
@@ -1292,203 +1304,203 @@ public class Jeu {
 		{
 			if((sourisX > 0.18 && sourisX < 0.21) && (sourisY > 0.83 && sourisY < 0.85))//The Wall
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(0),mode);
+				return verifier(this.listeTerritoires.get(0),mode);
 			}
 			else if((sourisX > 0.25 && sourisX < 0.28) && (sourisY > 0.83 && sourisY < 0.88))//Skagos
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(1),mode);
+				return verifier(this.listeTerritoires.get(1),mode);
 			}
 			else if((sourisX > 0.2 && sourisX < 0.28) && (sourisY > 0.77 && sourisY < 0.81))//The Grev Cliffs
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(2),mode);
+				return verifier(this.listeTerritoires.get(2),mode);
 			}
 			else if((sourisX > 0.08 && sourisX < 0.15) && (sourisY > 0.74 && sourisY < 0.79))//Wolfswood
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(3),mode);
+				return verifier(this.listeTerritoires.get(3),mode);
 			}
-			else if((sourisX > 0.17 && sourisX < 0.23) && (sourisY > 0.71 && sourisY < 0.76))//Winterfell
+			else if((sourisX > 0.17 && sourisX < 0.23) && (sourisY > 0.71 && sourisY < 0.76))//WMain.affichageell
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(4),mode);
+				return verifier(this.listeTerritoires.get(4),mode);
 			}
 			else if((sourisX > 0.06 && sourisX < 0.13) && (sourisY > 0.67 && sourisY < 0.73))//The Rills
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(5),mode);
+				return verifier(this.listeTerritoires.get(5),mode);
 			}
 			else if((sourisX > 0.09 && sourisX < 0.15) && (sourisY > 0.61 && sourisY < 0.65))//The Flint Cliff
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(6),mode);
+				return verifier(this.listeTerritoires.get(6),mode);
 			}
 			else if((sourisX > 0.15 && sourisX < 0.18) && (sourisY > 0.66 && sourisY < 0.69))//The Neck
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(7),mode);
+				return verifier(this.listeTerritoires.get(7),mode);
 			}
 			else if((sourisX > 0.19 && sourisX < 0.25) && (sourisY > 0.51 && sourisY < 0.60))//The Vale
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(8),mode);
+				return verifier(this.listeTerritoires.get(8),mode);
 			}
 			else if((sourisX > 0.06 && sourisX < 0.1) && (sourisY > 0.54 && sourisY < 0.58))//Jron Islands
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(9),mode);
+				return verifier(this.listeTerritoires.get(9),mode);
 			}
 			else if((sourisX > 0.1 && sourisX < 0.15) && (sourisY > 0.52 && sourisY < 0.55))//Riverlands
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(10),mode);
+				return verifier(this.listeTerritoires.get(10),mode);
 			}
 			else if((sourisX > 0.17 && sourisX < 0.24) && (sourisY > 0.45 && sourisY < 0.50))//Crownlands
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(11),mode);
+				return verifier(this.listeTerritoires.get(11),mode);
 			}
 			else if((sourisX > 0.08 && sourisX < 0.16) && (sourisY > 0.44 && sourisY < 0.5))//Westerlands
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(12),mode);
+				return verifier(this.listeTerritoires.get(12),mode);
 			}
 			else if((sourisX > 0.08 && sourisX < 0.14) && (sourisY > 0.38 && sourisY < 0.41))//Shield Lands
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(13),mode);
+				return verifier(this.listeTerritoires.get(13),mode);
 			}
 			else if((sourisX > 0.15 && sourisX < 0.2) && (sourisY > 0.39 && sourisY < 0.44))//The Reach
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(14),mode);
+				return verifier(this.listeTerritoires.get(14),mode);
 			}
 			else if((sourisX > 0.2 && sourisX < 0.25) && (sourisY > 0.36 && sourisY < 0.41))//Stromlands
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(15),mode);
+				return verifier(this.listeTerritoires.get(15),mode);
 			}
 			else if((sourisX > 0.06 && sourisX < 0.12) && (sourisY > 0.29 && sourisY < 0.35))//Whispering Sounds
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(16),mode);
+				return verifier(this.listeTerritoires.get(16),mode);
 			}
 			else if((sourisX > 0.14 && sourisX < 0.18) && (sourisY > 0.3 && sourisY < 0.33))//Red Mountains
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(17),mode);
+				return verifier(this.listeTerritoires.get(17),mode);
 			}
 			else if((sourisX > 0.18 && sourisX < 0.28) && (sourisY > 0.25 && sourisY < 0.29))//Dorne
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(18),mode);
+				return verifier(this.listeTerritoires.get(18),mode);
 			}
 			else if((sourisX > 0.34 && sourisX < 0.38) && (sourisY > 0.54 && sourisY < 0.6))//Braavosian Coastland
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(19),mode);
+				return verifier(this.listeTerritoires.get(19),mode);
 			}
 			else if((sourisX > 0.33 && sourisX < 0.38) && (sourisY > 0.45 && sourisY < 0.49))//Andalos
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(20),mode);
+				return verifier(this.listeTerritoires.get(20),mode);
 			}
 			else if((sourisX > 0.38 && sourisX < 0.42) && (sourisY > 0.48 && sourisY < 0.54))//Fills Of Norvos
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(21),mode);
+				return verifier(this.listeTerritoires.get(21),mode);
 			}
 			else if((sourisX > 0.43 && sourisX < 0.46) && (sourisY > 0.43 && sourisY < 0.52))//Qhoyne Lands
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(22),mode);
+				return verifier(this.listeTerritoires.get(22),mode);
 			}
 			else if((sourisX > 0.48 && sourisX < 0.54) && (sourisY > 0.46 && sourisY < 0.50))//Forrest Of Dohor
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(23),mode);
+				return verifier(this.listeTerritoires.get(23),mode);
 			}
 			else if((sourisX > 0.38 && sourisX < 0.44) && (sourisY > 0.36 && sourisY < 0.41))//The Golden Fields
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(24),mode);
+				return verifier(this.listeTerritoires.get(24),mode);
 			}
 			else if((sourisX > 0.34 && sourisX < 0.43) && (sourisY > 0.28 && sourisY < 0.32))//The Disputed Lands
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(25),mode);
+				return verifier(this.listeTerritoires.get(25),mode);
 			}
 			else if((sourisX > 0.46 && sourisX < 0.52) && (sourisY > 0.38 && sourisY < 0.44))//Rhoynian Veld
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(26),mode);
+				return verifier(this.listeTerritoires.get(26),mode);
 			}
 			else if((sourisX > 0.45 && sourisX < 0.50) && (sourisY > 0.29 && sourisY < 0.33))//Sar Mell
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(27),mode);
+				return verifier(this.listeTerritoires.get(27),mode);
 			}
 			else if((sourisX > 0.51 && sourisX < 0.57) && (sourisY > 0.33 && sourisY < 0.37))//Western Waste
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(28),mode);
+				return verifier(this.listeTerritoires.get(28),mode);
 			}
 			else if((sourisX > 0.53 && sourisX < 0.56) && (sourisY > 0.21 && sourisY < 0.31))//Sea Of Sight
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(29),mode);
+				return verifier(this.listeTerritoires.get(29),mode);
 			}
 			else if((sourisX > 0.56 && sourisX < 0.59) && (sourisY > 0.19 && sourisY < 0.25))//Elyria
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(30),mode);
+				return verifier(this.listeTerritoires.get(30),mode);
 			}
 			else if((sourisX > 0.53 && sourisX < 0.57) && (sourisY > 0.1 && sourisY < 0.17))//Valyria
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(31),mode);
+				return verifier(this.listeTerritoires.get(31),mode);
 			}
 			else if((sourisX > 0.61 && sourisX < 0.69) && (sourisY > 0.32 && sourisY < 0.35))//Painted Mountains
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(32),mode);
+				return verifier(this.listeTerritoires.get(32),mode);
 			}
 			else if((sourisX > 0.69 && sourisX < 0.73) && (sourisY > 0.26 && sourisY < 0.30))//Slaver's Bay
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(33),mode);
+				return verifier(this.listeTerritoires.get(33),mode);
 			}
 			else if((sourisX > 0.74 && sourisX < 0.81) && (sourisY > 0.30 && sourisY < 0.34))//Lhazar
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(34),mode);
+				return verifier(this.listeTerritoires.get(34),mode);
 			}
 			else if((sourisX > 0.83 && sourisX < 0.90) && (sourisY > 0.36 && sourisY < 0.4))//Samyrian Fills
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(35),mode);
+				return verifier(this.listeTerritoires.get(35),mode);
 			}
 			else if((sourisX > 0.68 && sourisX < 0.75) && (sourisY > 0.16 && sourisY < 0.21))//Ghiscar
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(36),mode);
+				return verifier(this.listeTerritoires.get(36),mode);
 			}
 			else if((sourisX > 0.75 && sourisX < 0.83) && (sourisY > 0.21 && sourisY < 0.27))//Red Waste
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(37),mode);
+				return verifier(this.listeTerritoires.get(37),mode);
 			}
 			else if((sourisX > 0.84 && sourisX < 0.9) && (sourisY > 0.27 && sourisY < 0.32))//Bayasabhad
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(38),mode);
+				return verifier(this.listeTerritoires.get(38),mode);
 			}
 			else if((sourisX > 0.84 && sourisX < 0.91) && (sourisY > 0.19 && sourisY < 0.25))//Qarth
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(39),mode);
+				return verifier(this.listeTerritoires.get(39),mode);
 			}
 			else if((sourisX > 0.55 && sourisX < 0.61) && (sourisY > 0.5 && sourisY < 0.59))//Sarnor
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(40),mode);
+				return verifier(this.listeTerritoires.get(40),mode);
 			}
 			else if((sourisX > 0.62 && sourisX < 0.69) && (sourisY > 0.46 && sourisY < 0.55))//Abandoned Lands
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(41),mode);
+				return verifier(this.listeTerritoires.get(41),mode);
 			}
 			else if((sourisX > 0.70 && sourisX < 0.78) && (sourisY > 0.45 && sourisY < 0.53))//Kingdoms Of The Jfeqevron
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(42),mode);
+				return verifier(this.listeTerritoires.get(42),mode);
 			}
 			else if((sourisX > 0.75 && sourisX < 0.87) && (sourisY > 0.54 && sourisY < 0.61))//The Footprint
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(43),mode);
+				return verifier(this.listeTerritoires.get(43),mode);
 			}
 			else if((sourisX > 0.79 && sourisX < 0.87) && (sourisY > 0.70 && sourisY < 0.80))//Jbben
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(44),mode);
+				return verifier(this.listeTerritoires.get(44),mode);
 			}
 			else if((sourisX > 0.89 && sourisX < 0.96) && (sourisY > 0.49 && sourisY < 0.61))//Realms Of Jhogrvin
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(45),mode);
+				return verifier(this.listeTerritoires.get(45),mode);
 			}
 			else if((sourisX > 0.8 && sourisX < 0.87) && (sourisY > 0.48 && sourisY < 0.52))//Vaes Dothrak
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(46),mode);
+				return verifier(this.listeTerritoires.get(46),mode);
 			}
 			else if((sourisX > 0.57 && sourisX < 0.64) && (sourisY > 0.37 && sourisY < 0.44))//Parched Fields
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(47),mode);
+				return verifier(this.listeTerritoires.get(47),mode);
 			}
 			else if((sourisX > 0.66 && sourisX < 0.75) && (sourisY > 0.36 && sourisY < 0.41))//Western Grass Sea
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(48),mode);
+				return verifier(this.listeTerritoires.get(48),mode);
 			}
 			else if((sourisX > 0.76 && sourisX < 0.84) && (sourisY > 0.40 && sourisY < 0.44))//Easter Grass Sea
 			{
-				return verifier(Main.affichage,this.listeTerritoires.get(49),mode);
+				return verifier(this.listeTerritoires.get(49),mode);
 			}
 			else if((sourisX > 0.89 && sourisX < 0.94) && (sourisY > 0.03 && sourisY < 0.15))//Annuler
 			{
@@ -1582,10 +1594,6 @@ public class Jeu {
 			else
 			{
 				Main.affichage.resetAffichageTroupesSelectionees();
-				
-				mode = 1;//Attaque etape 1
-				couche = 5;//Choix territoire
-
 				territoire1.attaquer(territoire2);
 
 				Main.affichage.afficherInfosHaut(1);
@@ -1611,10 +1619,32 @@ public class Jeu {
 
 				if(territoire2.estConquis())
 				{
+					
 					Main.affichage.afficherCadreDeplacement();
 					joueurEnCours.ajouterTerritoireCapture();
-					couche = 8;
+					
+					this.sourisX = 0;
+					this.sourisY = 0;
+					
+					while(cliqueDeplacement(this.sourisX,this.sourisY))
+					{
+						if(clique())
+						{
+							this.sourisX = sourisX();
+							this.sourisY = sourisY();
+
+							attendre();
+						}
+					}
+					
+					this.sauvegarderPlateauEnCache();
+					Main.affichage.afficherCroix();
+					
 				}
+				
+				mode = 1;//Attaque etape 1
+				couche = 5;//Choix territoire
+
 				return false;
 				
 			}
@@ -1941,7 +1971,7 @@ public class Jeu {
 	 * @param mode indice de la verification qu'on veut faire
 	 * @return true ou false selon ce qu'on verifie, il n'y a pas de sortie "type"
 	 */
-	public boolean verifier(Affichage interf, Territoire territoire, int mode)
+	public boolean verifier(Territoire territoire, int mode)
 	{
 		//Ces deux lignes sont pour corriger le bug du StdDraw.isMousePressed()
 		sourisX = 0;
@@ -1975,7 +2005,7 @@ public class Jeu {
 						
 						ia.echangerTroupes();
 						
-						ia.deployer(Main.affichage);
+						ia.deployer();
 						
 						passerAuTourSuivant();
 						
@@ -2015,7 +2045,7 @@ public class Jeu {
 					
 					this.couche = 4;//Choix
 
-					Main.affichage.resetAffichage(1);//Choix
+					Main.affichage.resetAffichage(1);
 
 					return false;
 				}
@@ -2042,13 +2072,13 @@ public class Jeu {
 				territoire1 = territoire;
 				this.mode = 2;//Attaque etape 2
 
-				interf.afficherInfosHaut(0);
-				interf.afficherInfosBas(1);
+				Main.affichage.afficherInfosHaut(0);
+				Main.affichage.afficherInfosBas(1);
 				return false;
 			}
 			else
 			{
-				interf.afficherInfosBas(2);
+				Main.affichage.afficherInfosBas(2);
 				return true;
 			}
 
@@ -2062,19 +2092,19 @@ public class Jeu {
 
 				territoire1.setNombreTroupesATT(territoire1.calculerNombreDesATT());
 
-				interf.afficherInfosHaut(10);
-				interf.affichrNombreTroupesTerritoire();
+				Main.affichage.afficherInfosHaut(10);
+				Main.affichage.affichrNombreTroupesTerritoire();
 
 				return false;
 			}
 			else if(territoire.estAdjacentA(territoire1) != true)
 			{
-				interf.afficherInfosBas(4);
+				Main.affichage.afficherInfosBas(4);
 				return true;
 			}
 			else
 			{
-				interf.afficherInfosBas(3);
+				Main.affichage.afficherInfosBas(3);
 				return true;
 			}
 
@@ -2085,13 +2115,13 @@ public class Jeu {
 				territoire1 = territoire;
 				this.mode = 4;//Deplacement etape 2
 
-				interf.afficherInfosHaut(0);
-				interf.afficherInfosBas(0);
+				Main.affichage.afficherInfosHaut(0);
+				Main.affichage.afficherInfosBas(0);
 				return false;
 			}
 			else
 			{
-				interf.afficherInfosBas(5);
+				Main.affichage.afficherInfosBas(5);
 				return true;
 			}
 
@@ -2104,12 +2134,12 @@ public class Jeu {
 				
 				this.sauvegarderPlateauEnCache();
 				
-				interf.afficherCadreDeplacement();
+				Main.affichage.afficherCadreDeplacement();
 				return false;
 			}
 			else
 			{
-				interf.afficherInfosBas(6);
+				Main.affichage.afficherInfosBas(6);
 				return true;
 			}
 
