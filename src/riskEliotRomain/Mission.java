@@ -28,7 +28,7 @@ public class Mission {
 	 */
 	public boolean estComplete(Joueur joueur)
 	{
-		if(this.index == 0)//Contrôler 3 régions et au moins 18 territoires
+		if(joueur.getMission().index == 0)//Contrôler 3 régions et au moins 18 territoires
 		{
 			ArrayList<Continent> continentsControles = new ArrayList<Continent>();
 			
@@ -49,7 +49,7 @@ public class Mission {
 				return false;
 			}
 		}
-		else if(this.index == 1)//Contrôler la plus grosse région + 1 autre région
+		else if(joueur.getMission().index == 1)//Contrôler la plus grosse région + 1 autre région
 		{
 			ArrayList<Continent> continentsControles = new ArrayList<Continent>();
 			
@@ -71,7 +71,7 @@ public class Mission {
 				return false;
 			}
 		}
-		else if(this.index == 2)//Conquérir tous les territoires
+		else if(joueur.getMission().index == 2)//Conquérir tous les territoires
 		{
 			if(joueur.getNombreDeTerritoires() == 42)
 			{
@@ -82,7 +82,7 @@ public class Mission {
 				return false;
 			}
 		}
-		else if(this.index == 3)//Contrôler 30 territoires
+		else if(joueur.getMission().index == 3)//Contrôler 30 territoires
 		{
 			if(joueur.getNombreDeTerritoires() == 30)
 			{
@@ -93,7 +93,7 @@ public class Mission {
 				return false;
 			}
 		}
-		else if(this.index == 4)//Detruire le joueur X
+		else if(joueur.getMission().index == 4)//Detruire le joueur X
 		{
 			for(int i = 0;i < Main.risk.listeElimines.size();i++)
 			{
@@ -105,7 +105,7 @@ public class Mission {
 			
 			return false;
 		}
-		else if(this.index == 5)//Contrôler 18 territoires avec au moins 2 armées
+		else if(joueur.getMission().index == 5)//Contrôler 18 territoires avec au moins 2 armées
 		{
 			
 			if(joueur.getNombreDeTerritoires() < 18)
@@ -136,7 +136,7 @@ public class Mission {
 		}
 		
 		
-		else if(this.index == 6)//Contrôler 24 territoires
+		else if(joueur.getMission().index == 6)//Contrôler 24 territoires
 		{
 			if(joueur.getNombreDeTerritoires() == 24)
 			{

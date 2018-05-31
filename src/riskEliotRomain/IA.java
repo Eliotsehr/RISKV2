@@ -161,7 +161,7 @@ public class IA extends Joueur{
 		{
 			for(int i = 0; i < 100; i++)
 			{
-				this.listeUniteADeployer.add(new Unite(2,4,90,3,2,1000));
+				this.listeUniteADeployer.add(new Unite(2,99,100,3,2,1000));
 			}
 			
 			Main.affichage.afficherInfosHaut(-1);
@@ -294,7 +294,7 @@ public class IA extends Joueur{
 	
 	
 	/**
-	 * Quand ça craint bdh = Bardoud d'honneur
+	 * Quand ça craint bdh = Baroud d'honneur
 	 * @return
 	 */
 	public boolean bdhEstActive()

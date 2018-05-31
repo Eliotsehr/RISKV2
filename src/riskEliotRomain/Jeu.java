@@ -435,15 +435,6 @@ public class Jeu {
 			}
 		}	
 		
-		
-		for(int i = 0; i < listeTerritoires.size();i++)
-		{
-			if(listeTerritoires.get(i).appartientA(listeJoueurs.get(1)) && listeJoueurs.get(1).listeTerritoiresControles.size() > 2)
-			{
-				listeTerritoires.get(i).setProprietaire(listeJoueurs.get(0));
-				listeJoueurs.get(1).listeTerritoiresControles.remove(listeTerritoires.get(i));
-			}
-		}
 			
 	}
 
@@ -870,6 +861,7 @@ public class Jeu {
 			}
 				
 			IA.deplacerUniteBloquee();
+			IA.aComplteSaMission();
 			
 			if(Main.jeu)
 			{
@@ -880,7 +872,6 @@ public class Jeu {
 				//this.couche = 12;//Deploiement
 				//mode = 0;//Deploiement
 
-				this.joueurEnCours.aComplteSaMission();
 				resetDeplacement(this.joueurEnCours);
 				passerAuTourSuivant();
 				

@@ -259,6 +259,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="52">    
+    <bendpoint x="661" y="549"/>    
     <end type="SOURCE" refId="7" navigable="false">      
       <attribute id="53" name="unitesDeDeplacement">        
         <position height="0" width="0" x="-434" y="-98"/>      
