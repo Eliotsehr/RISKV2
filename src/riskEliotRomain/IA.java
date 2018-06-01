@@ -7,7 +7,7 @@ public class IA extends Joueur{
 
 	private ArrayList<Unite> listeUniteADeployer = new ArrayList<Unite>();
 	
-	public ArrayList<Unite> listeUnitesADeplacer =  new ArrayList<Unite>();
+	private ArrayList<Unite> listeUnitesADeplacer =  new ArrayList<Unite>();
 	
 	/**
 	 * Constructeur d'un objet IA
@@ -125,7 +125,7 @@ public class IA extends Joueur{
 				nombreCanons++;
 				troupes = troupes - 7;
 			}
-			else if((int)troupes > 10)
+			else if((int)troupes > 7)
 			{
 				nombreCavaliers++;
 				troupes = troupes -3;
