@@ -77,8 +77,9 @@ public class Jeu {
 	public void effacerCache()
 	{
 		for(File file: new java.io.File("img\\cache").listFiles()) 
-	    if (!file.isDirectory()) 
+	    if (!file.isDirectory() && !file.getName().equals("git.txt")) 
 	    {
+	    	System.out.println(file.getName());
 	    	file.delete();
 	    }
 	        
