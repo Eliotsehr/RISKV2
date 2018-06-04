@@ -484,20 +484,22 @@ public class Affichage {
 	public void majAffichageTerritoire(Territoire territoire)
 	{
 		int index = territoire.getIndexTerritoire();
+		
 		String nom = new String();
+		
 		switch(Main.risk.map)
 		{
 		case 0:
-			nom = "/src/img/maskClassique/"+index+".png";
+			nom = "src/mask/"+index+".png";
+			StdDraw.picture(0.5, 0.5, nom);
+			couleurJeton(cooTerritoiresClassique[index][0], cooTerritoiresClassique[index][1],territoire.getProprietaire().getNumeroDeJoueur(),index);
 			break;
 		case 1:
-			nom = "/src/img/maskGot/"+index+".png";
+			nom = "src/maskGot/"+index+".png";
+			StdDraw.picture(0.5, 0.5, nom);
+			couleurJeton(cooTerritoiresGOT[index][0], cooTerritoiresGOT[index][1],territoire.getProprietaire().getNumeroDeJoueur(),index);
 			break;
 		}
-		
-		
-		StdDraw.picture(0.5, 0.5, nom);
-		couleurJeton(cooTerritoiresClassique[index][0], cooTerritoiresClassique[index][1],territoire.getProprietaire().getNumeroDeJoueur(),index);
 	}
 
 	/**
