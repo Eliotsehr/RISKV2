@@ -76,10 +76,9 @@ public class Jeu {
 	 */
 	public void effacerCache()
 	{
-		for(File file: new java.io.File("img\\cache").listFiles()) 
+		for(File file: new java.io.File("src/img/cache").listFiles()) 
 	    if (!file.isDirectory() && !file.getName().equals("git.txt")) 
 	    {
-	    	System.out.println(file.getName());
 	    	file.delete();
 	    }
 	        
@@ -289,12 +288,20 @@ public class Jeu {
 			String[] listeWGS = {"Painted Mountains" ,"Parched Fields","Abandoned Lands","Kingdoms of the Jfqevron","Eastern Grass Sea", "Lhazar"};
 			String[] listeEGS = {"Western Grass Sea","Kingdoms of the Jfqevron", "Vaes Dothrak" ,"Samyrian Fills","Lhazar"};
 			
+			
+			
+			
+			
+			
+			
+			
+			
 			//Territoires
 			this.listeTerritoires.add(new Territoire("The Wall",listeTW));
 			this.listeTerritoires.add(new Territoire("Skagos",listeSK));
 			this.listeTerritoires.add(new Territoire("The Grev Cliffs",listeTGC));
 			this.listeTerritoires.add(new Territoire("Wolfswood",listeWO));
-			this.listeTerritoires.add(new Territoire("WMain.affichageell",listeWI));
+			this.listeTerritoires.add(new Territoire("Winterfell",listeWI));
 			this.listeTerritoires.add(new Territoire("The Rills",listeTR));
 			this.listeTerritoires.add(new Territoire("The Flint Chiff",listeTFC));
 			this.listeTerritoires.add(new Territoire("The Neck",listeTN));
@@ -1830,7 +1837,7 @@ public class Jeu {
 		Main.affichage.afficherInfosHaut(-1);
 		Main.affichage.afficherInfosBas(-1);
 		Main.affichage.afficherCouleurJoueurEnCours(this.tour);
-		String nom = "img/cache/plateau"+this.indexFichierEnCache+".png";
+		String nom = "src/img/cache/plateau"+this.indexFichierEnCache+".png";
 		StdDraw.save(nom);
 		this.indexFichierEnCache++;
 	}
@@ -1840,7 +1847,7 @@ public class Jeu {
 	 */
 	public void chargerPlateauEnCache()
 	{
-		String nom = "img/cache/plateau"+(this.indexFichierEnCache-1)+".png";
+		String nom = "src/img/cache/plateau"+(this.indexFichierEnCache-1)+".png";
 		StdDraw.picture(0.5, 0.5, nom);
 		Main.affichage.afficherCouleurJoueurEnCours(this.tour);
 	}
