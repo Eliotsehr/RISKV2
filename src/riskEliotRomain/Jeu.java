@@ -1,3 +1,6 @@
+//Code par Romain Burias et Eliot Sadrin
+
+
 package riskEliotRomain;
 import java.io.File;
 import java.util.ArrayList;
@@ -70,7 +73,7 @@ public class Jeu {
 	}
 	
 	
-	//INITIALISATION
+	//INITIALISATION  Eliot Sadrin
 	/**
 	 * Vider le cache du jeu
 	 */
@@ -504,7 +507,7 @@ public class Jeu {
 	//INITIALISATION
 	
 	
-	//COUCHES
+	//COUCHES    Romain Burias
 	/**
 	 * Permet au programme de savoir sur quel couche il doit travailler
 	 * @param couche
@@ -1855,7 +1858,7 @@ public class Jeu {
 
 
 	
-	//CLIQUE
+	//CLIQUE Romain Burias
 	/**
 	 *
 	 * @return la position en x de la souris
@@ -1897,7 +1900,7 @@ public class Jeu {
 	
 	
 	
-	//DIVERS
+	//DIVERS Eliot Sadrin
 	/**
 	 * Definit le tour auquel on est
 	 * @param tour

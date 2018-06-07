@@ -1,3 +1,7 @@
+//Code general Eliot Sadrin
+//Code IA Eliot Sadrin Romain Burias
+
+
 package riskEliotRomain;
 import java.util.ArrayList;
 
@@ -30,7 +34,7 @@ public class Territoire {
 	}
 	
 	
-	//VERIFICATIONS
+	//VERIFICATIONS  Eliot Sadrin
 	/**
 	 * Permet de savoir si un territoire peut attaquer ou pas
 	 * @return true ou false s'il peut ou non attaquer
@@ -134,7 +138,7 @@ public class Territoire {
 	//VERIFICATIONS
 	
 	
-	//ATTAQUE
+	//ATTAQUE Eliot Sadrin
 	/**
 	 * Permet de savoir combien de dés seront utilisés en attaque
 	 * @return le nombre de dés utilisés en attaque
@@ -394,7 +398,7 @@ public class Territoire {
 	//ATTAQUE
 
 	
-	//MODIFICATIONS
+	//MODIFICATIONS Eliot Sadrin
 	/**
 	 * Deploie des toupes sur le territoire séléctionné
 	 */
@@ -572,7 +576,7 @@ public class Territoire {
 	//MODIFICATIONS
 	
 	
-	//DIVERS
+	//DIVERS Eliot Sadrin
 	/**
 	 * Renvoit l'index du territoire
 	 * @return l'index
@@ -620,7 +624,7 @@ public class Territoire {
 	//DIVERS
 	
 	
-	//IA
+	//IA  Eliot Sadrin - Romain Burias
 	/**
 	 * Check si un territoire est entoure ou non
 	 * @return true s'il l'est false sinon
